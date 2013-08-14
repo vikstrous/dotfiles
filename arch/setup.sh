@@ -89,7 +89,7 @@ pacman -S xf86-input-synaptics
 pacman -S xf86-video-vesa # compatible open source video driver as fallback
 pacman -S nvidia # for proprietary graphics
 pacman -S ttf-dejavu # fonts
-pacman -S slim xmonad xmonad-contrib xterm dmenu dzen2 # todo: find something better than xterm
+pacman -S slim xmonad xmonad-contrib xterm dmenu dzen2 rxvt-unicode # todo: find something better than xterm
 # Add this to .xinitrc
 #xsetroot -cursor_name left_ptr
 #exec xmonad

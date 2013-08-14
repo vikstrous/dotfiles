@@ -1,0 +1,13 @@
+[Unit]
+Description=Macchanger service for %I
+Documentation=man:macchanger(1)
+Before=network.service
+
+[Service]
+ExecStart=/usr/bin/ip link set %i down
+ExecStart=/usr/bin/macchanger -e %I
+ExecStart=/usr/bin/ip link set %i up
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target

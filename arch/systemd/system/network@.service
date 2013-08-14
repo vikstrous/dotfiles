@@ -1,0 +1,17 @@
+[Unit]
+Description=Network Connectivity (%i)
+Wants=network.target
+Before=network.target
+BindsTo=sys-subsystem-net-devices-%i.device
+After=sys-subsystem-net-devices-%i.device
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+EnvironmentFile=/etc/conf.d/network
+ExecStart=/usr/bin/ip link set dev %i up
+ExecStart=/usr/bin/wpa_supplicant -B -i %i -c /etc/wpa_supplicant/internets.conf
+ExecStart=/usr/bin/dhcpcd %i
+
+[Install]
+WantedBy=multi-user.target
