@@ -1,0 +1,10 @@
+[user]
+	email = me@viktorstanchev.com
+	name = Viktor Stanchev
+[push]
+	default = simple
+[core]
+	editor = vim
+	autocrlf = input
+[color]
+	ui = true
