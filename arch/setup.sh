@@ -78,7 +78,7 @@ passwd v
 
 
 ### nice to have
-pacman -S htop alsa-utils
+pacman -S htop alsa-utils vim
 
 
 ### drivers
@@ -94,7 +94,9 @@ pacman -S slim xmonad xmonad-contrib xterm dmenu dzen2 rxvt-unicode
 #xsetroot -cursor_name left_ptr
 #exec xmonad
 systemctl enable slim
+# to start slim, `systemctl enable slim`, maybe also ctrl+f7
 
 ### user stuff
 pacman -S openssh chromium firefox git
+git config --global core.editor vim
 ssh-keygen
