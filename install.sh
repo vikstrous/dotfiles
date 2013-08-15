@@ -11,5 +11,8 @@ systemctl stop rsyslog
 systemctl start rsyslog
 
 # iptables
-iptables-restore < iptables/laptop.conf
+cp iptables/laptop.conf /etc/iptables/iptables.rules
+systemctl enable iptables
+systemctl stop iptables
+systemctl start iptables
 iptables  -nvL
