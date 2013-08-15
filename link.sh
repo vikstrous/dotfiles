@@ -4,6 +4,8 @@ rm ~/.vim
 ln -s $dotfiles/.vim ~/.vim
 rm ~/.if
 ln -s $dotfiles/.if ~/.if
+rm ~/.remap_caps_lock
+ln -s $dotfiles/.remap_caps_lock ~/.remap_caps_lock
 rm ~/.vimrc
 ln -s $dotfiles/.vimrc ~/.vimrc
 rm ~/.xmonad/xmonad.hs
