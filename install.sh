@@ -3,9 +3,11 @@
 # rsyslog
 pacman -S rsyslog
 mkdir /etc/rsyslog.d
-cp rsyslog.d/* /etc/rsyslog.d/
+cp rsyslog/rsyslog.d/* /etc/rsyslog.d/
+cp rsyslog/rsyslog.conf /etc/rsyslog.conf
 systemctl daemon-reload
-systemctl stop syslog-ng
+systemctl enable rsyslog
+systemctl stop rsyslog
 systemctl start rsyslog
 
 # iptables
