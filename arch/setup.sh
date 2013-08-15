@@ -96,7 +96,16 @@ pacman -S slim xmonad xmonad-contrib xterm dmenu dzen2 rxvt-unicode
 systemctl enable slim
 # to start slim, `systemctl enable slim`, maybe also ctrl+f7
 
+
 ### user stuff
-pacman -S openssh chromium firefox git
+pacman -S openssh chromium firefox git fakeroot
 git config --global core.editor vim
+git config --global color.ui true
 ssh-keygen
+# chrome:
+# https://aur.archlinux.org/packages/google-chrome/
+# tar -zxvf <chrome>
+# cd chrome
+# makepkg -s
+# sudo pacman -U <chrome>.tar
+
