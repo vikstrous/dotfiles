@@ -6,7 +6,7 @@ import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
 
 main = do
-xmproc <- spawnPipe "/usr/bin/xmobar /home/v/.xmobarrc"
+xmproc <- spawnPipe "/usr/bin/xmobar /home/v/.xmobarrc.hs"
 xmonad $ defaultConfig
     { modMask = mod4Mask -- Use Super instead of Alt
     , terminal = "urxvt"
