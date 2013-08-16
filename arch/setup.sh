@@ -85,11 +85,14 @@ pacman -S htop alsa-utils vim
 pacman -S xf86-input-synaptics
 
 
-### graphical
+### graphical, desktop
 pacman -S xf86-video-vesa # compatible open source video driver as fallback
 pacman -S nvidia # for proprietary graphics
 pacman -S ttf-dejavu # fonts
-pacman -S slim xmonad xmonad-contrib dmenu dzen2 rxvt-unicode
+pacman -S slim xmonad xmonad-contrib dmenu dzen2 rxvt-unicode conky cabal-install xorg-xmodmap
+# I haven't decided between xmobar and dzen+conky
+cabal update
+cabal install xmobar
 # dmenu is what lets you launch programs
 # rxvt-unicode is better than xterm IMO
 # Add this to .xinitrc
