@@ -60,7 +60,7 @@ grub-install --recheck /dev/sda
 
 ### post-install
 
-pacman -S iw macchanger
+pacman -S iw macchanger #TODO: make the syatemd script reliable
 # configs:
 # wpa_passphrase Internets PASSWORD > /etc/wpa_supplicant/internets.conf
 # /etc/systemd/system/network@.service
@@ -74,11 +74,11 @@ systemctl enable macchanger@enp3s0.service
 pacman -S sudo fish
 useradd -m -s /usr/bin/fish v
 passwd v
-# edit sudoers file
+# edit sudoers file and add v
 
 
 ### nice to have
-pacman -S htop alsa-utils vim
+pacman -S htop iftop alsa-utils vim
 
 
 ### drivers
@@ -90,27 +90,29 @@ pacman -S xf86-video-vesa # compatible open source video driver as fallback
 pacman -S nvidia # for proprietary graphics
 pacman -S ttf-dejavu # fonts
 pacman -S slim xmonad xmonad-contrib dmenu dzen2 rxvt-unicode conky cabal-install xorg-xmodmap xorg-xsetroot
-# I haven't decided between xmobar and dzen+conky
+# TODO: I haven't decided between xmobar and dzen+conky
 cabal update
 cabal install xmobar
-# dmenu is what lets you launch programs
-# rxvt-unicode is better than xterm IMO
-# Add this to .xinitrc
-#xsetroot -cursor_name left_ptr
-#exec xmonad
 systemctl enable slim
 # to start slim, `systemctl enable slim`, maybe also ctrl+f7
 
 
-### user stuff
-pacman -S openssh chromium firefox git fakeroot
-git config --global core.editor vim
-git config --global color.ui true
-ssh-keygen
-# chrome:
-# https://aur.archlinux.org/packages/google-chrome/
-# tar -zxvf <chrome>
-# cd chrome
-# makepkg -s
-# sudo pacman -U <chrome>.tar
+### AUR
+pacman -S base-devel yajl
+curl https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz > package-query.tar.gz
+tar xvzf package-query.tar.gz
+cd package-query
+makepkg
+sudo pacman -U package-query-1.2-2-x86_64.pkg.tar.xz
+curl https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz > yaourt.tar.gz
+tar xvzf yaourt.tar.gz
+cd yaourt
+makepkg
+sudo pacman -U yaourt-1.3-1-any.pkg.tar.xz
 
+
+### user stuff
+pacman -S openssh firefox git fakeroot xdiskusage xev
+ssh-keygen # for git
+yaourt chrome
+pacman -S weechat
