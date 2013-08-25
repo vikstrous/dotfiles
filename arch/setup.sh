@@ -78,7 +78,7 @@ passwd v
 
 
 ### nice to have
-pacman -S htop iftop alsa-utils vim
+pacman -S htop iftop alsa-utils vim ntfs-3g
 
 
 ### drivers
@@ -112,7 +112,7 @@ sudo pacman -U yaourt-1.3-1-any.pkg.tar.xz
 
 
 ### user stuff
-pacman -S openssh firefox git fakeroot xdiskusage xev acpi
+pacman -S openssh firefox git fakeroot xdiskusage xev acpi slim-themes
 ssh-keygen # for git
 yaourt chrome
 pacman -S weechat

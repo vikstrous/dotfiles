@@ -7,4 +7,7 @@ for i in $array
   ln -s $dotfiles/$i ~/$i
 end
 
+sudo rm /etc/slim.conf
+sudo ln -s $dotfiles/slim.conf /etc/slim.conf
+
 echo OK
