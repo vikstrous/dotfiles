@@ -23,7 +23,7 @@ myConfig = defaultConfig
       , layoutHook = avoidStruts $ layoutHook defaultConfig  
       , logHook = dynamicLogWithPP xmobarPP  
            { ppTitle = xmobarColor "blue" "" . shorten 50   
-           , ppLayout = const "" -- to disable the layout info on xmobar  
+           --, ppLayout = const "" -- to disable the layout info on xmobar  
            }   
       } `additionalKeys`
       [ ((0, xF86XK_AudioMute), spawn "amixer -q set Master toggle")
