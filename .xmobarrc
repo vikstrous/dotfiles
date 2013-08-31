@@ -3,22 +3,26 @@ Config { font         = "-*-terminus-*-*-*-*-12-*-*-*-*-*-*-u"
              , fgColor      = "#BBBBBB"
 	     , position =  Top
              , lowerOnStart = False
-             , commands     = [ Run Network "wlp2s0" ["-L","0","-H","32","-l", "green", "--normal","orange","--high","red"] 40
-                              , Run Cpu ["<cpu0>/<cpu1>","-L","3","-H","50","-l","green","--normal","orange","--high","red"]   40
-                              , Run Cpu ["<cpu0>","-L","3","-H","50","-l","green","--normal","orange","--high","red"]  40
-                              , Run Memory ["-t","Mem: <usedratio>%", "-l", "green", "--normal","orange","--high","red"] 40
-			      , Run Date "%a %b %_d %H:%M" "date" 60
+             , commands     = [ Run Network "wlp2s0" ["-L","1","-H","32","-l", "green", "--normal","orange","--high","red"] 40
+                              , Run Cpu ["-t", "<total>%","-L","10","-H","60","-l","green","--normal","orange","--high","red"]   40
+                              , Run Memory ["-t","<usedratio>%", "-L", "60", "-H", "90", "-l", "green", "--normal","orange","--high","red"] 40
+                              , Run Swap ["-t", "<usedratio>%", "-L", "10", "-H", "20", "-l", "green", "--normal","orange","--high","red"] 40
+                              , Run Wireless "wlp2s0" ["-H", "75", "-h", "green", "-n", "orange"] 40
+                              , Run Weather "CYYZ" ["-t", "<tempC>C,<rh>%"] 3000
+                              , Run Uptime ["-t", "<days> days"] 12000
+                              , Run Date "%a %b %_d %H:%M" "date" 60
+                              , Run CoreTemp ["-t", "<core0>C,<core1>C"] 50
                               , Run BatteryP ["BAT0"]
-                                ["-t", "<acstatus><watts> (<left>%)",
-               "-L", "10", "-H", "80", "-p", "3",
-               "--", "-O", "<fc=green>On</fc> - ", "-i", "",
-               "-L", "-15", "-H", "-5",
-               "-l", "red", "-m", "blue", "-h", "green"]
-              600
-                              , Run CpuFreq ["-t","Freq: <cpu0> | <cpu1> GHz","-L","0","-H","2","-l","green","-n","orange","-h","red"] 50
+                                ["-t", "<left>% (<acstatus>) <leftbar>",
+                                 "-L", "10", "-H", "80", "-p", "3", "-l", "red", "-h", "green",
+                                 "--", "-o", "<fc=red>Off</fc>", "-O", "<fc=green>On</fc>", "-i", "",
+                                 "-L", "-15", "-H", "-5",
+                                 "-l", "red", "-m", "orange", "-h", "green", "-f", "ACAD/online"]
+                                 30
+                              , Run CpuFreq ["-t","<cpu0>,<cpu1>","-L","1","-H","2","-l","green","-n","orange","-h","red"] 50
                               , Run StdinReader
                               ]
              , sepChar      = "%"
              , alignSep     = "}{"
-	     , template = " %StdinReader% }{ %cpu% @ %cpufreq% <fc=#0033FF>|</fc>  %memory% <fc=#0033FF>|</fc> %wlp2s0% <fc=#0033FF>|</fc> %date% <fc=#0033FF>|</fc> %battery%"
+	     , template = " %StdinReader% }{ %coretemp% <fc=#0033FF>|</fc> %uptime% <fc=#0033FF>|</fc> %CYYZ% <fc=#0033FF>|</fc> %cpu% @ %cpufreq% <fc=#0033FF>|</fc>  %memory% (%swap%) <fc=#0033FF>|</fc> %wlp2s0%  <fc=#0033FF>|</fc> %wlp2s0wi% <fc=#0033FF>|</fc> %battery% <fc=#0033FF>|</fc> %date%"
              }
