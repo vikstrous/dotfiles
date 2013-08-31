@@ -112,7 +112,7 @@ sudo pacman -U yaourt-1.3-1-any.pkg.tar.xz
 
 
 ### user stuff
-pacman -S openssh firefox git fakeroot xdiskusage xev acpi slim-themes
+pacman -S openssh firefox git fakeroot xdiskusage xev acpi slim-themes cdparanoia ripperx
 ssh-keygen # for git
 yaourt chrome
 pacman -S weechat
