@@ -12,17 +12,15 @@ Config { font         = "-*-terminus-*-*-*-*-12-*-*-*-*-*-*-u"
                               , Run Uptime ["-t", "<days> days"] 12000
                               , Run Date "%a %b %_d %H:%M" "date" 60
                               , Run CoreTemp ["-t", "<core0>C,<core1>C"] 50
-                              , Run BatteryP ["BAT0"]
-                                ["-t", "<left>% (<acstatus>) <leftbar>",
-                                 "-L", "10", "-H", "80", "-p", "3", "-l", "red", "-h", "green",
-                                 "--", "-o", "<fc=red>Off</fc>", "-O", "<fc=green>On</fc>", "-i", "",
-                                 "-L", "-15", "-H", "-5",
-                                 "-l", "red", "-m", "orange", "-h", "green", "-f", "ACAD/online"]
-                                 30
+                              , Run BatteryP ["BAT0"] ["-t", "<left>% (<acstatus>) <leftbar>", "-L", "10", "-H", "80", "-p", "3", "-l", "red", "-h", "green", "--", "-o", "<fc=red>Off</fc>", "-O", "<fc=green>On</fc>", "-i", "", "-L", "-15", "-H", "-5", "-l", "red", "-m", "orange", "-h", "green", "-f", "ACAD/online"] 30
                               , Run CpuFreq ["-t","<cpu0>,<cpu1>","-L","1","-H","2","-l","green","-n","orange","-h","red"] 50
                               , Run StdinReader
+                              , Run Brightness ["-t", "<hbar>"] 60
+                              , Run Com "uname" ["-r"] "" 0
+                              , Run Com "whoami" [] "" 0
+                              , Run Com "hostname" [] "" 0
                               ]
              , sepChar      = "%"
              , alignSep     = "}{"
-	     , template = " %StdinReader% }{ %coretemp% <fc=#0033FF>|</fc> %uptime% <fc=#0033FF>|</fc> %CYYZ% <fc=#0033FF>|</fc> %cpu% @ %cpufreq% <fc=#0033FF>|</fc>  %memory% (%swap%) <fc=#0033FF>|</fc> %wlp2s0%  <fc=#0033FF>|</fc> %wlp2s0wi% <fc=#0033FF>|</fc> %battery% <fc=#0033FF>|</fc> %date%"
+	     , template = " %StdinReader% }{ %whoami%@%hostname%=%uname% <fc=#0033FF>|</fc> %bright% <fc=#0033FF>|</fc> %coretemp% <fc=#0033FF>|</fc> %uptime% <fc=#0033FF>|</fc> %CYYZ% <fc=#0033FF>|</fc> %cpu% @ %cpufreq% <fc=#0033FF>|</fc>  %memory% (%swap%) <fc=#0033FF>|</fc> %wlp2s0%  <fc=#0033FF>|</fc> %wlp2s0wi% <fc=#0033FF>|</fc> %battery% <fc=#0033FF>|</fc> %date%"
              }
