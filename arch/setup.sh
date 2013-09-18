@@ -70,7 +70,8 @@ touch /etc/conf.d/network
 systemctl enable network@wlp2s0.service
 systemctl enable macchanger@wlp2s0.service
 systemctl enable macchanger@enp3s0.service
-
+systemctl enable dhcpd
+systemctl enable ifplugd@enp3s0
 pacman -S sudo fish
 useradd -m -s /usr/bin/fish v
 passwd v
