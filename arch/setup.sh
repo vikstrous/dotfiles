@@ -79,7 +79,7 @@ passwd v
 
 
 ### nice to have
-pacman -S htop iftop alsa-utils vim ntfs-3g
+pacman -S htop iftop alsa-utils vim ntfs-3g bc
 
 
 ### drivers
