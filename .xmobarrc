@@ -1,7 +1,7 @@
 Config { font         = "-*-terminus-*-*-*-*-12-*-*-*-*-*-*-u"  
              , bgColor      = "#000000"
              , fgColor      = "#BBBBBB"
-	     , position =  Top
+             , position =  TopSize L 90 16
              , lowerOnStart = False
              , commands     = [ Run Network "wlp2s0" ["-L","1","-H","32","-l", "green", "--normal","orange","--high","red"] 40
                               , Run Cpu ["-t", "<total>%","-L","10","-H","60","-l","green","--normal","orange","--high","red"]   40
@@ -19,10 +19,9 @@ Config { font         = "-*-terminus-*-*-*-*-12-*-*-*-*-*-*-u"
                               , Run Com "uname" ["-r"] "" 60000
                               , Run Com "whoami" [] "" 60000
                               , Run Com "hostname" [] "" 60000
-                              , Run Com "amixer get Master -R | grep '[0-9]\\\\+%' -o" [] "volume" 20
-                              , Run Com "amixer get Master -R | grep '\\\\[on\\\\]\\\\|\\\\[off\\\\]' -o" [] "mute" 20
+                              , Run Com "/home/v/dotfiles/getvolume.sh" [] "volume" 20
                               ]
              , sepChar      = "%"
              , alignSep     = "}{"
-	     , template = " %StdinReader% }{ %whoami%@%hostname%=%uname% <fc=#0033FF>|</fc> %bright% <fc=#0033FF>|</fc> %coretemp% <fc=#0033FF>|</fc> %uptime% <fc=#0033FF>|</fc> %volume% %mute% <fc=#0033FF>|</fc> %CYYZ% <fc=#0033FF>|</fc> %cpu% @ %cpufreq% <fc=#0033FF>|</fc>  %memory% (%swap%) <fc=#0033FF>|</fc> %wlp2s0%  <fc=#0033FF>|</fc> %wlp2s0wi% <fc=#0033FF>|</fc> %battery% <fc=#0033FF>|</fc> %date%"
+	     , template = " %StdinReader% }{ %whoami%@%hostname%=%uname% <fc=#0033FF>|</fc> %bright% <fc=#0033FF>|</fc> %coretemp% <fc=#0033FF>|</fc> %uptime% <fc=#0033FF>|</fc> %volume% <fc=#0033FF>|</fc> %CYYZ% <fc=#0033FF>|</fc> %cpu% @ %cpufreq% <fc=#0033FF>|</fc>  %memory% (%swap%) <fc=#0033FF>|</fc> %wlp2s0%  <fc=#0033FF>|</fc> %wlp2s0wi% <fc=#0033FF>|</fc> %battery% <fc=#0033FF>|</fc> %date%"
              }

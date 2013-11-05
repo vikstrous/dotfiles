@@ -12,3 +12,5 @@ set __fish_git_prompt_char_upstream_ahead '↑'
 set __fish_git_prompt_char_upstream_behind '↓'
 
 set fish_greeting (cat ~/.if | sort -R | head -n 1)
+
+set PATH /usr/local/heroku/bin $PATH
