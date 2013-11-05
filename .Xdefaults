@@ -1,5 +1,7 @@
 urxvt*foreground: white
 urxvt*background: black
+URxvt*.transparent: true
+URxvt*.shading: 20
 
 *color0:  #2E3436
 *color1:  #a40000

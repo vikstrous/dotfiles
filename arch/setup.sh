@@ -90,7 +90,7 @@ pacman -S xf86-input-synaptics
 pacman -S xf86-video-vesa # compatible open source video driver as fallback
 pacman -S nvidia # for proprietary graphics
 pacman -S ttf-dejavu # fonts
-pacman -S slim xmonad xmonad-contrib dmenu dzen2 rxvt-unicode conky cabal-install xorg-xmodmap xorg-xsetroot
+pacman -S slim xmonad xmonad-contrib dmenu dzen2 rxvt-unicode conky cabal-install xorg-xmodmap xorg-xsetroot feh
 # TODO: I haven't decided between xmobar and dzen+conky
 cabal update
 cabal install xmobar
