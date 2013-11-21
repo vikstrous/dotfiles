@@ -1,6 +1,7 @@
 function fish_prompt
+    set savedstatus $status
     set_color red
-    echo -n $status
+    echo -n $savedstatus
     echo -n " "
     set_color cyan
     echo -n (date "+[%H:%M:%S]")
