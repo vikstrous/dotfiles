@@ -90,7 +90,7 @@ pacman -S xf86-input-synaptics
 pacman -S xf86-video-vesa # compatible open source video driver as fallback
 pacman -S nvidia # for proprietary graphics
 pacman -S ttf-dejavu # fonts
-pacman -S slim xmonad xmonad-contrib dmenu dzen2 rxvt-unicode conky cabal-install xorg-xmodmap xorg-xsetroot feh
+pacman -S slim xmonad xmonad-contrib dmenu dzen2 rxvt-unicode conky cabal-install xorg-xmodmap xorg-xset xorg-xsetroot feh
 # TODO: I haven't decided between xmobar and dzen+conky
 cabal update
 cabal install xmobar
@@ -105,17 +105,20 @@ tar xvzf package-query.tar.gz
 cd package-query
 makepkg
 sudo pacman -U package-query-1.2-2-x86_64.pkg.tar.xz
+cd ..
+
 curl https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz > yaourt.tar.gz
 tar xvzf yaourt.tar.gz
 cd yaourt
 makepkg
 sudo pacman -U yaourt-1.3-1-any.pkg.tar.xz
+cd ..
 
 yaourt urxvt-clipboard
 
 
 ### user stuff
-pacman -S openssh firefox git fakeroot xdiskusage xev acpi slim-themes cdparanoia ripperx
+pacman -S openssh firefox git fakeroot xdiskusage xev acpi slim-themes cdparanoia ripperx python
 ssh-keygen # for git
 yaourt chrome
 pacman -S weechat
