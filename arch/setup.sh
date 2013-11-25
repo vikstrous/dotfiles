@@ -9,15 +9,15 @@ gdisk /dev/sda
 cryptsetup luksFormat /dev/sda3
 cryptsetup luksOpen /dev/sda3 lvm
 pvcreate /dev/mapper/lvm
-vgcreate HiNSA /dev/mapperlvm
-lvcreate -L 15G HiNSA -n rootvol
+vgcreate HiNSA /dev/mapper/lvm
+lvcreate -L 15G HiNSA -n rootvol 119-15 = 104
 lvcreate -L 35G HiNSA -n homevol
 lvcreate -L 200G HiNSA -n mediavol
 lvcreate -C y -L 6G HiNSA -n swapvol
-mkfs.ex4 /dev/mapper/HiNSA-rootvol
-mkfs.ex4 /dev/mapper/HiNSA-homevol
-mkfs.ex4 /dev/mapper/HiNSA-mediavol
-mkfs.ex4 /dev/sda2
+mkfs.ext4 /dev/mapper/HiNSA-rootvol
+mkfs.ext4 /dev/mapper/HiNSA-homevol
+mkfs.ext4 /dev/mapper/HiNSA-mediavol
+mkfs.ext4 /dev/sda2
 mkswap /dev/mapper/HiNSA-swapvol
 
 
@@ -58,7 +58,7 @@ modprobe dm-mod
 mkinitcpio -p linux
 # edit /etc/default/grub GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:HiNSA"
 grub-install --recheck /dev/sda
-
+grub-mkconfig -o /boot/grub/grub.cfg
 
 ### post-install
 
@@ -77,7 +77,7 @@ systemctl enable ifplugd@enp3s0
 pacman -S sudo fish
 useradd -m -s /usr/bin/fish v
 passwd v
-# edit sudoers file and add v
+# edit /etc/sudoers file and add v
 
 
 ### nice to have
