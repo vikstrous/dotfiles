@@ -45,6 +45,8 @@ arch-chroot /mnt
 
 echo linusputinmusk > /etc/hostname
 ln -s /usr/share/zoneinfo/Canada/Eastern /etc/localtime
+echo 'LANG="en_CA.UTF-8"' > /etc/locale.conf
+locale-gen
 passwd
 
 
@@ -79,7 +81,9 @@ passwd v
 
 
 ### nice to have
-pacman -S htop iftop alsa-utils vim ntfs-3g bc
+pacman -S htop iftop alsa-utils vim ntfs-3g bc ntpd ttf-dejavu
+systemctl enable ntpd
+systemctl start ntpd
 
 
 ### drivers
@@ -118,7 +122,7 @@ yaourt urxvt-clipboard
 
 
 ### user stuff
-pacman -S openssh firefox git fakeroot xdiskusage xev acpi slim-themes cdparanoia ripperx python
+pacman -S openssh firefox flashplugin git fakeroot xdiskusage xev acpi slim-themes cdparanoia ripperx python
 ssh-keygen # for git
 yaourt chrome
 pacman -S weechat
