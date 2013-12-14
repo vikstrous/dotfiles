@@ -116,9 +116,13 @@ cd ..
 
 yaourt urxvt-clipboard
 yaourt chrome
+yaourt ttf-font-awesome
+yaourt puppet
 
 
 ### user stuff
 pacman -S openssh firefox flashplugin git fakeroot xdiskusage xev acpi slim-themes cdparanoia ripperx python xscreensaver xorg-xrandr numlockx
 ssh-keygen # for git
+pacman -s transmission-cli unzip
+systemctl enable transmission
 pacman -S weechat
