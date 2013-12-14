@@ -33,7 +33,7 @@ swapon /dev/mapper/HiNSA-swapvol
 
 ### install
 pacstrap /mnt base
-genfstab -p /mnt > /mnt/etc/fstab
+genfstab -p /mnt >> /mnt/etc/fstab
 
 
 ### go in
@@ -46,6 +46,7 @@ arch-chroot /mnt
 echo linusputinmusk > /etc/hostname
 ln -s /usr/share/zoneinfo/Canada/Eastern /etc/localtime
 echo 'LANG="en_CA.UTF-8"' > /etc/locale.conf
+# edit /etc/locale.gen and uncomment en_CA
 locale-gen
 passwd
 
@@ -81,9 +82,9 @@ passwd v
 
 
 ### nice to have
-pacman -S htop iftop alsa-utils vim ntfs-3g bc ntpd ttf-dejavu
-systemctl enable ntpd
-systemctl start ntpd
+pacman -S htop iftop alsa-utils vim ntfs-3g bc openntpd
+systemctl enable openntpd
+systemctl start openntpd
 
 
 ### drivers
@@ -94,13 +95,8 @@ pacman -S xf86-input-synaptics
 pacman -S xf86-video-vesa # compatible open source video driver as fallback
 pacman -S nvidia # for proprietary graphics
 pacman -S ttf-dejavu # fonts
-pacman -S slim xmonad xmonad-contrib dmenu dzen2 rxvt-unicode conky cabal-install xorg-xmodmap xorg-xset xorg-xsetroot feh
-# TODO: I haven't decided between xmobar and dzen+conky
-cabal update
-cabal install xmobar
+pacman -S slim i3 dmenu rxvt-unicode xorg-xmodmap xorg-xset xorg-xsetroot feh
 systemctl enable slim
-# to start slim, `systemctl enable slim`, maybe also ctrl+f7
-
 
 ### AUR
 pacman -S base-devel yajl
@@ -119,10 +115,10 @@ sudo pacman -U yaourt-1.3-1-any.pkg.tar.xz
 cd ..
 
 yaourt urxvt-clipboard
+yaourt chrome
 
 
 ### user stuff
-pacman -S openssh firefox flashplugin git fakeroot xdiskusage xev acpi slim-themes cdparanoia ripperx python
+pacman -S openssh firefox flashplugin git fakeroot xdiskusage xev acpi slim-themes cdparanoia ripperx python xscreensaver
 ssh-keygen # for git
-yaourt chrome
 pacman -S weechat
