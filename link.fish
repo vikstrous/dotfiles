@@ -1,7 +1,7 @@
 #!/usr/bin/fish
 set dotfiles ~/dotfiles
 
-set array '.vim' '.if' '.Xdefaults' '.gitconfig' '.i3' '.remap_caps_lock' '.vimrc' '.config/fish/functions' '.config/fish/config.fish'
+set array '.vim' '.if' '.Xdefaults' '.gitconfig' '.xinitrc' '.i3/config' '.remap_caps_lock' '.vimrc' '.config/fish/functions' '.config/fish/config.fish'
 for i in $array
   rm ~/$i
   ln -s $dotfiles/$i ~/$i
