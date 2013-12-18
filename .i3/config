@@ -165,5 +165,5 @@ bar {
     mode hide
     position top
     tray_output DVI-I-3
-    status_command ~/dotfiles/.i3status.sh
+    status_command i3status -c ~/dotfiles/i3status.conf | ~/dotfiles/i3status_wrapper.py
 }

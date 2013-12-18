@@ -95,7 +95,7 @@ pacman -S xf86-input-synaptics
 pacman -S xf86-video-vesa # compatible open source video driver as fallback
 pacman -S nvidia # for proprietary graphics
 pacman -S ttf-dejavu # fonts
-pacman -S slim i3 dmenu rxvt-unicode xorg-xmodmap xorg-xset xorg-xsetroot feh
+pacman -S slim i3 dmenu rxvt-unicode xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh
 systemctl enable slim
 
 ### AUR
@@ -124,5 +124,6 @@ yaourt puppet
 pacman -S openssh firefox flashplugin git fakeroot xdiskusage xev acpi slim-themes cdparanoia ripperx python xscreensaver xorg-xrandr numlockx
 ssh-keygen # for git
 pacman -s transmission-cli unzip
+pacman -s pidgin mlocate
 systemctl enable transmission
 pacman -S weechat
