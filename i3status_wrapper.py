@@ -36,6 +36,8 @@ def get_governor():
 def get_btc():
     return "$" + str(float(json.loads(urllib2.urlopen('https://data.mtgox.com/api/1/BTCUSD/ticker').read().decode('UTF-8'))['return']['last']['value']))
 
+def get_ltc():
+    return "$" + str(float(json.loads(urllib2.urlopen('https://btc-e.com/api/2/ltc_usd/ticker').read().decode('UTF-8'))['ticker']['last']))
 
 def print_line(message):
     """ Non-buffered printing to stdout. """
@@ -71,6 +73,7 @@ if __name__ == '__main__':
         j = json.loads(line)
         # insert information into the start of the json, but could be anywhere
         # CHANGE THIS LINE TO INSERT SOMETHING ELSE
-        j.insert(0, {'full_text' : '%s' % get_btc(), 'name' : 'gov'})
+        j.insert(0, {'full_text' : 'LTC: %s' % get_ltc(), 'name' : 'gov'})
+        j.insert(0, {'full_text' : 'BTC: %s' % get_btc(), 'name' : 'gov'})
         # and echo back new encoded json
         print_line(prefix+json.dumps(j))
