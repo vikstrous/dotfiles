@@ -73,7 +73,13 @@ if __name__ == '__main__':
         j = json.loads(line)
         # insert information into the start of the json, but could be anywhere
         # CHANGE THIS LINE TO INSERT SOMETHING ELSE
-        j.insert(0, {'full_text' : 'LTC: %s' % get_ltc(), 'name' : 'gov'})
-        j.insert(0, {'full_text' : 'BTC: %s' % get_btc(), 'name' : 'gov'})
+        try:
+            j.insert(0, {'full_text' : 'LTC: %s' % get_ltc(), 'name' : 'gov'})
+        except:
+            pass
+        try:
+            j.insert(0, {'full_text' : 'BTC: %s' % get_btc(), 'name' : 'gov'})
+        except:
+            pass
         # and echo back new encoded json
         print_line(prefix+json.dumps(j))
