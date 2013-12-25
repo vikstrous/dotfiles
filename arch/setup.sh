@@ -123,7 +123,7 @@ yaourt puppet
 ### user stuff
 pacman -S openssh firefox flashplugin git fakeroot xdiskusage xev acpi slim-themes cdparanoia ripperx python xscreensaver xorg-xrandr numlockx
 ssh-keygen # for git
-pacman -s transmission-cli unzip
+pacman -s transmission-cli unzip ack
 pacman -s pidgin mlocate
 systemctl enable transmission
 pacman -S weechat
