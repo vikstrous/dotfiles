@@ -18,8 +18,8 @@ bindsym XF86AudioMute exec amixer -q set Master toggle
 new_window 1pixel
 exec firefox
 exec pidgin
-workspace 1 output DVI-I-3
-workspace 2 output DVI-I-2
+#workspace 1 output DVI-I-3
+#workspace 2 output DVI-I-2
 workspace_auto_back_and_forth yes
 bindsym $mod+b bar mode toggle
 bindsym $mod+Tab move container to output right
@@ -164,6 +164,6 @@ bar {
     font pango:DejaVu Sans Mono 10
     mode hide
     position top
-    tray_output DVI-I-3
+    #tray_output DVI-I-3
     status_command i3status -c ~/dotfiles/configs/i3status.conf | ~/dotfiles/configs/i3status_wrapper.py
 }
