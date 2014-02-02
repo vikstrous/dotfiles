@@ -33,6 +33,7 @@ swapon /dev/mapper/HiNSA-swapvol
 
 ### install
 pacstrap /mnt base
+# TODO: use the uuids!
 genfstab -p /mnt >> /mnt/etc/fstab
 
 
@@ -57,7 +58,7 @@ pacman -S grub
 modprobe dm-mod
 # edit /etc/mkinitcpio.conf HOOKS=" ... keymap encrypt lvm2 filesystems ... "
 mkinitcpio -p linux
-# edit /etc/default/grub GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:HiNSA"
+# edit /etc/default/grub GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:HiNSA" EDIT: USE THE UUID YOU IDIOT
 grub-install --recheck /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
