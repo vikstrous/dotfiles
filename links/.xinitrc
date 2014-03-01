@@ -1,7 +1,7 @@
 xset r rate 200 30
 xmodmap ~/dotfiles/configs/remap_caps_lock
 xsetroot -cursor_name left_ptr
-dropboxd&
+#dropboxd&
 if [ "$(cat /etc/hostname)" == 'suchcpuwowmuchram' ]
 then
     xinput set-button-map 'Microsoft Microsoft Optical Mouse with Tilt Wheel' 1 2 3 4 5 1 1 1 8
