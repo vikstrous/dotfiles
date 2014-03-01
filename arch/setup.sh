@@ -25,7 +25,7 @@ mkswap /dev/mapper/HiNSA-swapvol
 
 mount /dev/HiNSA/rootvol /mnt
 mkdir /mnt/home
-mount /dev/HiNSA/homevil /mnt/home
+mount /dev/HiNSA/homevol /mnt/home
 mkdir /mnt/boot
 mount /dev/sda2 /mnt/boot
 swapon /dev/mapper/HiNSA-swapvol
@@ -33,6 +33,7 @@ swapon /dev/mapper/HiNSA-swapvol
 
 ### install
 pacstrap /mnt base
+# TODO: use the uuids!
 genfstab -p /mnt >> /mnt/etc/fstab
 
 
@@ -46,7 +47,7 @@ arch-chroot /mnt
 echo linusputinmusk > /etc/hostname
 ln -s /usr/share/zoneinfo/Canada/Eastern /etc/localtime
 echo 'LANG="en_CA.UTF-8"' > /etc/locale.conf
-# edit /etc/locale.gen and uncomment en_CA
+echo 'en_CA.UTF-8 UTF-8' >> /etc/locale.gen
 locale-gen
 passwd
 
@@ -57,7 +58,7 @@ pacman -S grub
 modprobe dm-mod
 # edit /etc/mkinitcpio.conf HOOKS=" ... keymap encrypt lvm2 filesystems ... "
 mkinitcpio -p linux
-# edit /etc/default/grub GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:HiNSA"
+# edit /etc/default/grub GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:HiNSA" EDIT: USE THE UUID YOU IDIOT
 grub-install --recheck /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -97,6 +98,7 @@ pacman -S nvidia # for proprietary graphics
 pacman -S ttf-dejavu # fonts
 pacman -S slim i3 dmenu rxvt-unicode xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh
 systemctl enable slim
+# add `exec i3` to ~/.xinitrc
 
 ### AUR
 pacman -S base-devel yajl
