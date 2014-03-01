@@ -12,18 +12,27 @@
 set $mod Mod4
 
 
+bindsym XF86ScreenSaver exec slimlock
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
 bindsym XF86AudioMute exec amixer -q set Master toggle
 new_window 1pixel
 exec firefox
 exec pidgin
+exec thunderbird
+exec --no-startup-id sh ~/.fehbg
 #workspace 1 output DVI-I-3
 #workspace 2 output DVI-I-2
 workspace_auto_back_and_forth yes
 bindsym $mod+b bar mode toggle
 bindsym $mod+Tab move container to output right
 bindsym $mod+Shift+Tab move workspace to output right
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+Print move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+Print scratchpad show
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
@@ -112,6 +121,16 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
+bindsym $mod+F1 workspace F1:GeckoProfiler
+bindsym $mod+F2 workspace F2:Firefox
+bindsym $mod+F3 workspace F3:Cleopatra
+bindsym $mod+F4 workspace F4:Talos
+bindsym $mod+F5 workspace F5:Mozharness
+bindsym $mod+F6 workspace F6:Windows
+bindsym $mod+F7 workspace F7:Pidgin
+bindsym $mod+F8 workspace F8:Mail
+bindsym $mod+F9 workspace 19:
+bindsym $mod+F10 workspace 20:
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -124,6 +143,16 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+F1 move container to workspace F1:GeckoProfiler
+bindsym $mod+Shift+F2 move container to workspace F2:Firefox
+bindsym $mod+Shift+F3 move container to workspace F3:Cleopatra
+bindsym $mod+Shift+F4 move container to workspace F4:Talos
+bindsym $mod+Shift+F5 move container to workspace F5:Mozharness
+bindsym $mod+Shift+F6 move container to workspace F6:Windows
+bindsym $mod+Shift+F7 move container to workspace F7:Pidgin
+bindsym $mod+Shift+F8 move container to workspace F8:Mail
+bindsym $mod+Shift+F9 move container to workspace 19:
+bindsym $mod+Shift+F10 move container to workspace 20:
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -140,16 +169,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym j resize shrink width 5 px or 5 ppt
+        bindsym k resize grow height 5 px or 5 ppt
+        bindsym l resize shrink height 5 px or 5 ppt
+        bindsym semicolon resize grow width 5 px or 5 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -160,10 +189,27 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+#bar {
+#    font pango:DejaVu Sans Mono 10
+#    position top
+#}
 bar {
     font pango:DejaVu Sans Mono 10
-    mode hide
     position top
-    #tray_output DVI-I-3
+    colors {
+        background #000000
+        statusline #AAAAAA
+        separator #555555
+
+        focused_workspace #000000 #000000 #33726E
+        active_workspace #000000 #000000 #AAAAAA
+        inactive_workspace #000000 #000000 #AAAAAA
+        urgent_workspace #000000 #000000 #BA5353
+    }
+#    position bottom
+#    tray_output none
+#    binding_mode_indicator no
+#    workspace_buttons no
     status_command i3status -c ~/dotfiles/configs/i3status.conf | ~/dotfiles/configs/i3status_wrapper.py
 }
+

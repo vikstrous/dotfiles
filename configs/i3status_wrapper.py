@@ -28,16 +28,16 @@ import sys
 import json
 import urllib2
 
-def get_governor():
-    """ Get the current governor for cpu0, assuming all CPUs use the same. """
-    with open('/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor') as fp:
-        return fp.readlines()[0].strip()
+#def get_governor():
+#    """ Get the current governor for cpu0, assuming all CPUs use the same. """
+#    with open('/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor') as fp:
+#        return fp.readlines()[0].strip()
 
-def get_btc():
-    return "$" + str(float(json.loads(urllib2.urlopen('https://data.mtgox.com/api/1/BTCUSD/ticker').read().decode('UTF-8'))['return']['last']['value']))
+def get_btc(currency):
+    return str(float(json.loads(urllib2.urlopen('https://api.bitcoinaverage.com/ticker/global/'+currency+'/').read().decode('UTF-8'))['last']))
 
 def get_ltc():
-    return "$" + str(float(json.loads(urllib2.urlopen('https://btc-e.com/api/2/ltc_usd/ticker').read().decode('UTF-8'))['ticker']['last']))
+    return str(float(json.loads(urllib2.urlopen('https://btc-e.com/api/2/ltc_usd/ticker').read().decode('UTF-8'))['ticker']['last']))
 
 def print_line(message):
     """ Non-buffered printing to stdout. """
@@ -74,11 +74,15 @@ if __name__ == '__main__':
         # insert information into the start of the json, but could be anywhere
         # CHANGE THIS LINE TO INSERT SOMETHING ELSE
         try:
-            j.insert(0, {'full_text' : 'LTC: %s' % get_ltc(), 'name' : 'gov'})
+            j.insert(0, {'full_text' : 'LTC: $%s' % get_ltc(), 'name' : 'LTC'})
         except:
             pass
         try:
-            j.insert(0, {'full_text' : 'BTC: %s' % get_btc(), 'name' : 'gov'})
+            j.insert(0, {'full_text' : 'BTC: $%s' % get_btc('USD'), 'name' : 'BTCUSD'})
+        except:
+            pass
+        try:
+            j.insert(0, {'full_text' : 'BTC: %s CAD' % get_btc('CAD'), 'name' : 'BTCCAD'})
         except:
             pass
         # and echo back new encoded json
