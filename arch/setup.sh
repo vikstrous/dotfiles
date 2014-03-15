@@ -57,7 +57,7 @@ echo 'en_CA.UTF-8 UTF-8' >> /etc/locale.gen
 #        Option "XkbOptions" "grp:caps_toggle"
 #EndSection
 # into /etc/X11/xorg.conf.d/10-keyboarg.conf
-# KEYMAP=en-colemak into /etc/vconsole.conf
+# KEYMAP=/usr/share/kbd/keymaps/i386/colemak/colemak.map.gz into /etc/vconsole.conf
 locale-gen
 passwd
 
