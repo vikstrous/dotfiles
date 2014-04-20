@@ -13,6 +13,6 @@ set __fish_git_prompt_char_upstream_behind '↓'
 
 set fish_greeting (cat ~/dotfiles/if | sort -R | head -n 1)
 
-set PATH (cope_path) /home/v/work/moz-git-tools /opt/android-sdk/platform-tools /home/v/work/b2g-hamachi/B2G/tools/update-tools/bin/linux-x86 /opt/sunbird /opt/play /opt/idea/bin /usr/local/heroku/bin $PATH /home/v/.gem/ruby/2.1.0/bin/
+set PATH (cope_path) /home/v/work/moz-git-tools /opt/android-sdk/platform-tools /home/v/work/b2g-hamachi/B2G/tools/update-tools/bin/linux-x86 /opt/sunbird /opt/play /opt/idea/bin /usr/local/heroku/bin $PATH /home/v/.gem/ruby/2.1.0/bin/ /home/v/Sublime\ Text\ 2
 
 alias less 'less -R'
