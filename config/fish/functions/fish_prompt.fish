@@ -12,7 +12,7 @@ function fish_prompt
 #    set_color white
 #    echo -n (python -c 'print("%.1f" % (100.0*(1-'(cat /proc/meminfo | head -n 2 | tail -1 | awk '{print $2}')'.0/'(cat /proc/meminfo | head -1 | awk '{print $2}')')))')
 #    echo -n " "
-    set_color $fish_color_cwd
+    set_color normal
     echo -n (pwd)
     set_color white
     set last_status $status
