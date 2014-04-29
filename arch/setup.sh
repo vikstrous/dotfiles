@@ -1,5 +1,8 @@
 ##### DO NOT RUN THIS; ONLY USE AS EXAMPLE #####
 
+### make installer usable
+loadkeys /usr/share/kbd//keymaps/i386/colemak/colemak.map.gz
+
 ### partition stuff
 
 gdisk /dev/sda
