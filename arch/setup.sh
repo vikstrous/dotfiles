@@ -77,7 +77,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 ### post-install
 
-pacman -S iw macchanger #TODO: make the syatemd script reliable
+pacman -S iw macchanger wpa_supplicant ifplugd #TODO: make the syatemd script reliable
 # configs:
 # wpa_passphrase Internets PASSWORD > /etc/wpa_supplicant/internets.conf
 # /etc/systemd/system/network@.service
