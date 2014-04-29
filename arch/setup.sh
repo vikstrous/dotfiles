@@ -34,7 +34,7 @@ swapon /dev/mapper/HiNSA-swapvol
 ### install
 pacstrap /mnt base
 # TODO: use the uuids!
-genfstab -p /mnt >> /mnt/etc/fstab
+genfstab -U -p /mnt >> /mnt/etc/fstab
 
 
 ### go in
