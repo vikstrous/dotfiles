@@ -1,5 +1,5 @@
 xset r rate 200 30
-xmodmap ~/dotfiles/configs/remap_caps_lock
+#xmodmap ~/dotfiles/configs/remap_caps_lock
 xsetroot -cursor_name left_ptr
 #dropboxd&
 if [ "$(cat /etc/hostname)" == 'suchcpuwowmuchram' ]
@@ -9,9 +9,12 @@ then
     xrandr --output DVI-I-3 --pos 1680x-100
 fi
 numlockx on
+dunst&
 #trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --alpha 0 --tint 0x000000 --height 10&
 #nm-applet&
+#wicd --tray
 xscreensaver -no-splash&
 eval $(cat ~/.fehbg)
+#setxkbmap us -variant colemak
 #exec xmonad
 exec i3
