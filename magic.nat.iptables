@@ -1,0 +1,53 @@
+0 [17:17:00] /home/v                                                 
+><> echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward 
+
+><> sudo iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+0 [17:17:51] /home/v                                                 
+><> sudo iptables -F
+0 [17:17:56] /home/v                                                 
+><> sudo iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+0 [17:17:57] /home/v                                                 
+><> sudo iptables -t nat -F
+0 [17:18:07] /home/v                                                 
+><> sudo iptables -t mangle -F
+0 [17:18:14] /home/v                                                 
+><> sudo iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+0 [17:18:16] /home/v                                                 
+><> sudo iptables -t nat -A POSTROUTING -o wlp3s0 -j MASQUERADE
+0 [17:19:09] /home/v                                                 
+><> sudo iptables -A FORWARD -i enp0s25 -j ACCEPT
+0 [17:19:34] /home/v                                                 
+><> sudo iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+ACCEPT     all  --  anywhere             anywhere            
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination    
