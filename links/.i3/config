@@ -20,8 +20,8 @@ bindsym XF86AudioNext exec xdotool key --window `xdotool search --name "Groovesh
 bindsym XF86AudioPrev exec xdotool key --window `xdotool search --name "Grooveshark"` Ctrl+Left
 bindsym XF86AudioPlay exec xdotool type --window `xdotool search --name "Grooveshark"` ' '
 new_window 1pixel
-exec firefox
-exec pidgin
+#exec firefox
+#exec pidgin
 exec thunderbird
 exec --no-startup-id sh ~/.fehbg
 #workspace 1 output DVI-I-3
@@ -31,11 +31,16 @@ bindsym $mod+b bar mode toggle
 bindsym $mod+Tab move container to output right
 bindsym $mod+Shift+Tab move workspace to output right
 
+# browser pop-ups
+for_window [window_role="pop-up"] floating enable
+for_window [title="^Firefox Preferences$"] floating enable
+
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+Print move scratchpad
 
 # Show the first scratchpad window
 bindsym $mod+Print scratchpad show
+bindsym Print exec import -window root ~/screenshot.png
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
@@ -57,7 +62,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+c kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec --no-startup-id dmenu_run -sf "#439543" -sb "#333333" -nb "#000000" -nf "#CCCCCC" -l 30 > /dev/null
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -124,14 +129,14 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
-bindsym $mod+F1 workspace 11 GeckoProfiler
-bindsym $mod+F2 workspace 12 Firefox
-bindsym $mod+F3 workspace 13 Cleopatra
-bindsym $mod+F4 workspace 14 Talos
-bindsym $mod+F5 workspace 15 Mozharness
-bindsym $mod+F6 workspace 16 Windows
-bindsym $mod+F7 workspace 17 Pidgin
-bindsym $mod+F8 workspace 18 Mail
+bindsym $mod+F1 workspace 11
+bindsym $mod+F2 workspace 12
+bindsym $mod+F3 workspace 13
+bindsym $mod+F4 workspace 14
+bindsym $mod+F5 workspace 15
+bindsym $mod+F6 workspace 16
+bindsym $mod+F7 workspace 17
+bindsym $mod+F8 workspace 18
 bindsym $mod+F9 workspace 19
 bindsym $mod+F10 workspace 20
 
@@ -146,14 +151,14 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
-bindsym $mod+Shift+F1 move container to workspace 11 GeckoProfiler
-bindsym $mod+Shift+F2 move container to workspace 12 Firefox
-bindsym $mod+Shift+F3 move container to workspace 13 Cleopatra
-bindsym $mod+Shift+F4 move container to workspace 14 Talos
-bindsym $mod+Shift+F5 move container to workspace 15 Mozharness
-bindsym $mod+Shift+F6 move container to workspace 16 Windows
-bindsym $mod+Shift+F7 move container to workspace 17 Pidgin
-bindsym $mod+Shift+F8 move container to workspace 18 Mail
+bindsym $mod+Shift+F1 move container to workspace 11
+bindsym $mod+Shift+F2 move container to workspace 12
+bindsym $mod+Shift+F3 move container to workspace 13
+bindsym $mod+Shift+F4 move container to workspace 14
+bindsym $mod+Shift+F5 move container to workspace 15
+bindsym $mod+Shift+F6 move container to workspace 16
+bindsym $mod+Shift+F7 move container to workspace 17
+bindsym $mod+Shift+F8 move container to workspace 18
 bindsym $mod+Shift+F9 move container to workspace 19
 bindsym $mod+Shift+F10 move container to workspace 20
 
