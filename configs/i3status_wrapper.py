@@ -27,11 +27,17 @@
 import sys
 import json
 import urllib2
+import subprocess
 
 #def get_governor():
 #    """ Get the current governor for cpu0, assuming all CPUs use the same. """
 #    with open('/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor') as fp:
 #        return fp.readlines()[0].strip()
+
+def get_updates():
+    p = subprocess.Popen("pacman -Qu", shell=True, stdin=subprocess.PIPE, stderr=subprocess.STDOUT, stdout=subprocess.PIPE, close_fds=True)
+    out, err = p.communicate()
+    return len(out.split('\n')) - 1
 
 def get_btc(currency):
     return str(float(json.loads(urllib2.urlopen('https://api.bitcoinaverage.com/ticker/global/'+currency+'/').read().decode('UTF-8'))['last']))
@@ -83,6 +89,12 @@ if __name__ == '__main__':
             pass
         try:
             j.insert(0, {'full_text' : 'BTC: %s CAD' % get_btc('CAD'), 'name' : 'BTCCAD'})
+        except:
+            pass
+        try:
+            updates = get_updates()
+            if updates > 0:
+              j.insert(0, {'full_text' : 'Updates: %s' % get_updates(), 'name' : 'updates'})
         except:
             pass
         # and echo back new encoded json
