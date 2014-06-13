@@ -16,3 +16,6 @@ systemctl enable iptables
 systemctl stop iptables
 systemctl start iptables
 iptables  -nvL
+
+# updates fetcher
+sudo sh -c 'echo \'pacman -Sy\' > /etc/cron.hourly/pacman'
