@@ -1,0 +1,1 @@
+Thunderbird: network.dns.disablePrefetch = true
