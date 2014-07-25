@@ -118,17 +118,19 @@ bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
-bindsym $mod+F1 workspace 11
-bindsym $mod+F2 workspace 12
-bindsym $mod+F3 workspace 13
-bindsym $mod+F4 workspace 14
-bindsym $mod+F5 workspace 15
-bindsym $mod+F6 workspace 16
-bindsym $mod+F7 workspace 17
-bindsym $mod+F8 workspace 18
-bindsym $mod+F9 workspace 19
-bindsym $mod+F10 workspace 20
+bindsym $mod+0 workspace 10:0
+bindsym $mod+F1 workspace 11:F1
+bindsym $mod+F2 workspace 12:F2
+bindsym $mod+F3 workspace 13:F3
+bindsym $mod+F4 workspace 14:F4
+bindsym $mod+F5 workspace 15:F5
+bindsym $mod+F6 workspace 16:F6
+bindsym $mod+F7 workspace 17:F7
+bindsym $mod+F8 workspace 18:F8
+bindsym $mod+F9 workspace 19:F9
+bindsym $mod+F10 workspace 20:F10
+bindsym $mod+F11 workspace 21:F11
+bindsym $mod+F12 workspace 22:F12
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -140,17 +142,19 @@ bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
-bindsym $mod+Shift+F1 move container to workspace 11
-bindsym $mod+Shift+F2 move container to workspace 12
-bindsym $mod+Shift+F3 move container to workspace 13
-bindsym $mod+Shift+F4 move container to workspace 14
-bindsym $mod+Shift+F5 move container to workspace 15
-bindsym $mod+Shift+F6 move container to workspace 16
-bindsym $mod+Shift+F7 move container to workspace 17
-bindsym $mod+Shift+F8 move container to workspace 18
-bindsym $mod+Shift+F9 move container to workspace 19
-bindsym $mod+Shift+F10 move container to workspace 20
+bindsym $mod+Shift+0 move container to workspace 10:0
+bindsym $mod+Shift+F1 move container to workspace 11:F1
+bindsym $mod+Shift+F2 move container to workspace 12:F2
+bindsym $mod+Shift+F3 move container to workspace 13:F3
+bindsym $mod+Shift+F4 move container to workspace 14:F4
+bindsym $mod+Shift+F5 move container to workspace 15:F5
+bindsym $mod+Shift+F6 move container to workspace 16:F6
+bindsym $mod+Shift+F7 move container to workspace 17:F7
+bindsym $mod+Shift+F8 move container to workspace 18:F8
+bindsym $mod+Shift+F9 move container to workspace 19:F9
+bindsym $mod+Shift+F10 move container to workspace 20:F10
+bindsym $mod+Shift+F11 move container to workspace 21:F11
+bindsym $mod+Shift+F12 move container to workspace 22:F12
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -190,7 +194,8 @@ bindsym $mod+r mode "resize"
 bar {
     font pango:DejaVu Sans Mono 10
     position top
-                   
+    strip_workspace_numbers yes
+
     colors {                                      
         background #000000
         statusline #EEEEEE
