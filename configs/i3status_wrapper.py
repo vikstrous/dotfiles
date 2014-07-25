@@ -39,6 +39,10 @@ def get_updates():
     out, err = p.communicate()
     return len(out.split('\n')) - 1
 
+def get_red():
+    data = json.loads(urllib2.urlopen('http://redflare.ofthings.net/reports').read().decode('UTF-8'))
+    return str(reduce(lambda a,b: max(a, data[b]['clients']), data, 0))
+
 def get_btc(currency):
     return str(float(json.loads(urllib2.urlopen('https://api.bitcoinaverage.com/ticker/global/'+currency+'/').read().decode('UTF-8'))['last']))
 
@@ -91,6 +95,11 @@ if __name__ == '__main__':
             j.insert(0, {'full_text' : 'BTC: %s CAD' % get_btc('CAD'), 'name' : 'BTCCAD'})
         except:
             pass
+        try:
+            j.insert(0, {'full_text' : '%s RE' % get_red(), 'name' : 'redeclipse'})
+        except:
+            pass
+
         try:
             updates = get_updates()
             if updates > 0:
