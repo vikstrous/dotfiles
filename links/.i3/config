@@ -22,8 +22,12 @@ bindsym XF86AudioPlay exec xdotool type --window `xdotool search --name "Grooves
 new_window 1pixel
 #exec firefox
 #exec pidgin
+exec xset r rate 200 30
+exec xsetroot -cursor_name left_ptr
 exec thunderbird
 exec --no-startup-id sh ~/.fehbg
+exec --no-startup-id dunst
+exec --no-startup-id xscreensaver -no-splash
 #workspace 1 output DVI-I-3
 #workspace 2 output DVI-I-2
 workspace_auto_back_and_forth yes
@@ -225,6 +229,6 @@ bar {
 #    tray_output none
 #    binding_mode_indicator no
 #    workspace_buttons no
-    status_command i3status -c ~/dotfiles/configs/i3status.conf | ~/dotfiles/configs/i3status_wrapper.py
+    status_command i3status -c ~/dotfiles/configs/i3status.conf #| ~/dotfiles/configs/i3status_wrapper.py
 }
 

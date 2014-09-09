@@ -77,7 +77,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 ### post-install
 
-pacman -S iw macchanger wpa_supplicant ifplugd #TODO: make the syatemd script reliable
+pacman -S iw macchanger wpa_supplicant network-manager-applet ifplugd #TODO: make the syatemd script reliable
 # configs:
 # wpa_passphrase Internets PASSWORD > /etc/wpa_supplicant/internets.conf
 # /etc/systemd/system/network@.service
@@ -88,6 +88,7 @@ systemctl enable network@wlp2s0.service
 systemctl enable macchanger@wlp2s0.service
 systemctl enable macchanger@enp3s0.service
 systemctl enable dhcpd
+systemctl enable NetworkManager
 systemctl enable ifplugd@enp3s0
 pacman -S sudo fish
 useradd -m -s /usr/bin/fish v
@@ -109,8 +110,8 @@ pacman -S xf86-input-synaptics
 pacman -S xf86-video-vesa # compatible open source video driver as fallback
 pacman -S nvidia # for proprietary graphics
 pacman -S ttf-dejavu # fonts
-pacman -S slim i3 dmenu rxvt-unicode xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh
-systemctl enable slim
+pacman -S lxdm i3 dmenu rxvt-unicode xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh
+systemctl enable lxdm
 # add `exec i3` to ~/.xinitrc
 
 ### AUR
@@ -136,9 +137,15 @@ yaourt puppet
 
 
 ### user stuff
-pacman -S openssh firefox flashplugin git fakeroot xdiskusage xev acpi slim-themes cdparanoia ripperx python xscreensaver xorg-xrandr numlockx dunst libnotify
+pacman -S openssh firefox flashplugin git fakeroot xdiskusage xev acpi cdparanoia ripperx python xscreensaver xorg-xrandr numlockx dunst libnotify httpie
 ssh-keygen # for git
 pacman -s transmission-cli unzip ack
 pacman -s pidgin mlocate
 systemctl enable transmission
 pacman -S weechat
+
+
+
+
+
+sudo systemctl enable cronie

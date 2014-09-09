@@ -13,8 +13,8 @@ let c_space_errors=1
 set incsearch
 set smartcase
 set ignorecase
-set cursorline
-set cursorcolumn
+"set cursorline
+"set cursorcolumn
 set formatoptions=l
 set backspace=indent,eol,start
 set lbr
