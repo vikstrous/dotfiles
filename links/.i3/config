@@ -173,7 +173,7 @@ bindsym $mod+Shift+F11 move container to workspace 21:F11
 bindsym $mod+Shift+F12 move container to workspace 22:F12
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+q reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
