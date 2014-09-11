@@ -13,18 +13,16 @@ set $mod Mod4
 
 
 bindsym XF86ScreenSaver exec xscreensaver-command --lock
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
-bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
+#bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
+#bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
 bindsym XF86AudioMute exec amixer -q set Master toggle
-bindsym XF86AudioNext exec xdotool key --window `xdotool search --name "Grooveshark"` Ctrl+Right
-bindsym XF86AudioPrev exec xdotool key --window `xdotool search --name "Grooveshark"` Ctrl+Left
-bindsym XF86AudioPlay exec xdotool type --window `xdotool search --name "Grooveshark"` ' '
+#bindsym XF86AudioNext exec xdotool key --window `xdotool search --name "Grooveshark"` Ctrl+Right
+#bindsym XF86AudioPrev exec xdotool key --window `xdotool search --name "Grooveshark"` Ctrl+Left
+#bindsym XF86AudioPlay exec xdotool type --window `xdotool search --name "Grooveshark"` ' '
+
 new_window 1pixel
-#exec firefox
-#exec pidgin
 exec xset r rate 200 30
 exec xsetroot -cursor_name left_ptr
-exec thunderbird
 exec --no-startup-id sh ~/.fehbg
 exec --no-startup-id dunst
 exec --no-startup-id xscreensaver -no-splash
