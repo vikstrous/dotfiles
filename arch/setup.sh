@@ -36,7 +36,6 @@ swapon /dev/mapper/HiNSA-swapvol
 
 ### install
 pacstrap /mnt base
-# TODO: use the uuids!
 genfstab -U -p /mnt >> /mnt/etc/fstab
 
 
@@ -71,25 +70,21 @@ pacman -S grub
 modprobe dm-mod
 # edit /etc/mkinitcpio.conf HOOKS=" ... keymap encrypt lvm2 filesystems ... "
 mkinitcpio -p linux
-# edit /etc/default/grub GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:HiNSA" EDIT: USE THE UUID YOU IDIOT
+# edit /etc/default/grub GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:HiNSA"
 grub-install --recheck /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
 ### post-install
 
-pacman -S iw macchanger wpa_supplicant network-manager-applet ifplugd #TODO: make the syatemd script reliable
+pacman -S iw macchanger wpa_supplicant network-manager-applet ifplugd
 # configs:
 # wpa_passphrase Internets PASSWORD > /etc/wpa_supplicant/internets.conf
-# /etc/systemd/system/network@.service
-# /etc/systemd/macchanger/network@.service
-mkdir /etc/conf.d/
-touch /etc/conf.d/network
-systemctl enable network@wlp2s0.service
-systemctl enable macchanger@wlp2s0.service
-systemctl enable macchanger@enp3s0.service
+# TODO: make the macchanger stuff work
+#systemctl enable macchanger@wlp2s0.service
+#systemctl enable macchanger@enp3s0.service
 systemctl enable dhcpd
 systemctl enable NetworkManager
-systemctl enable ifplugd@enp3s0
+systemctl enable ifplugd@enp0s25
 pacman -S sudo fish
 useradd -m -s /usr/bin/fish v
 passwd v
@@ -109,7 +104,7 @@ pacman -S xf86-input-synaptics
 ### graphical, desktop
 pacman -S xf86-video-vesa # compatible open source video driver as fallback
 pacman -S nvidia # for proprietary graphics
-pacman -S ttf-dejavu # fonts
+pacman -S ttf-dejavu ttf-freefont terminus-font # fonts
 pacman -S lxdm i3 dmenu rxvt-unicode xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh
 systemctl enable lxdm
 # add `exec i3` to ~/.xinitrc
@@ -131,21 +126,13 @@ sudo pacman -U yaourt-1.3-1-any.pkg.tar.xz
 cd ..
 
 yaourt urxvt-clipboard
-yaourt chrome
 yaourt ttf-font-awesome
-yaourt puppet
+yaourt cope-git
 
 
 ### user stuff
-pacman -S openssh firefox flashplugin git fakeroot xdiskusage xev acpi cdparanoia ripperx python xscreensaver xorg-xrandr numlockx dunst libnotify httpie
+pacman -S openssh firefox flashplugin git fakeroot xdiskusage xorg-xev acpi cdparanoia ripperx python xscreensaver xorg-xrandr numlockx httpie transmission-cli unzip ack pidgin mlocate gnome-themes-standard nautilus
 ssh-keygen # for git
-pacman -s transmission-cli unzip ack
-pacman -s pidgin mlocate
 systemctl enable transmission
-pacman -S weechat
 
-
-
-
-
-sudo systemctl enable cronie
+pacman -S iptables
