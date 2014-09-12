@@ -19,3 +19,4 @@ set PATH $PATH (ruby -rubygems -e "puts Gem.user_dir")/bin
 set -x JAVA_HOME /usr/lib/jvm/java-7-openjdk/
 
 alias less 'less -R'
+alias chromium 'chromium --incognito'
