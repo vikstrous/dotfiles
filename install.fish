@@ -18,4 +18,4 @@ systemctl start iptables
 iptables  -nvL
 
 # updates fetcher
-sudo sh -c 'echo \'pacman -Sy\' > /etc/cron.hourly/pacman'
+#sudo sh -c 'echo \'pacman -Sy\' > /etc/cron.hourly/pacman'
