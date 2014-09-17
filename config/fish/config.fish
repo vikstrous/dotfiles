@@ -20,7 +20,7 @@ set PATH $PATH ~/go/bin
 
 set GOPATH ~/go
 
-set JAVA_HOME /usr/lib/jvm/java-7-openjdk/
+set JAVA_HOME /usr/lib/jvm/default
 
 alias less 'less -R'
 alias chromium 'chromium --incognito'
