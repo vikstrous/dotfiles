@@ -136,3 +136,7 @@ ssh-keygen # for git
 systemctl enable transmission
 
 pacman -S iptables
+
+pacman -S openvpn
+
+pacman -S networkmanager-openvpn
