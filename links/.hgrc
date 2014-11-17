@@ -1,0 +1,22 @@
+[ui]
+username = Viktor Stanchev <me@viktorstanchev.com>
+editor = vim
+[extensions]
+trychooser = /home/v/ff/trychooser
+churn =
+color =
+graphlog =
+pager =
+progress =
+purge =
+rebase =
+record =
+mq =
+[diff]
+git = 1
+showfunc = 1
+unified = 8
+[defaults]
+qnew = -U
+[mqext]
+mqcommit = auto
