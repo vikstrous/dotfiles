@@ -26,3 +26,6 @@ set GOPATH ~/go
 
 alias less 'less -R'
 alias chromium 'chromium --incognito'
+
+set -x LC_ALL 'en_CA.UTF-8'
+set -x LANG 'en_CA.UTF-8'
