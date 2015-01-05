@@ -105,7 +105,7 @@ pacman -S xf86-input-synaptics
 pacman -S xf86-video-vesa # compatible open source video driver as fallback
 pacman -S nvidia # for proprietary graphics
 pacman -S ttf-dejavu ttf-freefont terminus-font # fonts
-pacman -S lxdm i3 dmenu rxvt-unicode xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh
+pacman -S xorg-server i3 dmenu rxvt-unicode xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh
 systemctl enable lxdm
 # add `exec i3` to ~/.xinitrc
 
