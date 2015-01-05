@@ -25,6 +25,7 @@ new_window 1pixel
 exec xset r rate 200 30
 exec xsetroot -cursor_name left_ptr
 exec --no-startup-id sh ~/.fehbg
+exec --no-startup-id numlockx on
 exec --no-startup-id dunst
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id nm-applet
@@ -175,8 +176,23 @@ bindsym $mod+Shift+F12 move container to workspace 22:F12
 bindsym $mod+Shift+q reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+
+# macro to kill i3_nagbar
+set $kill_nagbar "kill `ps aux | grep 'i3-nagbar' | awk '{print $2}'`"
+
+# logout, shutdown, reboot, suspend or, hibernate the computer with the keyboard
+mode "shutdown" {
+  bindsym r mode "default"; exec i3exit reboot
+  bindsym s mode "default"; exec i3exit shutdown
+  bindsym l mode "default"; exec i3-msg exit
+  bindsym h mode "default"; exec $kill_nagbar; exec i3exit hibernate
+  bindsym Shift+s mode "default"; exec $kill_nagbar; exec "i3exit suspend"
+  bindsym Escape mode "default"; exec $kill_nagbar
+}
+# display shutdown/restart/suspend/hibernate menu
+bindsym $mod+Shift+e mode "shutdown"; exec i3-nagbar -m 'Exit? (ESC to cancel)' -b 'Shutdown (s)' 'i3exit shutdown' -b 'Restart (r)' 'i3exit reboot' -b 'Hibernate (h)' 'i3exit hibernate' -b 'Suspend (S)' 'i3exit suspend' -b 'Logout (L)' 'i3-msg exit'
+
 
 mouse_warping none
 
