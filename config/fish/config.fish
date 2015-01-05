@@ -18,6 +18,7 @@ set PATH (cope_path) /home/v/work/moz-git-tools /opt/android-sdk/platform-tools 
 set PATH $PATH (ruby -rubygems -e "puts Gem.user_dir")/bin
 
 set PATH $PATH ~/go/bin
+set PATH $PATH ~/.cabal/bin/
 
 # fix IDEA
 set PATH /usr/lib/jvm/default/bin $PATH ~/go/bin
@@ -25,7 +26,7 @@ set PATH /usr/lib/jvm/default/bin $PATH ~/go/bin
 set GOPATH ~/go
 
 alias less 'less -R'
-alias chromium 'chromium --incognito'
+alias chromium 'chromium --incognito --proxy-server=localhost:8118'
 
 set -x LC_ALL 'en_CA.UTF-8'
 set -x LANG 'en_CA.UTF-8'
