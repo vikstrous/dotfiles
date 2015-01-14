@@ -131,7 +131,7 @@ yaourt cope-git
 
 
 ### user stuff
-pacman -S openssh firefox flashplugin git fakeroot xdiskusage xorg-xev acpi cdparanoia ripperx python xscreensaver xorg-xrandr numlockx httpie transmission-cli unzip ack pidgin mlocate gnome-themes-standard nautilus
+pacman -S openssh firefox flashplugin git fakeroot xdiskusage xorg-xev acpi cdparanoia ripperx python xscreensaver xorg-xrandr numlockx httpie transmission-cli unzip ack pidgin mlocate gnome-themes-standard nautilus privoxy
 ssh-keygen # for git
 systemctl enable transmission
 
