@@ -23,6 +23,8 @@ set PATH $PATH ~/.cabal/bin/
 # fix IDEA
 set PATH /usr/lib/jvm/default/bin $PATH ~/go/bin
 
+#source /home/v/.rvm/scripts/rvm
+
 set GOPATH ~/go
 
 alias less 'less -R'
