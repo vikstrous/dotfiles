@@ -5,6 +5,8 @@ set background=dark
 set tabstop=2
 set shiftwidth=2
 set expandtab
+set autoindent
+set cindent
 setlocal spell spelllang=en_us
 set mouse=a
 set laststatus=2
