@@ -16,8 +16,12 @@ bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
 bindsym XF86AudioMute exec amixer -q set Master toggle
 new_window 1pixel
-exec firefox
-exec thunderbird
+exec --no-startup-id xset r rate 200 30
+exec --no-startup-id xsetroot -cursor_name left_ptr
+exec --no-startup-id numlockx on
+exec --no-startup-id xscreensaver -no-splash
+#exec firefox
+#exec thunderbird
 exec --no-startup-id sh ~/.fehbg
 #workspace 1 output DVI-I-3
 #workspace 2 output DVI-I-2
@@ -52,7 +56,9 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+c kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec i3-dmenu-desktop
+#bindsym $mod+d exec i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id dmenu_run -sf "#439543" -sb "#333333" -nb "#000000" -nf "#CCCCCC" -l 30 > /dev/null
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -208,5 +214,5 @@ bar {
         urgent_workspace #000000 #000000 #E78383
     }
     #tray_output DVI-I-3
-    status_command i3status -c ~/dotfiles/configs/i3status_desktop.conf | ~/dotfiles/configs/i3status_wrapper.py
+    status_command i3status -c ~/dotfiles/configs/i3status_desktop.conf #| ~/dotfiles/configs/i3status_wrapper.py
 }

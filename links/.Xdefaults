@@ -1,9 +1,11 @@
 urxvt*foreground: white
-urxvt*background: black
-URxvt*.transparent: true
+#urxvt*background: black
+#URxvt*.transparent: true
 URxvt*.shading: 20
 URxvt.scrollstyle: plain
 URxvt.perl-ext-common: clipboard
+URxvt.depth: 32
+URxvt.background: rgba:1111/1111/1111/dddd
 
 *color0:  #2E3436
 *color1:  #a40000

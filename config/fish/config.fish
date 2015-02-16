@@ -19,6 +19,7 @@ set PATH $PATH (ruby -rubygems -e "puts Gem.user_dir")/bin
 
 set PATH $PATH ~/go/bin
 set PATH $PATH ~/.cabal/bin/
+set PATH $PATH /usr/bin/vendor_perl/
 
 # fix IDEA
 set PATH /usr/lib/jvm/default/bin $PATH ~/go/bin
