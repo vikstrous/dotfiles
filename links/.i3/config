@@ -30,6 +30,7 @@ exec --no-startup-id sh ~/.fehbg
 exec --no-startup-id numlockx on
 exec --no-startup-id dunst
 exec --no-startup-id xscreensaver -no-splash
+exec --no-startup-id keychain
 exec --no-startup-id nm-applet
 #workspace 1 output DVI-I-3
 #workspace 2 output DVI-I-2

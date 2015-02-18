@@ -33,3 +33,8 @@ alias chromium 'chromium --incognito --proxy-server=localhost:8118'
 
 set -x LC_ALL 'en_CA.UTF-8'
 set -x LANG 'en_CA.UTF-8'
+
+# dirty hack because if these variables are not set before we source the keychain config, it fails
+set -x SSH_AUTH_SOCK ''
+set -x SSH_AGENT_PID ''
+keychain --eval --agents ssh -Q --quiet | source
