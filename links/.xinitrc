@@ -5,4 +5,4 @@ then
 #    xrandr --output DVI-I-3 --pos 1680x-100
 fi
 xcompmgr&
-exec i3
+exec ssh-agent "bash" -c "ssh-add && i3"
