@@ -50,6 +50,9 @@ echo linusputinmusk > /etc/hostname
 ln -s /usr/share/zoneinfo/Canada/Eastern /etc/localtime
 echo 'LANG="en_CA.UTF-8"' > /etc/locale.conf
 echo 'en_CA.UTF-8 UTF-8' >> /etc/locale.gen
+
+# in case of colemak only
+
 #Section "InputClass"
 #        Identifier "system-keyboard"
 #        MatchIsKeyboard "on"
@@ -59,6 +62,7 @@ echo 'en_CA.UTF-8 UTF-8' >> /etc/locale.gen
 #        Option "XkbOptions" "grp:caps_toggle"
 #EndSection
 # into /etc/X11/xorg.conf.d/10-keyboarg.conf
+
 # KEYMAP=/usr/share/kbd/keymaps/i386/colemak/colemak.map.gz into /etc/vconsole.conf
 locale-gen
 passwd
@@ -68,6 +72,9 @@ passwd
 
 pacman -S grub
 modprobe dm-mod
+# keymap is outdated I think
+# encrypt needed only if encrypted I think
+# lvm2 needed only if lvm used
 # edit /etc/mkinitcpio.conf HOOKS=" ... keymap encrypt lvm2 filesystems ... "
 mkinitcpio -p linux
 # edit /etc/default/grub GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:HiNSA"
@@ -76,28 +83,31 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 ### post-install
 
-pacman -S iw macchanger wpa_supplicant network-manager-applet ifplugd
+pacman -S iw macchanger ifplugd
+# laptop only
+pacman -S wpa_supplicant network-manager-applet
 # configs:
 # wpa_passphrase Internets PASSWORD > /etc/wpa_supplicant/internets.conf
-# TODO: make the macchanger stuff work
-#systemctl enable macchanger@wlp2s0.service
-#systemctl enable macchanger@enp3s0.service
-systemctl enable dhcpd
+# install configs/systemd/macspoof@.service to /etc/systemd/system/macspoof@.service
+# systemctl enable macspoof@enp3s0
+systemctl enable dhcpcd
+# laptop only
 systemctl enable NetworkManager
 systemctl enable ifplugd@enp0s25
 pacman -S sudo fish
 useradd -m -s /usr/bin/fish v
 passwd v
+gpasswd -a v video
 # edit /etc/sudoers file and add v
 
 
 ### nice to have
-pacman -S htop iftop alsa-utils vim ntfs-3g bc openntpd
-systemctl enable openntpd
-systemctl start openntpd
+pacman -S htop iftop alsa-utils vim ntfs-3g bc ntp
+systemctl enable ntpd
+systemctl start ntpd
 
 
-### drivers
+### drivers (laptop)
 pacman -S xf86-input-synaptics
 
 
@@ -106,11 +116,13 @@ pacman -S xf86-video-vesa # compatible open source video driver as fallback
 pacman -S nvidia # for proprietary graphics
 pacman -S ttf-dejavu ttf-freefont terminus-font # fonts
 pacman -S xorg-server i3 dmenu rxvt-unicode xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh xcompmgr
-systemctl enable lxdm
+# If window manager desired
+# systemctl enable lxdm
+
 # add `exec i3` to ~/.xinitrc
 
 ### AUR
-pacman -S base-devel yajl
+pacman -S base-devel # how did this get here? yajl
 curl https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz > package-query.tar.gz
 tar xvzf package-query.tar.gz
 cd package-query
