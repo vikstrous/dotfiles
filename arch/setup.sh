@@ -143,7 +143,9 @@ yaourt cope-git
 
 
 ### user stuff
-pacman -S openssh firefox flashplugin git fakeroot xdiskusage xorg-xev acpi cdparanoia ripperx python xscreensaver xorg-xrandr numlockx httpie transmission-cli unzip ack pidgin mlocate gnome-themes-standard nautilus privoxy xorg-xbacklight keychain
+pacman -S openssh firefox chromium flashplugin git fakeroot xdiskusage xorg-xev acpi ripperx python xscreensaver xorg-xrandr numlockx transmission-cli unzip ack pidgin mlocate gnome-themes-standard nautilus privoxy xorg-xbacklight keychain
+# other extra useful things
+pacman -S cdparanoia httpie
 ssh-keygen # for git
 systemctl enable transmission
 
@@ -151,4 +153,4 @@ pacman -S iptables
 
 pacman -S openvpn
 
-pacman -S networkmanager-openvpn
+#pacman -S networkmanager-openvpn
