@@ -152,5 +152,8 @@ systemctl enable transmission
 pacman -S iptables
 
 pacman -S openvpn
+pacman -S sycthing
+systemctl enable syncthing@v
+systemctl start syncthing@v
 
 #pacman -S networkmanager-openvpn
