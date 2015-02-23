@@ -1,0 +1,8 @@
+adblock edge
+cryptocat
+foxyproxy
+https-everywhere
+lastpass
+noscript
+privacy badger
+tos;dr
