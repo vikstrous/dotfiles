@@ -44,5 +44,5 @@ setUpLinks $dotfiles/links ~ (ls links -A)
 
 setUpLinks $dotfiles/config ~/.config 'fish/functions' 'fish/config.fish'
 
-sudo rm /etc/slim.conf
-sudo ln -s $dotfiles/configs/slim.conf /etc/slim.conf
+#sudo rm /etc/slim.conf
+#sudo ln -s $dotfiles/configs/slim.conf /etc/slim.conf
