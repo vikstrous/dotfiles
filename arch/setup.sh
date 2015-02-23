@@ -145,7 +145,7 @@ yaourt cope-git
 ### user stuff
 pacman -S openssh firefox chromium flashplugin git fakeroot xdiskusage xorg-xev acpi ripperx python xscreensaver xorg-xrandr numlockx transmission-cli unzip ack pidgin mlocate gnome-themes-standard nautilus privoxy xorg-xbacklight keychain
 # other extra useful things
-pacman -S cdparanoia httpie the_silver_searcher ack tree pidgin pidgin-otr thunderbird
+pacman -S cdparanoia httpie the_silver_searcher ack tree pidgin pidgin-otr thunderbird net-tools
 ssh-keygen # for git
 systemctl enable transmission
 
