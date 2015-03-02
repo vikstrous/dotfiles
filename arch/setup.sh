@@ -155,5 +155,8 @@ pacman -S openvpn
 pacman -S sycthing
 systemctl enable syncthing@v
 systemctl start syncthing@v
+yourt chromium-pepper-flash
 
 #pacman -S networkmanager-openvpn
+
+chmod -w /home/v/.config/chromium/Default/History
