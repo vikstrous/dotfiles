@@ -3,9 +3,9 @@ urxvt*foreground: white
 #URxvt*.transparent: true
 URxvt*.shading: 20
 URxvt.scrollstyle: plain
-URxvt.perl-ext-common: font-size
+#URxvt.perl-ext-common: font-size
 #URxvt.perl-ext-common: clipboard,font-size
-#URxvt.perl-ext-common: clipboard,font-size,selection-to-clipboard
+URxvt.perl-ext-common: clipboard,font-size,selection-to-clipboard
 URxvt.depth: 32
 URxvt.background: rgba:1111/1111/1111/dddd
 
