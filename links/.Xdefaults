@@ -3,7 +3,9 @@ urxvt*foreground: white
 #URxvt*.transparent: true
 URxvt*.shading: 20
 URxvt.scrollstyle: plain
-URxvt.perl-ext-common: clipboard,font-size
+URxvt.perl-ext-common: font-size
+#URxvt.perl-ext-common: clipboard,font-size
+#URxvt.perl-ext-common: clipboard,font-size,selection-to-clipboard
 URxvt.depth: 32
 URxvt.background: rgba:1111/1111/1111/dddd
 
@@ -12,11 +14,19 @@ URxvt.keysym.C-0x3d: perl:font-size:increase
 # -
 URxvt.keysym.C-0x2d: perl:font-size:decrease
 # +
-URxvt.keysym.C-0x2b: perl:font-size:incglobal
+#URxvt.keysym.C-0x2b: perl:font-size:incglobal
 # _
-URxvt.keysym.C-0x5f: perl:font-size:decglobal
+#URxvt.keysym.C-0x5f: perl:font-size:decglobal
 # 0
 URxvt.keysym.C-0x30: perl:font-size:reset
+# resize faster
+URxvt.font-size.step: 4
+
+# copy hotkeys
+#URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+#URxvt.keysym.Shift-Control-Q: perl:clipboard:paste
+#URxvt.clipboard.copycmd:  xsel -ib
+#URxvt.clipboard.pastecmd: xsel -ob
 
 URxvt.iso14755: false
 URxvt.iso14755_52: false

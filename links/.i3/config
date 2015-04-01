@@ -13,10 +13,10 @@ set $mod Mod4
 
 
 bindsym XF86ScreenSaver exec xscreensaver-command --lock
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
-bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
-bindsym XF86AudioMute exec amixer -q set Master toggle
-bindsym XF86AudioMicMute exec amixer -q set Capture toggle
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioMute exec amixer -q set Master toggle && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioMicMute exec amixer -q set Capture toggle && pkill -RTMIN+10 i3blocks
 bindsym XF86MonBrightnessUp exec xbacklight + 5
 bindsym XF86MonBrightnessDown exec xbacklight - 5
 #bindsym XF86AudioNext exec xdotool key --window `xdotool search --name "Grooveshark"` Ctrl+Right
@@ -30,12 +30,10 @@ exec --no-startup-id sh ~/.fehbg
 exec --no-startup-id numlockx on
 exec --no-startup-id dunst
 exec --no-startup-id xscreensaver -no-splash
-exec --no-startup-id keychain
+exec --no-startup-id keychain --eval id_rsa
 exec --no-startup-id nm-applet
-#workspace 1 output DVI-I-3
-#workspace 2 output DVI-I-2
+
 workspace_auto_back_and_forth yes
-#bindsym $mod+Escape exec lxdm -c USER_SWITCH
 bindsym $mod+b bar mode toggle
 bindsym $mod+Tab move container to output right
 bindsym $mod+Shift+Tab move workspace to output right
@@ -290,6 +288,7 @@ bar {
 #    tray_output none
 #    binding_mode_indicator no
 #    workspace_buttons no
-    status_command i3status -c ~/dotfiles/configs/i3status.conf #| ~/dotfiles/configs/i3status_wrapper.py
+     #status_command i3status -c ~/dotfiles/configs/i3status.conf #| ~/dotfiles/configs/i3status_wrapper.py
+     status_command i3blocks -c ~/dotfiles/configs/i3blocks.conf
 }
 

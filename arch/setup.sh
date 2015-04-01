@@ -115,7 +115,7 @@ pacman -S xf86-input-synaptics
 pacman -S xf86-video-vesa # compatible open source video driver as fallback
 pacman -S nvidia # for proprietary graphics
 pacman -S ttf-dejavu ttf-freefont terminus-font # fonts
-pacman -S xorg-server i3 dmenu rxvt-unicode xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh xcompmgr xorg-xinit
+pacman -S xorg-server i3 dmenu rxvt-unicode xsel xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh xcompmgr xorg-xinit
 # If window manager desired
 # systemctl enable lxdm
 
@@ -137,13 +137,17 @@ makepkg
 sudo pacman -U yaourt-1.3-1-any.pkg.tar.xz
 cd ..
 
-yaourt urxvt-clipboard
+# urxvt terminal pimping
+yaourt urxvt-font-size-git
 yaourt ttf-font-awesome
 yaourt cope-git
 
+# i3 window manager pimping
+yaourt i3blocks
+pacman -S acpi lm_sensors sysstat
 
 ### user stuff
-pacman -S openssh firefox chromium flashplugin git fakeroot xdiskusage xorg-xev acpi ripperx python xscreensaver xorg-xrandr numlockx transmission-cli unzip ack pidgin mlocate gnome-themes-standard nautilus privoxy xorg-xbacklight keychain
+pacman -S openssh firefox chromium flashplugin git fakeroot xdiskusage xorg-xev ripperx python xscreensaver xorg-xrandr numlockx transmission-cli unzip ack pidgin mlocate gnome-themes-standard nautilus privoxy xorg-xbacklight keychain
 # other extra useful things
 pacman -S cdparanoia httpie the_silver_searcher ack tree pidgin pidgin-otr thunderbird net-tools
 ssh-keygen # for git
@@ -165,5 +169,3 @@ pacman -S bluez bluez-utils
 systemstl start bluetooth
 #bluetoothctl
 gpasswd -a v lp #for tethering
-
-yaourt urxvt-font-size-git
