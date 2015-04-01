@@ -1,0 +1,77 @@
+# .conkyrc - Edited from various examples across the 'net
+# Used by Craig Watson [ www.cwatson.org ] on Fedora 8
+
+# --- Window Layout & Options --- #
+own_window yes
+own_window_colour 000000
+#own_window_transparent yes
+own_window_argb_visual yes
+own_window_argb_value 200
+#own_window_type override
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+use_spacer left
+use_xft yes
+alignment none
+#gap_x 100
+#gap_y 100
+
+# --- Colours, Sizes, Fonts & Margins --- #
+update_interval 2.0
+maximum_width 500
+#stippled_borders 3
+#border_margin 9
+#border_width 10
+#border_inner_margin 100
+default_color grey
+
+# --- Text --- #
+draw_outline no
+draw_borders no
+font -misc-dejavu sans mono-medium-r-normal--15-150-0-0-m-0-iso10646-1
+uppercase no
+draw_shades yes
+
+no_buffers yes
+
+TEXT
+
+${color #55aaff}$nodename$color - $sysname $kernel on $machine
+${color #6495ed}Uptime:$color $uptime ${color lightgrey}- ${color #6495ed}Load:$color $loadavg${color lightgrey}
+
+$color$stippled_hr${color lightgrey}
+
+${color #6495ed}CPU: ${color lightgrey}Intel Xeon X3360 @ $color${freq_g} GHz${color lightgrey}
+${color #6495ed}CPU Fan: $color${platform it87.656 fan 1}${color grey} RPM @ $color${execi 8 cat /sys/class/hwmon/hwmon0/device/fan1_input}
+${color black}${cpugraph 5000a0 6495ed}${color white}${color lightgrey}
+${color #6495ed}Core0:$color${execi 8 bash -c "echo \$(cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon1/temp1_input) / 1000 | bc"} °C${color grey} @$color ${cpu cpu1}% ${alignr}${cpubar cpu1 6,120}
+${color #6495ed}Core1:$color${execi 8 bash -c "echo \$(cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon1/temp2_input) / 1000 | bc"} °C${color grey} @$color ${cpu cpu2}% ${alignr}${cpubar cpu2 6,120}
+${color #6495ed}Core2:$color${execi 8 bash -c "echo \$(cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon1/temp3_input) / 1000 | bc"} °C${color grey} @$color ${cpu cpu3}% ${alignr}${cpubar cpu3 6,120}
+${color #6495ed}Core3:$color${execi 8 bash -c "echo \$(cat /sys/bus/platform/devices/coretemp.0/hwmon/hwmon1/temp4_input) / 1000 | bc"} °C${color grey} @$color ${cpu cpu4}% ${alignr}${cpubar cpu4 6,120}${color grey}
+${color #6495ed}GPU:${color lightgrey}$color${nvidia temp} °C 
+
+$color$stippled_hr${color lightgrey}
+
+${color #6495ed}RAM:  $color$mem ($memperc%)${color lightgrey} ${alignr}${membar 6,120}$color
+${color #6495ed}/:     ${color}${fs_used /} (${fs_used_perc /}%) ${alignr}${fs_bar 6,120 /}$color
+${color #6495ed}/tmp:     ${color}${fs_used /tmp} (${fs_used_perc /tmp}%) ${alignr}${fs_bar 6,120 /tmp}$color
+${color #6495ed}/dev/shm:${color}${fs_used /dev/shm} (${fs_used_perc /dev/shm}%) ${alignr}${fs_bar 6,120 /dev/shm}$color
+
+$color$stippled_hr${color lightgrey}
+
+${color #6495ed}wlp3s0 (${addr wlp3s0}):$color
+${color white}Down:$color  ${downspeed wlp3s0} KB/s${alignr}${color white}Up:$color ${upspeed wlp3s0} KB/s
+${downspeedgraph wlp3s0 25,120 000000 00ff00} ${alignr}${upspeedgraph wlp3s0 25,120 000000 ff0000}$color
+
+$color$stippled_hr${color lightgrey}
+
+${color #6495ed}Processes:${color} $processes  ${color #6495ed}Running:$color$running_processes
+${color}Name                   PID    CPU%   MEM%
+${color #55aaff} ${top name 1}     ${top pid 1} ${top cpu 1} ${top mem 1}
+${color lightgrey} ${top name 2}     ${top pid 2} ${top cpu 2} ${top mem 2}
+${color lightgrey} ${top name 3}     ${top pid 3} ${top cpu 3} ${top mem 3}
+${color}Mem usage
+${color #55aaff} ${top_mem name 1}     ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem 1}
+${color lightgrey} ${top_mem name 2}     ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem 2}
+${color lightgrey} ${top_mem name 3}     ${top_mem pid 3} ${top_mem cpu 3} ${top_mem mem 3}
+
