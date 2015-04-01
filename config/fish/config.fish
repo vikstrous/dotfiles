@@ -29,7 +29,7 @@ set PATH /usr/lib/jvm/default/bin $PATH ~/go/bin
 set GOPATH ~/go
 
 alias less 'less -R'
-alias chromium 'chromium --incognito --proxy-server=localhost:8118'
+alias chromium 'chromium --proxy-server=localhost:8118'
 
 set -x LC_ALL 'en_CA.UTF-8'
 set -x LANG 'en_CA.UTF-8'

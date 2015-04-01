@@ -3,9 +3,23 @@ urxvt*foreground: white
 #URxvt*.transparent: true
 URxvt*.shading: 20
 URxvt.scrollstyle: plain
-URxvt.perl-ext-common: clipboard
+URxvt.perl-ext-common: clipboard,font-size
 URxvt.depth: 32
 URxvt.background: rgba:1111/1111/1111/dddd
+
+# =
+URxvt.keysym.C-0x3d: perl:font-size:increase
+# -
+URxvt.keysym.C-0x2d: perl:font-size:decrease
+# +
+URxvt.keysym.C-0x2b: perl:font-size:incglobal
+# _
+URxvt.keysym.C-0x5f: perl:font-size:decglobal
+# 0
+URxvt.keysym.C-0x30: perl:font-size:reset
+
+URxvt.iso14755: false
+URxvt.iso14755_52: false
 
 *color0:  #2E3436
 *color1:  #a40000

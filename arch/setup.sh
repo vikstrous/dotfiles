@@ -160,3 +160,10 @@ yourt chromium-pepper-flash
 #pacman -S networkmanager-openvpn
 
 chmod -w /home/v/.config/chromium/Default/History
+
+pacman -S bluez bluez-utils
+systemstl start bluetooth
+#bluetoothctl
+gpasswd -a v lp #for tethering
+
+yaourt urxvt-font-size-git

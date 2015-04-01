@@ -24,8 +24,8 @@ bindsym XF86MonBrightnessDown exec xbacklight - 5
 #bindsym XF86AudioPlay exec xdotool type --window `xdotool search --name "Grooveshark"` ' '
 
 new_window 1pixel
-exec xset r rate 200 30
-exec xsetroot -cursor_name left_ptr
+exec --no-startup-id xset r rate 200 30
+exec --no-startup-id xsetroot -cursor_name left_ptr
 exec --no-startup-id sh ~/.fehbg
 exec --no-startup-id numlockx on
 exec --no-startup-id dunst
