@@ -5,7 +5,8 @@ URxvt*.shading: 20
 URxvt.scrollstyle: plain
 #URxvt.perl-ext-common: font-size
 #URxvt.perl-ext-common: clipboard,font-size
-URxvt.perl-ext-common: clipboard,font-size,selection-to-clipboard
+URxvt.perl-ext-common: font-size,selection-to-clipboard
+#URxvt.perl-ext-common: clipboard,font-size,selection-to-clipboard
 URxvt.depth: 32
 URxvt.background: rgba:1111/1111/1111/dddd
 
@@ -49,12 +50,13 @@ URxvt.iso14755_52: false
 *color15: #EEEEEC
 
 ! Fonts
-URxvt.allow_bold:           false
+URxvt.allow_bold:           true
 !URxvt.font:                 -*-terminus-medium-r-normal-*-12-120-72-72-c-60-iso8859-1
 ! URxvt*font: xft:Anonymous Pro:pixelsize=14:antialiasing=true:hinting=true
 !URxvt*font:       xft:Anonymous Pro:pixelsize=14:antialiasing=true
-URxvt*font:       xft:DejaVu Sans Mono:pixelsize=14:antialiasing=true
+#URxvt*font:       xft:DejaVu Sans Mono:pixelsize=14:antialiasing=true
+URxvt*font: xft:Input Mono:style=Regular:pixelsize=14:antialiasing=true
 ! URxvt*boldFont: xft:Anonymous Pro:pixelsize=14:antialiasing=true:hinting=true
 
 ! Fix font space
-URxvt*letterSpace: 0
+#URxvt*letterSpace: 0

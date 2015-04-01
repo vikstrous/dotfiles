@@ -139,6 +139,7 @@ cd ..
 
 # urxvt terminal pimping
 yaourt urxvt-font-size-git
+yaourt ttf-input
 yaourt ttf-font-awesome
 yaourt cope-git
 
