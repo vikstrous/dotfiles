@@ -64,6 +64,12 @@ bindsym Print exec import -window root ~/screenshot.png
 # is used in the bar {} block below. ISO 10646 = Unicode
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 font -misc-dejavu sans mono-medium-r-normal--15-150-0-0-m-0-iso10646-1
+#font -misc-inputmono-medium-r-normal--0-0-0-0-m-0-iso10646-1
+#font -misc-inputmono medium-medium-r-normal--0-0-0-0-m-0-iso8859-9
+#font -misc-inputmono-medium-r-normal--0-0-0-0-m-0-adobe-standard
+#font -misc-inputmonocondensed-medium-r-condensed--0-0-0-0-m-0-iso10646-1
+#font -misc-inputmonocompressed-medium-r-extracondensed--0-0-0-0-m-0-iso10646-1
+
 # The font above is very space-efficient, that is, it looks good, sharp and
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
