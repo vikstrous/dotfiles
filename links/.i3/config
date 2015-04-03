@@ -29,7 +29,7 @@ exec --no-startup-id xsetroot -cursor_name left_ptr
 exec --no-startup-id sh ~/.fehbg
 exec --no-startup-id numlockx on
 exec --no-startup-id dunst
-exec --no-startup-id conky
+#exec --no-startup-id conky
 exec --no-startup-id redshift
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id keychain --eval id_rsa
@@ -63,18 +63,19 @@ bindsym Print exec import -window root ~/screenshot.png
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-font -misc-dejavu sans mono-medium-r-normal--15-150-0-0-m-0-iso10646-1
+#font -misc-dejavu sans mono-medium-r-normal--15-0-0-0-m-0-iso10646-1
 #font -misc-inputmono-medium-r-normal--0-0-0-0-m-0-iso10646-1
 #font -misc-inputmono medium-medium-r-normal--0-0-0-0-m-0-iso8859-9
 #font -misc-inputmono-medium-r-normal--0-0-0-0-m-0-adobe-standard
 #font -misc-inputmonocondensed-medium-r-condensed--0-0-0-0-m-0-iso10646-1
-#font -misc-inputmonocompressed-medium-r-extracondensed--0-0-0-0-m-0-iso10646-1
+#font -misc-inputmono-medium-r-normal--16-0-0-0-m-0-iso10646-1
 
 # The font above is very space-efficient, that is, it looks good, sharp and
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose a FreeType font, such as:
 # font pango:DejaVu Sans Mono 10
+font pango:Input Mono, Icons 11
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -289,6 +290,7 @@ bindsym $mod+p mode "science"
 #    position top
 #}
 bar {
+    font pango:Input Mono, Icons 16
     position top
     strip_workspace_numbers yes
     colors {

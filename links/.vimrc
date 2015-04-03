@@ -20,6 +20,17 @@ set ignorecase
 set formatoptions=l
 set backspace=indent,eol,start
 set lbr
+
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  "setglobal bomb
+  set fileencodings=ucs-bom,utf-8,latin1
+endif
+
 " move by screen lines, not by real lines - great for creative writing
 nnoremap j gj
 nnoremap k gk
