@@ -42,7 +42,7 @@ end
 
 setUpLinks $dotfiles/links ~ (ls links -A)
 
-setUpLinks $dotfiles/config ~/.config 'fish/functions' 'fish/config.fish' 'dunst'
+setUpLinks $dotfiles/config ~/.config 'fish/functions' 'fish/config.fish' 'dunst' 'gtk-3.0'
 
 #sudo rm /etc/slim.conf
 #sudo ln -s $dotfiles/configs/slim.conf /etc/slim.conf

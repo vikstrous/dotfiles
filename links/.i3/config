@@ -305,6 +305,7 @@ bar {
     font pango:Input Mono, Icons 11
     position top
     strip_workspace_numbers yes
+    separator_symbol "|"
     colors {
         background #000000
         statusline #AAAAAA
