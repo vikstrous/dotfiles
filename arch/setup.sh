@@ -144,11 +144,15 @@ yaourt ttf-font-awesome
 yaourt cope-git
 
 # i3 window manager pimping
-yaourt i3blocks
-pacman -S acpi lm_sensors sysstat
+#yaourt i3blocks
+#pacman -S acpi lm_sensors sysstat
 
 ### user stuff
-pacman -S openssh firefox chromium dunst redshift flashplugin git fakeroot xdiskusage xorg-xev ripperx python xscreensaver xorg-xrandr numlockx transmission-cli unzip ack pidgin mlocate gnome-themes-standard nautilus privoxy xorg-xbacklight keychain
+pacman -S openssh firefox chromium xautolock dunst redshift flashplugin git fakeroot xdiskusage xorg-xev ripperx python xorg-xrandr numlockx transmission-cli unzip ack pidgin mlocate gnome-themes-standard nautilus privoxy xorg-xbacklight keychain
+
+# copy scripts/suspend@.service to /etc/systemd/system/suspend@.service
+sudo systemctl enable suspend@v
+
 # other extra useful things
 pacman -S cdparanoia httpie the_silver_searcher ack tree pidgin pidgin-otr thunderbird net-tools
 ssh-keygen # for git
@@ -166,7 +170,7 @@ yourt chromium-pepper-flash
 
 chmod -w /home/v/.config/chromium/Default/History
 
-pacman -S bluez bluez-utils
-systemstl start bluetooth
+#pacman -S bluez bluez-utils
+#systemstl start bluetooth
 #bluetoothctl
-gpasswd -a v lp #for tethering
+#gpasswd -a v lp #for tethering
