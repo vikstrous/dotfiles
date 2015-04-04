@@ -87,7 +87,7 @@ bindsym Print exec import -window root ~/screenshot.png
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose a FreeType font, such as:
 # font pango:DejaVu Sans Mono 10
-font pango:Input Mono, Icons 11
+font pango:Input Mono, Icons 9
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -302,7 +302,7 @@ bindsym $mod+p mode "science"
 #    position top
 #}
 bar {
-    font pango:Input Mono, Icons 16
+    font pango:Input Mono, Icons 11
     position top
     strip_workspace_numbers yes
     colors {

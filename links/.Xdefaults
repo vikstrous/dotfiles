@@ -55,7 +55,7 @@ URxvt.allow_bold:           true
 ! URxvt*font: xft:Anonymous Pro:pixelsize=14:antialiasing=true:hinting=true
 !URxvt*font:       xft:Anonymous Pro:pixelsize=14:antialiasing=true
 #URxvt*font:       xft:DejaVu Sans Mono:pixelsize=14:antialiasing=true
-URxvt*font: xft:Input Mono:style=Regular:pixelsize=14:antialiasing=true
+URxvt*font: xft:Input Mono:style=Regular:pixelsize=16:antialiasing=true
 ! URxvt*boldFont: xft:Anonymous Pro:pixelsize=14:antialiasing=true:hinting=true
 
 ! Fix font space
