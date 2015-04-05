@@ -25,6 +25,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight - 5
 
 new_window 1pixel
 exec --no-startup-id xset r rate 200 30
+exec --no-startup-id xmodmap -e "keycode 108 = Alt_R"
 exec --no-startup-id xsetroot -cursor_name left_ptr
 exec --no-startup-id sh ~/.fehbg
 exec --no-startup-id numlockx on
