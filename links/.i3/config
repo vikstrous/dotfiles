@@ -31,7 +31,7 @@ exec --no-startup-id numlockx on
 exec --no-startup-id dunst
 #exec --no-startup-id conky
 exec --no-startup-id redshift
-exec --no-startup-id xscreensaver -no-splash
+#exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id keychain --eval id_rsa
 exec --no-startup-id nm-applet
 
