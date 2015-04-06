@@ -50,8 +50,8 @@ bindsym $mod+Escape mode "nosleep"; exec xautolock -disable
 
 workspace_auto_back_and_forth yes
 bindsym $mod+b bar mode toggle
-bindsym $mod+Tab move container to output right
-bindsym $mod+Shift+Tab move workspace to output right
+bindsym $mod+Tab move container to output up
+bindsym $mod+Shift+Tab move workspace to output up
 
 # conky
 for_window [class="Conky"] floating enable
@@ -78,7 +78,7 @@ bindsym Print exec import -window root ~/screenshot.png
 # change keyboard layout (`)
 bindsym $mod+0x60 exec setxkbmap -variant ""
 # shift `
-bindsym $mod+Shift+0x7e exec setxkbmap -variant colemak
+bindsym $mod+Shift+0x7e exec setxkbmap -variant colemak && xmodmap -e "keycode 108 = Alt_R"
 
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -115,10 +115,10 @@ bindsym $mod+d exec --no-startup-id dmenu_run -sf "#439543" -sb "#333333" -nb "#
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+#bindsym $mod+j focus left
+#bindsym $mod+k focus down
+#bindsym $mod+l focus up
+#bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -127,10 +127,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+#bindsym $mod+Shift+j move left
+#bindsym $mod+Shift+k move down
+#bindsym $mod+Shift+l move up
+#bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
