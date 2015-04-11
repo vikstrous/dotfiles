@@ -38,3 +38,11 @@ set -x LANG 'en_CA.UTF-8'
 set -x SSH_AUTH_SOCK ''
 set -x SSH_AGENT_PID ''
 keychain --eval -Q --quiet | source
+
+
+
+set -x EMSCRIPTEN "/usr/lib/emscripten"
+set -x EMSCRIPTEN_FASTCOMP "/usr/lib/emscripten-fastcomp"
+
+# add to path
+set -x PATH $PATH $EMSCRIPTEN

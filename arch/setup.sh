@@ -174,3 +174,8 @@ chmod -w /home/v/.config/chromium/Default/History
 #systemstl start bluetooth
 #bluetoothctl
 #gpasswd -a v lp #for tethering
+
+pacman -S wqy-microhei wqy-zenhei
+cd /etc/fonts/conf.d
+rm 65-wqy-zenhei.conf
+ln -s ../conf.avail/43-wqy-zenhei-sharp.conf .
