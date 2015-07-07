@@ -91,11 +91,10 @@ passwd
 
 pacman -S grub
 modprobe dm-mod
-# keymap is outdated I think
 # encrypt needed only if encrypted I think
 # lvm2 needed only if lvm used
 # edit /etc/mkinitcpio.conf HOOKS=" ... keymap encrypt lvm2 filesystems ... "
-# TLDR: add encrypt before filesystems
+# TLDR: add `keymap encrypt` before `filesystems`
 mkinitcpio -p linux
 # edit /etc/default/grub GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:HiNSA"
 # also in that file turn off uuid config option
