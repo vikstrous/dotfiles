@@ -30,7 +30,9 @@ cryptsetup luksOpen /dev/sda3 HiNSA
 mkfs.ext4 /dev/mapper/HiNSA
 mkfs.ext4 /dev/sda2
 
-# efi (don't make a hack partition and make the first partition EF00)
+# efi easy mode (don't make a hack partition and make the first partition EF00)
+cryptsetup luksOpen /dev/sda3 HiNSA
+mkfs.ext4 /dev/mapper/HiNSA
 mkfs.fat -F32 /dev/sda1
 
 ### prepare to go in
@@ -49,7 +51,9 @@ mount /dev/mapper/HiNSA /mnt
 mkdir /mnt/boot
 mount /dev/sda2 /mnt/boot
 
+
 ### install
+
 pacstrap /mnt base
 genfstab -U -p /mnt >> /mnt/etc/fstab
 
@@ -94,7 +98,10 @@ modprobe dm-mod
 # TLDR: add encrypt before filesystems
 mkinitcpio -p linux
 # edit /etc/default/grub GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:HiNSA"
-grub-install --target=x86_64-pc --recheck /dev/sda
+# non-uefi: grub-install --recheck /dev/sda
+grub-install --efi-directory=/boot/efi --recheck /dev/sda
+#TODO: figure out the 
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
 
 ### post-install
