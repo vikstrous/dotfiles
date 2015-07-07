@@ -98,6 +98,7 @@ modprobe dm-mod
 # TLDR: add encrypt before filesystems
 mkinitcpio -p linux
 # edit /etc/default/grub GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:HiNSA"
+# also in that file turn off uuid config option
 # non-uefi: grub-install --recheck /dev/sda
 grub-install --efi-directory=/boot/efi --recheck /dev/sda
 #TODO: figure out the 
