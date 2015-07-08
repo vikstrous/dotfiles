@@ -71,18 +71,8 @@ echo 'LANG="en_CA.UTF-8"' > /etc/locale.conf
 echo 'en_CA.UTF-8 UTF-8' >> /etc/locale.gen
 
 # in case of colemak only
-
-#Section "InputClass"
-#        Identifier "system-keyboard"
-#        MatchIsKeyboard "on"
-#        Option "XkbLayout" "us"
-#        Option "XkbModel" "pc104"
-#        Option "XkbVariant" "colemak"
-#        Option "XkbOptions" "grp:caps_toggle"
-#EndSection
-# into /etc/X11/xorg.conf.d/10-keyboarg.conf
-
 # KEYMAP=/usr/share/kbd/keymaps/i386/colemak/colemak.map.gz into /etc/vconsole.conf
+
 locale-gen
 passwd
 
@@ -139,8 +129,18 @@ pacman -S xf86-video-vesa # compatible open source video driver as fallback
 pacman -S nvidia # for proprietary graphics
 pacman -S ttf-dejavu ttf-freefont terminus-font # fonts
 pacman -S xorg-server i3 dmenu rxvt-unicode xsel xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh xcompmgr xorg-xinit
-# If window manager desired
-# systemctl enable lxdm
+
+# in case of colemak only
+
+#Section "InputClass"
+#        Identifier "system-keyboard"
+#        MatchIsKeyboard "on"
+#        Option "XkbLayout" "us"
+#        Option "XkbModel" "pc104"
+#        Option "XkbVariant" "colemak"
+#        Option "XkbOptions" "grp:caps_toggle"
+#EndSection
+# into /etc/X11/xorg.conf.d/10-keyboard.conf
 
 # add `exec i3` to ~/.xinitrc
 
