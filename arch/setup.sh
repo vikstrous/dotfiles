@@ -177,7 +177,7 @@ pacman -S openssh firefox chromium xautolock dunst redshift flashplugin git fake
 sudo systemctl enable suspend@v
 
 # other extra useful things
-pacman -S cdparanoia httpie the_silver_searcher ack tree pidgin pidgin-otr thunderbird net-tools
+pacman -S cdparanoia httpie the_silver_searcher ack tree pidgin pidgin-otr thunderbird net-tools bind-tools
 ssh-keygen # for git
 systemctl enable transmission
 
