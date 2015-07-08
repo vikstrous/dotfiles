@@ -1,4 +1,4 @@
-adblock edge
+ublock
 cryptocat
 foxyproxy
 https-everywhere
