@@ -145,7 +145,7 @@ pacman -S xorg-server i3 dmenu rxvt-unicode xsel xorg-xinput xorg-xmodmap xorg-x
 # add `exec i3` to ~/.xinitrc
 
 ### AUR
-pacman -S base-devel # how did this get here? yajl
+pacman -S base-devel
 curl https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz > package-query.tar.gz
 tar xvzf package-query.tar.gz
 cd package-query
