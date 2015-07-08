@@ -165,6 +165,7 @@ yaourt urxvt-font-size-git
 yaourt ttf-input
 yaourt ttf-font-awesome
 yaourt cope-git
+yaourt dmenu-xft
 
 # i3 window manager pimping
 #yaourt i3blocks
