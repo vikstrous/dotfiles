@@ -26,11 +26,13 @@ mkfs.ext4 /dev/sda2
 mkswap /dev/mapper/HiNSA-swapvol
 
 # easy mode
+#TODO: try open instead of luksOpen
 cryptsetup luksOpen /dev/sda3 HiNSA
 mkfs.ext4 /dev/mapper/HiNSA
 mkfs.ext4 /dev/sda2
 
 # efi easy mode (don't make a hack partition and make the first partition EF00)
+#TODO: try open instead of luksOpen
 cryptsetup luksOpen /dev/sda3 HiNSA
 mkfs.ext4 /dev/mapper/HiNSA
 mkfs.fat -F32 /dev/sda1
