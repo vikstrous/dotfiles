@@ -88,7 +88,7 @@ modprobe dm-mod
 # edit /etc/mkinitcpio.conf HOOKS=" ... keymap encrypt lvm2 filesystems ... "
 # TLDR: add `keymap encrypt` before `filesystems`
 mkinitcpio -p linux
-# edit /etc/default/grub GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:HiNSA"
+# edit /etc/default/grub GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:HiNSA"  AND if on XPS before linux 4.2, add i915.enable_ips=0
 # also in that file turn off uuid config option
 # non-uefi: grub-install --recheck /dev/sda
 grub-install --efi-directory=/boot/efi --recheck /dev/sda
@@ -117,7 +117,7 @@ gpasswd -a v video
 
 
 ### nice to have
-pacman -S htop iftop alsa-utils vim ntfs-3g bc ntp
+pacman -S htop iftop alsa-utils gvim ntfs-3g bc ntp
 systemctl enable ntpd
 systemctl start ntpd
 
@@ -205,3 +205,37 @@ pacman -S wqy-microhei wqy-zenhei
 cd /etc/fonts/conf.d
 rm 65-wqy-zenhei.conf
 ln -s ../conf.avail/43-wqy-zenhei-sharp.conf .
+
+# for virtualbox put vboxdrv, vboxnetadp, vboxnetflt, and vboxpci in /etc/modules-load.d/virtualbox.conf
+
+
+########## xps13
+
+# wifi
+yaourt broadcom-wl
+# slack
+yaourt scudcloud
+# mic
+yaourt linux-xps13-alt
+
+#Section "Device"
+#  Identifier "Intel Graphics"
+#  Driver "intel"
+#  Option "DRI" "False"
+#EndSection
+# into /etc/X11/xorg.conf.d/20-intel.conf
+
+# for 1.5 scaling:
+#
+#Section "Monitor"
+#  Identifier  "<default monitor>"
+#  DisplaySize 560 314
+#EndSection
+# into /etc/X11/xorg.conf.d/90-monitor.conf
+
+# fixing some monitor issues:
+# i915.enable_ips=0 into /etc/default/grub GRUB_CMDLINE_LINUX
+
+# for sound
+pacman -S pulseaudio pulpulseaudio-alsa
+# remember to have something call pulseaudio --start on boot; for example, i3

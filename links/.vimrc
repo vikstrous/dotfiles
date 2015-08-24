@@ -2,8 +2,8 @@ set nocompatible
 syntax on
 colorscheme molokai
 set background=dark
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set expandtab
 set autoindent
 set cindent
@@ -20,6 +20,8 @@ set ignorecase
 set formatoptions=l
 set backspace=indent,eol,start
 set lbr
+set clipboard=unnamedplus
+set number
 
 if has("multi_byte")
   if &termencoding == ""
@@ -51,3 +53,5 @@ map <C-up> <C-w><up>
 map <C-down> <C-w><down>
 map <C-left> <C-w><left>
 map <C-right> <C-w><right>
+
+execute pathogen#infect()
