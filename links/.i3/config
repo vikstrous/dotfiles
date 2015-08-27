@@ -11,7 +11,6 @@
 
 set $mod Mod4
 
-
 bindsym XF86ScreenSaver exec --no-startup-id xautolock -locknow
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 2dB+ unmute && killall -USR1 i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 2dB- unmute && killall -USR1 i3status
@@ -36,7 +35,7 @@ exec --no-startup-id redshift
 exec --no-startup-id keychain --eval id_rsa
 exec --no-startup-id nm-applet
 
-exec --no-startup-id xautolock -time 5 -locker 'amixer -q set Master mute; i3lock -c 000000' -notify 10 -notifier 'notify-send locking...'
+exec --no-startup-id xautolock -time 5 -locker 'export SOUND=$(amixer sget Master | grep "\[on\]"); amixer -q set Master mute; i3lock -n -c 000000 && if [ -n "$SOUND" ]; then amixer -q set Master unmute; fi ' -notify 10 -notifier 'notify-send locking...'
 
 # turn off autolock temporarily
 mode "nosleep" {
@@ -108,7 +107,10 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+c kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run -sf "#439543" -sb "#333333" -nb "#000000" -nf "#CCCCCC" -l 30 > /dev/null
+bindsym $mod+d exec --no-startup-id rofi -show run
+bindsym $mod+backslash exec --no-startup-id rofi -show window
+bindsym $mod+slash exec --no-startup-id rofi -show ssh
+#dmenu_run -sf "#439543" -sb "#333333" -nb "#000000" -nf "#CCCCCC" -l 30 > /dev/null
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -255,6 +257,16 @@ mode "resize" {
         bindsym Up resize shrink height 5 px or 5 ppt
         bindsym Right resize grow width 5 px or 5 ppt
 
+        bindsym Ctrl+Left resize shrink width 10 px or 10 ppt
+        bindsym Ctrl+Down resize grow height 10 px or 10 ppt
+        bindsym Ctrl+Up resize shrink height 10 px or 10 ppt
+        bindsym Ctrl+Right resize grow width 10 px or 10 ppt
+
+        bindsym Shift+Left resize shrink width 1 px or 1 ppt
+        bindsym Shift+Down resize grow height 1 px or 1 ppt
+        bindsym Shift+Up resize shrink height 1 px or 1 ppt
+        bindsym Shift+Right resize grow width 1 px or 1 ppt
+
         # back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -326,10 +338,11 @@ bar {
         urgent_workspace #000000 #000000 #BA5353
     }
 #    position bottom
-#    tray_output none
+    tray_output LVDS-0
 #    binding_mode_indicator no
 #    workspace_buttons no
      status_command i3status -c ~/dotfiles/configs/i3status.conf #| ~/dotfiles/configs/i3status_wrapper.py
+#i3bar_command /home/v/dev/i3-gaps/i3bar/i3bar
      #status_command i3blocks -c ~/dotfiles/configs/i3blocks.conf
 }
 
