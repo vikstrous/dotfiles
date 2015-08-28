@@ -130,7 +130,7 @@ pacman -S xf86-input-synaptics
 pacman -S xf86-video-vesa # compatible open source video driver as fallback
 pacman -S nvidia # for proprietary graphics
 pacman -S ttf-dejavu ttf-freefont terminus-font # fonts
-pacman -S xorg-server i3 dmenu rxvt-unicode xsel xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh xcompmgr xorg-xinit
+pacman -S xorg-server i3 dmenu rxvt-unicode xsel urxvt-perls xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh xcompmgr xorg-xinit
 
 # in case of colemak only
 
