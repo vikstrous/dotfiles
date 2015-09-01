@@ -1,11 +1,12 @@
-urxvt*foreground: white
+URxvt*foreground: white
 !urxvt*background: black
 !URxvt*.transparent: true
 URxvt*.shading: 20
 URxvt.scrollstyle: plain
 !URxvt.perl-ext-common: font-size
 !URxvt.perl-ext-common: clipboard,font-size
-URxvt.perl-ext-common: font-size,selection-to-clipboard
+URxvt.perl-ext-common: default,clipboard,font-size,url-select,keyboard-select
+!,selection-to-clipboard
 !Rxvt.perl-ext-common: clipboard,font-size,selection-to-clipboard
 URxvt.depth: 32
 URxvt.background: rgba:1111/1111/1111/dddd
@@ -26,14 +27,33 @@ URxvt.font-size.step: 4
 !big buffer
 URxvt.saveLines: 20000
 
-! copy hotkeys
-!URxvt.keysym.Shift-Control-C: perl:clipboard:copy
-!URxvt.keysym.Shift-Control-Q: perl:clipboard:paste
-!URxvt.clipboard.copycmd:  xsel -ib
-!URxvt.clipboard.pastecmd: xsel -ob
+!URxvt.keysym.M-s: searchable-scrollback:start
 
-URxvt.iso14755: false
-URxvt.iso14755_52: false
+! remove the stupid ctrl+shift behaviour
+URxvt.iso14755: False
+
+URxvt.clipboard.copycmd:  xsel -ib
+URxvt.clipboard.pastecmd: xsel -ob
+
+URxvt.url-select.launcher:  firefox
+URxvt.url-select.underline: true
+! TODO why doesnt this work?
+URxvt.url-select.button: 2
+! TODO picker a better hotkey
+URxvt.keysym.M-u: perl:url-select:select_next
+
+URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+URxvt.keysym.M-s: perl:keyboard-select:search
+!URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+!URxvt.keysym.M-s:           perl:keyboard-select:search
+
+! the usual ctrl+shift+c/v
+URxvt.keysym.C-C:   perl:clipboard:copy
+URxvt.keysym.C-V:   perl:clipboard:paste
+
+! I dont know what this does
+!URxvt.iso14755_52: false
+
 
 *color0:  #2E3436
 *color1:  #a40000
@@ -59,6 +79,7 @@ URxvt.allow_bold:           true
 !URxvt*font:       xft:Anonymous Pro:pixelsize=14:antialiasing=true
 !URxvt*font:       xft:DejaVu Sans Mono:pixelsize=14:antialiasing=true
 URxvt*font: xft:Input Mono:style=Regular:pixelsize=16:antialiasing=true
+!,xft:Inconsolata\ for\ Powerline:pixelsize=12
 ! URxvt*boldFont: xft:Anonymous Pro:pixelsize=14:antialiasing=true:hinting=true
 
 ! Fix font space
@@ -81,6 +102,9 @@ rofi.lines:20
 rofi.width:40
 rofi.padding:5
 rofi.terminal:urxvt
+
+! this forces a search by prefix
+rofi.levenshtein-sort:false
 
 !old colors:
 !rofi -show run -terminal urxvt -hlfg "#439543" -hlbg "#111111" -bg "#000000" -fg "#CCCCCC" -hlbg-active "#111111" -hlfg-active "#439543" -fg-active "#426793" -fg-urgent "#BA5353" -bc '#000000' -bw 0 -font "Input mono 12" -opacity 85 -lines 20 -width 40 -padding 5 -columns 2 -autoselect
