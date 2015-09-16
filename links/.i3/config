@@ -50,8 +50,19 @@ bindsym $mod+Escape mode "nosleep"; exec xautolock -disable
 
 workspace_auto_back_and_forth yes
 bindsym $mod+b bar mode toggle
-bindsym $mod+Tab move container to output up
-bindsym $mod+Shift+Tab move workspace to output up
+bindsym $mod+Shift+b border toggle
+
+# move containers across outputs
+bindsym $mod+Ctrl+Right move container to output right
+bindsym $mod+Ctrl+Left move container to output left
+bindsym $mod+Ctrl+Up move container to output up
+bindsym $mod+Ctrl+Down move container to output down
+
+# move workspaces accress outputs
+bindsym $mod+Ctrl+Shift+Right move workspace to output right
+bindsym $mod+Ctrl+Shift+Left move workspace to output left
+bindsym $mod+Ctrl+Shift+Up move workspace to output up
+bindsym $mod+Ctrl+Shift+Down move workspace to output down
 
 # conky
 for_window [class="Conky"] floating enable
@@ -247,16 +258,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 5 px or 5 ppt
-        bindsym k resize grow height 5 px or 5 ppt
-        bindsym l resize shrink height 5 px or 5 ppt
-        bindsym semicolon resize grow width 5 px or 5 ppt
+        bindsym j resize shrink width 2 px or 2 ppt
+        bindsym k resize grow height 2 px or 2 ppt
+        bindsym l resize shrink height 2 px or 2 ppt
+        bindsym semicolon resize grow width 2 px or 2 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 5 px or 5 ppt
-        bindsym Down resize grow height 5 px or 5 ppt
-        bindsym Up resize shrink height 5 px or 5 ppt
-        bindsym Right resize grow width 5 px or 5 ppt
+        bindsym Left resize shrink width 2 px or 2 ppt
+        bindsym Down resize grow height 2 px or 2 ppt
+        bindsym Up resize shrink height 2 px or 2 ppt
+        bindsym Right resize grow width 2 px or 2 ppt
 
         bindsym Ctrl+Left resize shrink width 10 px or 10 ppt
         bindsym Ctrl+Down resize grow height 10 px or 10 ppt
