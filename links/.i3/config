@@ -23,18 +23,21 @@ bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight - 5
 #bindsym XF86AudioPlay exec xdotool type --window `xdotool search --name "Grooveshark"` ' '
 
 new_window 1pixel
+hide_edge_borders both
 exec --no-startup-id xset r rate 200 30
 exec --no-startup-id xmodmap -e "keycode 108 = Alt_R"
 exec --no-startup-id xsetroot -cursor_name left_ptr
 exec --no-startup-id sh ~/.fehbg
 exec --no-startup-id numlockx on
 exec --no-startup-id dunst
+exec --no-startup-id xcompmgr
 #exec --no-startup-id conky
 exec --no-startup-id redshift
 #exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id keychain --eval id_rsa
 exec --no-startup-id nm-applet
 exec --no-startup-id xrdb ~/.Xdefaults
+exec --no-startup-id qtox
 
 exec --no-startup-id xautolock -time 5 -locker 'export SOUND=$(amixer sget Master | grep "\[on\]"); amixer -q set Master mute; i3lock -n -c 000000 && if [ -n "$SOUND" ]; then amixer -q set Master unmute; fi ' -notify 10 -notifier 'notify-send locking...'
 
@@ -107,7 +110,7 @@ bindsym $mod+Shift+0x7e exec setxkbmap -variant colemak && xmodmap -e "keycode 1
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose a FreeType font, such as:
 # font pango:DejaVu Sans Mono 10
-font pango:Input Mono, Icons 9
+font pango:FontAwesome 9, Input Mono
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -335,19 +338,19 @@ bindsym $mod+p mode "science"
 #    position top
 #}
 bar {
-    font pango:Input Mono, Icons 11
+    font pango:FontAwesome, Input Mono
     position top
     strip_workspace_numbers yes
     separator_symbol "|"
     colors {
-        background #000000
+        background #111111
         statusline #AAAAAA
         separator #555555
 
-        focused_workspace #000000 #000000 #33726E
-        active_workspace #000000 #000000 #AAAAAA
-        inactive_workspace #000000 #000000 #AAAAAA
-        urgent_workspace #000000 #000000 #BA5353
+        focused_workspace  #111111 #111111 #33726E
+        active_workspace   #111111 #111111 #AAAAAA
+        inactive_workspace #111111 #111111 #AAAAAA
+        urgent_workspace   #111111 #111111 #BA5353
     }
 #    position bottom
     tray_output LVDS-0
