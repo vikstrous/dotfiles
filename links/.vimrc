@@ -108,3 +108,5 @@ au FileType go nmap <Leader>e <Plug>(go-rename)
 
 nmap <F8> :TagbarToggle<CR>
 set showcmd
+
+let mapleader = " "
