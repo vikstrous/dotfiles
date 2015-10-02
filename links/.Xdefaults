@@ -5,8 +5,7 @@ URxvt*.shading: 20
 URxvt.scrollstyle: plain
 !URxvt.perl-ext-common: font-size
 !URxvt.perl-ext-common: clipboard,font-size
-URxvt.perl-ext-common: default,clipboard,font-size,url-select,keyboard-select
-!,selection-to-clipboard
+URxvt.perl-ext-common: default,clipboard,font-size,url-select,keyboard-select,selection-to-clipboard,matcher
 !Rxvt.perl-ext-common: clipboard,font-size,selection-to-clipboard
 URxvt.depth: 32
 URxvt.background: rgba:1111/1111/1111/dddd
@@ -54,6 +53,8 @@ URxvt.keysym.C-V:   perl:clipboard:paste
 ! I dont know what this does
 !URxvt.iso14755_52: false
 
+URxvt.url-launcher: /usr/bin/firefox
+URxvt.matcher.button: 2
 
 *color0:  #2E3436
 *color1:  #a40000
@@ -78,9 +79,10 @@ URxvt.allow_bold:           true
 ! URxvt*font: xft:Anonymous Pro:pixelsize=14:antialiasing=true:hinting=true
 !URxvt*font:       xft:Anonymous Pro:pixelsize=14:antialiasing=true
 !URxvt*font:       xft:DejaVu Sans Mono:pixelsize=14:antialiasing=true
-URxvt*font: xft:Input Mono:style=Regular:pixelsize=16:antialiasing=true
+URxvt*font: xft:Input Mono:style=Regular:pixelsize=16,xft
+!URxvt*font: xft:Anonymous:style=Regular:pixelsize=18:antialiasing=true
 !,xft:Inconsolata\ for\ Powerline:pixelsize=12
-! URxvt*boldFont: xft:Anonymous Pro:pixelsize=14:antialiasing=true:hinting=true
+!URxvt*font: xft:Anonymous Pro:pixelsize=18:antialiasing=true:hinting=true
 
 ! Fix font space
 !URxvt*letterSpace: 0
