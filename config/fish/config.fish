@@ -13,7 +13,7 @@ set __fish_git_prompt_char_upstream_behind '↓'
 
 set fish_greeting (host -t txt istheinternetonfire.com | cut -f 2 -d '"')
 
-set PATH (cope_path) /home/v/work/moz-git-tools /opt/android-sdk/platform-tools /home/v/work/b2g-hamachi/B2G/tools/update-tools/bin/linux-x86 /opt/sunbird /opt/play /home/v/idea-IU-141.1532.4/bin /usr/local/heroku/bin $PATH /home/v/.gem/ruby/2.1.0/bin/ /opt/jdk1.6.0_45/bin /home/v/work/b2g-hamachi/B2G/prebuilt/linux-x86/toolchain/arm-eabi-4.3.1/bin/ /home/v/Downloads/android-sdk-linux/platform-tools /home/v/.gem/ruby/2.1.0/bin /usr/local/bin/
+set PATH (cope_path) /home/v/work/moz-git-tools /opt/android-sdk/platform-tools /home/v/work/b2g-hamachi/B2G/tools/update-tools/bin/linux-x86 /opt/sunbird /opt/play /home/v/idea-IU-141.1532.4/bin /usr/local/heroku/bin $PATH /opt/jdk1.6.0_45/bin /home/v/work/b2g-hamachi/B2G/prebuilt/linux-x86/toolchain/arm-eabi-4.3.1/bin/ /home/v/Downloads/android-sdk-linux/platform-tools /home/v/.gem/ruby/2.1.0/bin /usr/local/bin/
 
 set PATH $PATH (ruby -rubygems -e "puts Gem.user_dir")/bin
 
@@ -27,6 +27,7 @@ set PATH /usr/lib/jvm/default/bin $PATH ~/go/bin
 #source /home/v/.rvm/scripts/rvm
 
 set -x GOPATH ~/go
+set -x GOBIN ~/go/bin
 
 alias less 'less -R'
 #alias chromium 'chromium --proxy-server=localhost:8118'
@@ -66,4 +67,13 @@ alias .............. 'cd ../../../../../../../../../../../../..'
 
 set -x PATH $PATH /usr/bin/core_perl/
 
+set -x MOZ_USE_OMTC 1
+
 alias chromium 'chromium --force-device-scale-factor=1'
+
+# start X at login
+if status --is-login
+    if test -z "$DISPLAY" -a $XDG_VTNR -eq 1
+        exec startx -- -keeptty
+    end
+end
