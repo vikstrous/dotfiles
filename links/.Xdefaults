@@ -5,7 +5,8 @@ URxvt*.shading: 20
 URxvt.scrollstyle: plain
 !URxvt.perl-ext-common: font-size
 !URxvt.perl-ext-common: clipboard,font-size
-URxvt.perl-ext-common: default,clipboard,font-size,url-select,keyboard-select,selection-to-clipboard,matcher
+URxvt.perl-ext-common: default,clipboard,font-size,url-select,keyboard-select,matcher
+!,selection-to-clipboard
 !Rxvt.perl-ext-common: clipboard,font-size,selection-to-clipboard
 URxvt.depth: 32
 URxvt.background: rgba:1111/1111/1111/dddd
