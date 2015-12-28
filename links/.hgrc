@@ -2,7 +2,7 @@
 username = Viktor Stanchev <me@viktorstanchev.com>
 editor = vim
 [extensions]
-trychooser = /home/v/ff/trychooser
+#trychooser = /home/v/ff/trychooser
 churn =
 color =
 graphlog =
