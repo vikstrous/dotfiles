@@ -84,7 +84,7 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:go_auto_type_info = 1
+"let g:go_auto_type_info = 1
 
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
@@ -110,3 +110,8 @@ nmap <F8> :TagbarToggle<CR>
 set showcmd
 
 let mapleader = " "
+
+let g:go_fmt_command = "goimports"
+
+"This is garbage. I don't know what netrw does.
+:let g:netrw_dirhistmax = 0
