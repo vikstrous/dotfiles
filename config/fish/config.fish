@@ -32,8 +32,8 @@ set -x GOBIN ~/go/bin
 alias less 'less -R'
 #alias chromium 'chromium --proxy-server=localhost:8118'
 
-set -x LC_ALL 'en_CA.UTF-8'
-set -x LANG 'en_CA.UTF-8'
+set -x LC_ALL 'en_US.UTF-8'
+set -x LANG 'en_US.UTF-8'
 
 # dirty hack because if these variables are not set before we source the keychain config, it fails
 set -x SSH_AUTH_SOCK ''
@@ -77,3 +77,36 @@ if status --is-login
         exec startx -- -keeptty
     end
 end
+
+#set -x GDK_SCALE 2
+
+alias compose docker-compose
+
+set GOPATH /home/v/dev/dtr/go/
+set PATH $PATH /home/v/dev/dtr/go/bin/
+
+set SURFRAW_browser luakit
+
+function duck
+    sr duckduckgo $argv
+end
+
+alias rmall 'docker images | tail -n +2 | awk \'{ print $1 ":" $2}\' | xargs docker rmi'
+
+set -x GO15VENDOREXPERIMENT 1
+
+alias rc4 'set -x PATH /tmp/fuck-1.9.0-rc4 $PATH'
+alias dtr-restart "docker run --rm dockerhubenterprise/trusted-registry-dev restart | sed 's/run/run --rm/' | sh"
+
+alias rund 'docker run -v /home/v/.vimrc:/root/.vimrc -v /home/v/.vim:/root/.vim --privileged --rm --name devvim -it -v (pwd):/go/src/github.com/docker/docker devimg ./bundles/1.9.1/binary/docker daemon -D -s overlay'
+#alias rund 'docker run --privileged --rm --name dev -it -v (pwd):/go/src/github.com/docker/docker docker-dev:HEAD ./bundles/1.9.1/binary/docker daemon -D -s overlay'
+alias d 'docker exec -it devvim ./bundles/1.9.1/binary/docker'
+#alias d 'docker exec -it dev ./bundles/1.9.1/binary/docker'
+alias dfish 'docker exec -it devvim fish'
+#alias dbash 'docker exec -it dev bash'
+
+
+set -x XKB_DEFAULT_LAYOUT us
+set -x XKB_DEFAULT_VARIANT colemak
+set -x WLC_REPEAT_DELAY 200
+set -x WLC_REPEAT_RATE 40
