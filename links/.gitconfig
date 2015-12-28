@@ -6,6 +6,7 @@
 [core]
 	editor = vim
 	autocrlf = input
+	excludesfile = /home/v/dotfiles/configs/gitignore_global
 [color]
     ui = true
 [alias]
