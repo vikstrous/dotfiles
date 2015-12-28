@@ -81,13 +81,16 @@ passwd
 
 ### make it boot
 
-pacman -S grub
 modprobe dm-mod
 # encrypt needed only if encrypted I think
 # lvm2 needed only if lvm used
 # edit /etc/mkinitcpio.conf HOOKS=" ... keymap encrypt lvm2 filesystems ... "
 # TLDR: add `keymap encrypt` before `filesystems`
 mkinitcpio -p linux
+
+#### the grub way
+
+pacman -S grub
 # edit /etc/default/grub GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:HiNSA"  AND if on XPS before linux 4.2, add i915.enable_ips=0
 # also in that file turn off uuid config option
 # non-uefi: grub-install --recheck /dev/sda
@@ -95,6 +98,18 @@ grub-install --efi-directory=/boot/efi --recheck /dev/sda
 #TODO: figure out the 
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
+
+#### the systemd way
+
+sudo bootctl install
+# Write to /boot/loader/loader.conf:
+# default arch
+# Write to /boot/loader/entries/arch.conf:
+# title       Arch Linux
+# linux       /vmlinuz-linux
+# initrd      /initramfs-linux.img
+# options root=/dev/mapper/HiNSA rw cryptdevice=/dev/sda2:HiNSA quiet
+sudo bootctl update
 
 ### post-install
 
@@ -214,9 +229,10 @@ ln -s ../conf.avail/43-wqy-zenhei-sharp.conf .
 # wifi
 yaourt broadcom-wl
 # slack
-yaourt scudcloud
-# mic
-yaourt linux-xps13-alt
+#yaourt scudcloud
+yaourt slack-chat
+# mic?
+#yaourt linux-xps13-alt
 
 #Section "Device"
 #  Identifier "Intel Graphics"
@@ -239,3 +255,10 @@ yaourt linux-xps13-alt
 # for sound
 pacman -S pulseaudio pulpulseaudio-alsa
 # remember to have something call pulseaudio --start on boot; for example, i3
+
+
+########### wayland
+
+# use nouveau???
+yaourt -S sway-git
+pacman -S xwayland
