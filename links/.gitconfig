@@ -2,7 +2,9 @@
 	email = me@viktorstanchev.com
 	name = Viktor Stanchev
 [push]
-	default = current
+    default = current
+[pull]
+    ff = only
 [core]
 	editor = vim
 	autocrlf = input
