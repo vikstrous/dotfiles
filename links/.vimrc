@@ -1,7 +1,10 @@
+execute pathogen#infect()
+
 set nocompatible
 syntax on
-colorscheme molokai
 set background=dark
+let base16colorspace=256
+colorscheme base16-default
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -77,7 +80,31 @@ map <C-down> <C-w><down>
 map <C-left> <C-w><left>
 map <C-right> <C-w><right>
 
-execute pathogen#infect()
+let mapleader = " "
+
+" things
+set list
+nmap <leader>l :set list!<CR>
+set listchars=tab:¦\ 
+set foldmethod=syntax
+set foldnestmax=1
+set foldlevelstart=1
+nnoremap = za
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
+
+"set hidden
+
+nmap <F8> :TagbarToggle<CR>
+set showcmd
+
+map <F2> :NERDTreeToggle<CR>
+let NERDTreeIgnore = ['\.pyc$', '\.lo$', '\.o$', '\.la$']
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+"autocmd vimenter * NERDTree
+
+" go stuff
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -105,11 +132,6 @@ au FileType go nmap <Leader>s <Plug>(go-implements)
 au FileType go nmap <Leader>i <Plug>(go-info)
 
 au FileType go nmap <Leader>e <Plug>(go-rename)
-
-nmap <F8> :TagbarToggle<CR>
-set showcmd
-
-let mapleader = " "
 
 let g:go_fmt_command = "goimports"
 

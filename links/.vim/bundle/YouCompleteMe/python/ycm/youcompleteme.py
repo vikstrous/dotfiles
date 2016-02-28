@@ -25,7 +25,7 @@ import re
 import signal
 import base64
 from subprocess import PIPE
-from ycm import vimsupport
+from ycm import paths, vimsupport
 from ycmd import utils
 from ycmd.request_wrap import RequestWrap
 from ycm.diagnostic_interface import DiagnosticInterface
@@ -69,17 +69,13 @@ PatchNoProxy()
 signal.signal( signal.SIGINT, signal.SIG_IGN )
 
 HMAC_SECRET_LENGTH = 16
-NUM_YCMD_STDERR_LINES_ON_CRASH = 30
-SERVER_CRASH_MESSAGE_STDERR_FILE_DELETED = (
-  'The ycmd server SHUT DOWN (restart with :YcmRestartServer). '
-  'Logfile was deleted; set g:ycm_server_keep_logfiles to see errors '
-  'in the future.' )
 SERVER_CRASH_MESSAGE_STDERR_FILE = (
-  'The ycmd server SHUT DOWN (restart with :YcmRestartServer). ' +
-  'Stderr (last {0} lines):\n\n'.format( NUM_YCMD_STDERR_LINES_ON_CRASH ) )
-SERVER_CRASH_MESSAGE_SAME_STDERR = (
-  'The ycmd server SHUT DOWN (restart with :YcmRestartServer). '
-  ' check console output for logs!' )
+  "The ycmd server SHUT DOWN (restart with ':YcmRestartServer'). "
+  "Run ':YcmToggleLogs stderr' to check the logs." )
+SERVER_CRASH_MESSAGE_STDERR_FILE_DELETED = (
+  "The ycmd server SHUT DOWN (restart with ':YcmRestartServer'). "
+  "Logfile was deleted; set 'g:ycm_server_keep_logfiles' to see errors "
+  "in the future." )
 SERVER_IDLE_SUICIDE_SECONDS = 10800  # 3 hours
 
 
@@ -113,27 +109,26 @@ class YouCompleteMe( object ):
       json.dump( options_dict, options_file )
       options_file.flush()
 
-      args = [ utils.PathToPythonInterpreter(),
-               _PathToServerScript(),
+      args = [ paths.PathToPythonInterpreter(),
+               paths.PathToServerScript(),
                '--port={0}'.format( server_port ),
                '--options_file={0}'.format( options_file.name ),
                '--log={0}'.format( self._user_options[ 'server_log_level' ] ),
                '--idle_suicide_seconds={0}'.format(
                   SERVER_IDLE_SUICIDE_SECONDS )]
 
-      if not self._user_options[ 'server_use_vim_stdout' ]:
-        filename_format = os.path.join( utils.PathToTempDir(),
-                                        'server_{port}_{std}.log' )
+      filename_format = os.path.join( utils.PathToTempDir(),
+                                      'server_{port}_{std}.log' )
 
-        self._server_stdout = filename_format.format( port = server_port,
-                                                      std = 'stdout' )
-        self._server_stderr = filename_format.format( port = server_port,
-                                                      std = 'stderr' )
-        args.append('--stdout={0}'.format( self._server_stdout ))
-        args.append('--stderr={0}'.format( self._server_stderr ))
+      self._server_stdout = filename_format.format( port = server_port,
+                                                    std = 'stdout' )
+      self._server_stderr = filename_format.format( port = server_port,
+                                                    std = 'stderr' )
+      args.append( '--stdout={0}'.format( self._server_stdout ) )
+      args.append( '--stderr={0}'.format( self._server_stderr ) )
 
-        if self._user_options[ 'server_keep_logfiles' ]:
-          args.append('--keep_logfiles')
+      if self._user_options[ 'server_keep_logfiles' ]:
+        args.append( '--keep_logfiles' )
 
       self._server_popen = utils.SafePopen( args, stdin_windows = PIPE,
                                             stdout = PIPE, stderr = PIPE)
@@ -152,17 +147,11 @@ class YouCompleteMe( object ):
     if self._user_notified_about_crash or self.IsServerAlive():
       return
     self._user_notified_about_crash = True
-    if self._server_stderr:
-      try:
-        with open( self._server_stderr, 'r' ) as server_stderr_file:
-          error_output = ''.join( server_stderr_file.readlines()[
-              : - NUM_YCMD_STDERR_LINES_ON_CRASH ] )
-          vimsupport.PostMultiLineNotice( SERVER_CRASH_MESSAGE_STDERR_FILE +
-                                          error_output )
-      except IOError:
-        vimsupport.PostVimMessage( SERVER_CRASH_MESSAGE_STDERR_FILE_DELETED )
-    else:
-        vimsupport.PostVimMessage( SERVER_CRASH_MESSAGE_SAME_STDERR )
+    try:
+      vimsupport.CheckFilename( self._server_stderr )
+      vimsupport.PostVimMessage( SERVER_CRASH_MESSAGE_STDERR_FILE )
+    except RuntimeError:
+      vimsupport.PostVimMessage( SERVER_CRASH_MESSAGE_STDERR_FILE_DELETED )
 
 
   def ServerPid( self ):
@@ -177,6 +166,7 @@ class YouCompleteMe( object ):
 
 
   def RestartServer( self ):
+    self._CloseLogs()
     vimsupport.PostVimMessage( 'Restarting ycmd server...' )
     self._user_notified_about_crash = False
     self._ServerCleanup()
@@ -232,8 +222,13 @@ class YouCompleteMe( object ):
     except KeyError:
       pass
 
-    exists_completer = ( self.IsServerAlive() and
-                         bool( SendCompleterAvailableRequest( filetype ) ) )
+    if not self.IsServerAlive():
+      return False
+
+    exists_completer = SendCompleterAvailableRequest( filetype )
+    if exists_completer is None:
+      return False
+
     self._available_completers[ filetype ] = exists_completer
     return exists_completer
 
@@ -390,6 +385,9 @@ class YouCompleteMe( object ):
   def _HasCompletionsThatCouldBeCompletedWithMoreText_NewerVim( self,
                                                                 completions ):
     completed_item = vimsupport.GetVariableValue( 'v:completed_item' )
+    if not completed_item:
+      return False
+
     completed_word = completed_item[ 'word' ]
     if not completed_word:
       return False
@@ -451,6 +449,11 @@ class YouCompleteMe( object ):
       return None
     return completion[ "extra_data" ][ "required_namespace_import" ]
 
+  def GetErrorCount( self ):
+    return self._diag_interface.GetErrorCount()
+
+  def GetWarningCount( self ):
+    return self._diag_interface.GetWarningCount()
 
   def DiagnosticsForCurrentFileReady( self ):
     return bool( self._latest_file_parse_request and
@@ -477,6 +480,32 @@ class YouCompleteMe( object ):
          self.NativeFiletypeCompletionUsable() ):
       self._diag_interface.UpdateWithNewDiagnostics(
         self.GetDiagnosticsFromStoredRequest() )
+
+
+  def ValidateParseRequest( self ):
+    if ( self.DiagnosticsForCurrentFileReady() and
+         self.NativeFiletypeCompletionUsable() ):
+
+      # YCM client has a hard-coded list of filetypes which are known to support
+      # diagnostics. These are found in autoload/youcompleteme.vim in
+      # s:diagnostic_ui_filetypes.
+      #
+      # For filetypes which don't support diagnostics, we just want to check the
+      # _latest_file_parse_request for any exception or UnknownExtraConf
+      # response, to allow the server to raise configuration warnings, etc.
+      # to the user. We ignore any other supplied data.
+      self._latest_file_parse_request.Response()
+
+      # We set the diagnostics request to None because we want to prevent
+      # repeated issuing of the same warnings/errors/prompts. Setting this to
+      # None makes DiagnosticsForCurrentFileReady return False until the next
+      # request is created.
+      #
+      # Note: it is the server's responsibility to determine the frequency of
+      # error/warning/prompts when receiving a FileReadyToParse event, but
+      # it our responsibility to ensure that we only apply the
+      # warning/error/prompt received once (for each event).
+      self._latest_file_parse_request = None
 
 
   def ShowDetailedDiagnostic( self ):
@@ -506,6 +535,47 @@ class YouCompleteMe( object ):
         self._server_stderr )
 
     return debug_info
+
+
+  def _OpenLogs( self, stdout = True, stderr = True ):
+    # Open log files in a horizontal window with the same behavior as the
+    # preview window (same height and winfixheight enabled). Automatically
+    # watch for changes. Set the cursor position at the end of the file.
+    options = {
+      'size': vimsupport.GetIntValue( '&previewheight' ),
+      'fix': True,
+      'watch': True,
+      'position': 'end'
+    }
+
+    if stdout:
+      vimsupport.OpenFilename( self._server_stdout, options )
+    if stderr:
+      vimsupport.OpenFilename( self._server_stderr, options )
+
+
+  def _CloseLogs( self, stdout = True, stderr = True ):
+    if stdout:
+      vimsupport.CloseBuffersForFilename( self._server_stdout )
+    if stderr:
+      vimsupport.CloseBuffersForFilename( self._server_stderr )
+
+
+  def ToggleLogs( self, stdout = True, stderr = True ):
+    if ( stdout and
+         vimsupport.BufferIsVisibleForFilename( self._server_stdout ) or
+         stderr and
+         vimsupport.BufferIsVisibleForFilename( self._server_stderr ) ):
+      return self._CloseLogs( stdout = stdout, stderr = stderr )
+
+    # Close hidden logfile buffers if any to keep a clean state
+    self._CloseLogs( stdout = stdout, stderr = stderr )
+
+    try:
+      self._OpenLogs( stdout = stdout, stderr = stderr )
+    except RuntimeError as error:
+      vimsupport.PostVimMessage( 'YouCompleteMe encountered an error when '
+                                 'opening logs: {0}.'.format( error ) )
 
 
   def CurrentFiletypeCompletionEnabled( self ):
@@ -556,17 +626,19 @@ class YouCompleteMe( object ):
         extra_conf_vim_data )
 
 
-def _PathToServerScript():
-  dir_of_current_script = os.path.dirname( os.path.abspath( __file__ ) )
-  return os.path.join( dir_of_current_script, '../../third_party/ycmd/ycmd' )
-
-
 def _AddUltiSnipsDataIfNeeded( extra_data ):
   if not USE_ULTISNIPS_DATA:
     return
 
   try:
-    rawsnips = UltiSnips_Manager._snips( '', 1 )
+    # Since UltiSnips may run in a different python interpreter (python 3) than
+    # YCM, UltiSnips_Manager singleton is not necessary the same as the one
+    # used by YCM. In particular, it means that we cannot rely on UltiSnips to
+    # set the current filetypes to the singleton. We need to do it ourself.
+    UltiSnips_Manager.reset_buffer_filetypes()
+    UltiSnips_Manager.add_buffer_filetypes(
+      vimsupport.GetVariableValue( '&filetype' ) )
+    rawsnips = UltiSnips_Manager._snips( '', True )
   except:
     return
 

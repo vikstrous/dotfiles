@@ -21,9 +21,9 @@ from ycmd.utils import ToUtf8IfNeeded
 from ycm.client.base_request import ( BaseRequest, JsonFromFuture,
                                       HandleServerException,
                                       MakeServerException )
-import os
 
 TIMEOUT_SECONDS = 0.5
+
 
 class CompletionRequest( BaseRequest ):
   def __init__( self, request_data ):
@@ -64,8 +64,9 @@ class CompletionRequest( BaseRequest ):
 def ConvertCompletionDataToVimData( completion_data ):
   # see :h complete-items for a description of the dictionary fields
   vim_data = {
-    'word' : ToUtf8IfNeeded( completion_data[ 'insertion_text' ] ),
-    'dup'  : 1,
+    'word'  : '',
+    'dup'   : 1,
+    'empty' : 1,
   }
 
   if ( 'extra_data' in completion_data and
@@ -75,6 +76,8 @@ def ConvertCompletionDataToVimData( completion_data ):
   else:
     doc_string = ""
 
+  if 'insertion_text' in completion_data:
+    vim_data[ 'word' ] = ToUtf8IfNeeded( completion_data[ 'insertion_text' ] )
   if 'menu_text' in completion_data:
     vim_data[ 'abbr' ] = ToUtf8IfNeeded( completion_data[ 'menu_text' ] )
   if 'extra_menu_info' in completion_data:
@@ -85,7 +88,7 @@ def ConvertCompletionDataToVimData( completion_data ):
   if 'detailed_info' in completion_data:
     vim_data[ 'info' ] = ToUtf8IfNeeded( completion_data[ 'detailed_info' ] )
     if doc_string:
-      vim_data[ 'info' ] += os.linesep + doc_string
+      vim_data[ 'info' ] += '\n' + doc_string
   elif doc_string:
     vim_data[ 'info' ] = doc_string
 

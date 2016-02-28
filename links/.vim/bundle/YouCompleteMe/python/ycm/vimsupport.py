@@ -240,10 +240,12 @@ def SetLocationList( diagnostics ):
 
 def ConvertDiagnosticsToQfList( diagnostics ):
   def ConvertDiagnosticToQfFormat( diagnostic ):
-    # see :h getqflist for a description of the dictionary fields
+    # See :h getqflist for a description of the dictionary fields.
     # Note that, as usual, Vim is completely inconsistent about whether
     # line/column numbers are 1 or 0 based in its various APIs. Here, it wants
-    # them to be 1-based.
+    # them to be 1-based. The documentation states quite clearly that it
+    # expects a byte offset, by which it means "1-based column number" as
+    # described in :h getqflist ("the first column is 1").
     location = diagnostic[ 'location' ]
     line_num = location[ 'line_num' ]
 
@@ -326,10 +328,17 @@ def TryJumpLocationInOpenedTab( filename, line, column ):
 
         # Center the screen on the jumped-to location
         vim.command( 'normal! zz' )
-        return
-  else:
-    # 'filename' is not opened in any tab pages
-    raise ValueError
+        return True
+  # 'filename' is not opened in any tab pages
+  return False
+
+
+# Maps User command to vim command
+def GetVimCommand( user_command, default = 'edit' ):
+  vim_command = BUFFER_COMMAND_MAP.get( user_command, default )
+  if vim_command == 'edit' and not BufferIsUsable( vim.current.buffer ):
+    vim_command = 'split'
+  return vim_command
 
 
 # Both |line| and |column| need to be 1-based
@@ -347,17 +356,26 @@ def JumpToLocation( filename, line, column ):
     user_command = user_options_store.Value( 'goto_buffer_command' )
 
     if user_command == 'new-or-existing-tab':
-      try:
-        TryJumpLocationInOpenedTab( filename, line, column )
+      if TryJumpLocationInOpenedTab( filename, line, column ):
         return
-      except ValueError:
-        user_command = 'new-tab'
+      user_command = 'new-tab'
 
-    command = BUFFER_COMMAND_MAP.get( user_command, 'edit' )
-    if command == 'edit' and not BufferIsUsable( vim.current.buffer ):
-      command = 'split'
-    vim.command( 'keepjumps {0} {1}'.format( command,
-                                             EscapedFilepath( filename ) ) )
+    vim_command = GetVimCommand( user_command )
+    try:
+      vim.command( 'keepjumps {0} {1}'.format( vim_command,
+                                               EscapedFilepath( filename ) ) )
+    # When the file we are trying to jump to has a swap file
+    # Vim opens swap-exists-choices dialog and throws vim.error with E325 error,
+    # or KeyboardInterrupt after user selects one of the options.
+    except vim.error as e:
+      if 'E325' not in str( e ):
+        raise
+      # Do nothing if the target file is still not opened (user chose (Q)uit)
+      if filename != GetCurrentBufferFilepath():
+        return
+    # Thrown when user chooses (A)bort in .swp message box
+    except KeyboardInterrupt:
+      return
   vim.current.window.cursor = ( line, column - 1 )
 
   # Center the screen on the jumped-to location
@@ -575,3 +593,155 @@ def SearchInCurrentBuffer( pattern ):
 
 def LineTextInCurrentBuffer( line ):
   return vim.current.buffer[ line ]
+
+
+def ClosePreviewWindow():
+  """ Close the preview window if it is present, otherwise do nothing """
+  vim.command( 'silent! pclose!' )
+
+
+def JumpToPreviewWindow():
+  """ Jump the vim cursor to the preview window, which must be active. Returns
+  boolean indicating if the cursor ended up in the preview window """
+  vim.command( 'silent! wincmd P' )
+  return vim.current.window.options[ 'previewwindow' ]
+
+
+def JumpToPreviousWindow():
+  """ Jump the vim cursor to its previous window position """
+  vim.command( 'silent! wincmd p' )
+
+
+def JumpToTab( tab_number ):
+  """Jump to Vim tab with corresponding number """
+  vim.command( 'silent! tabn {0}'.format( tab_number ) )
+
+
+def OpenFileInPreviewWindow( filename ):
+  """ Open the supplied filename in the preview window """
+  vim.command( 'silent! pedit! ' + filename )
+
+
+def WriteToPreviewWindow( message ):
+  """ Display the supplied message in the preview window """
+
+  # This isn't something that comes naturally to Vim. Vim only wants to show
+  # tags and/or actual files in the preview window, so we have to hack it a
+  # little bit. We generate a temporary file name and "open" that, then write
+  # the data to it. We make sure the buffer can't be edited or saved. Other
+  # approaches include simply opening a split, but we want to take advantage of
+  # the existing Vim options for preview window height, etc.
+
+  ClosePreviewWindow()
+
+  OpenFileInPreviewWindow( vim.eval( 'tempname()' ) )
+
+  if JumpToPreviewWindow():
+    # We actually got to the preview window. By default the preview window can't
+    # be changed, so we make it writable, write to it, then make it read only
+    # again.
+    vim.current.buffer.options[ 'modifiable' ] = True
+    vim.current.buffer.options[ 'readonly' ]   = False
+
+    vim.current.buffer[:] = message.splitlines()
+
+    vim.current.buffer.options[ 'buftype' ]    = 'nofile'
+    vim.current.buffer.options[ 'swapfile' ]   = False
+    vim.current.buffer.options[ 'modifiable' ] = False
+    vim.current.buffer.options[ 'readonly' ]   = True
+
+    # We need to prevent closing the window causing a warning about unsaved
+    # file, so we pretend to Vim that the buffer has not been changed.
+    vim.current.buffer.options[ 'modified' ]   = False
+
+    JumpToPreviousWindow()
+  else:
+    # We couldn't get to the preview window, but we still want to give the user
+    # the information we have. The only remaining option is to echo to the
+    # status area.
+    EchoText( message )
+
+
+def CheckFilename( filename ):
+  """Check if filename is openable."""
+  try:
+    open( filename ).close()
+  except TypeError:
+    raise RuntimeError( "'{0}' is not a valid filename".format( filename ) )
+  except IOError as error:
+    raise RuntimeError(
+      "filename '{0}' cannot be opened. {1}".format( filename, error ) )
+
+
+def BufferIsVisibleForFilename( filename ):
+  """Check if a buffer exists for a specific file."""
+  buffer_number = GetBufferNumberForFilename( filename, False )
+  return BufferIsVisible( buffer_number )
+
+
+def CloseBuffersForFilename( filename ):
+  """Close all buffers for a specific file."""
+  buffer_number = GetBufferNumberForFilename( filename, False )
+  while buffer_number is not -1:
+    vim.command( 'silent! bwipeout! {0}'.format( buffer_number ) )
+    new_buffer_number = GetBufferNumberForFilename( filename, False )
+    if buffer_number == new_buffer_number:
+      raise RuntimeError( "Buffer {0} for filename '{1}' should already be "
+                          "wiped out.".format( buffer_number, filename ) )
+    buffer_number = new_buffer_number
+
+
+def OpenFilename( filename, options = {} ):
+  """Open a file in Vim. Following options are available:
+  - command: specify which Vim command is used to open the file. Choices
+  are same-buffer, horizontal-split, vertical-split, and new-tab (default:
+  horizontal-split);
+  - size: set the height of the window for a horizontal split or the width for
+  a vertical one (default: '');
+  - fix: set the winfixheight option for a horizontal split or winfixwidth for
+  a vertical one (default: False). See :h winfix for details;
+  - focus: focus the opened file (default: False);
+  - watch: automatically watch for changes (default: False). This is useful
+  for logs;
+  - position: set the position where the file is opened (default: start).
+  Choices are start and end."""
+
+  # Set the options.
+  command = GetVimCommand( options.get( 'command', 'horizontal-split' ),
+                           'horizontal-split' )
+  size = ( options.get( 'size', '' ) if command in [ 'split', 'vsplit' ] else
+           '' )
+  focus = options.get( 'focus', False )
+  watch = options.get( 'watch', False )
+  position = options.get( 'position', 'start' )
+
+  # There is no command in Vim to return to the previous tab so we need to
+  # remember the current tab if needed.
+  if not focus and command is 'tabedit':
+    previous_tab = GetIntValue( 'tabpagenr()' )
+
+  # Open the file
+  CheckFilename( filename )
+  vim.command( 'silent! {0}{1} {2}'.format( size, command, filename ) )
+
+  if command is 'split':
+    vim.current.window.options[ 'winfixheight' ] = options.get( 'fix', False )
+  if command is 'vsplit':
+    vim.current.window.options[ 'winfixwidth' ] = options.get( 'fix', False )
+
+  if watch:
+    vim.current.buffer.options[ 'autoread' ] = True
+    vim.command( "exec 'au BufEnter <buffer> :silent! checktime {0}'"
+                 .format( filename ) )
+
+  if position is 'end':
+    vim.command( 'silent! normal G zz' )
+
+  # Vim automatically set the focus to the opened file so we need to get the
+  # focus back (if the focus option is disabled) when opening a new tab or
+  # window.
+  if not focus:
+    if command is 'tabedit':
+      JumpToTab( previous_tab )
+    if command in [ 'split', 'vsplit' ]:
+      JumpToPreviousWindow()

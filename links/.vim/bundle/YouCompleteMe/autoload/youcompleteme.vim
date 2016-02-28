@@ -22,6 +22,7 @@ set cpo&vim
 " This needs to be called outside of a function
 let s:script_folder_path = escape( expand( '<sfile>:p:h' ), '\' )
 let s:omnifunc_mode = 0
+let s:defer_omnifunc = 1
 
 let s:old_cursor_position = []
 let s:cursor_moved = 0
@@ -51,6 +52,7 @@ function! youcompleteme#Enable()
     return
   endif
 
+  call s:SetUpCommands()
   call s:SetUpCpoptions()
   call s:SetUpCompleteopt()
   call s:SetUpKeyMappings()
@@ -87,6 +89,21 @@ function! youcompleteme#Enable()
     autocmd CompleteDone * call s:OnCompleteDone()
   augroup END
 
+  " Setting the omnifunc require us to ask the server if it has a Native
+  " Semantic Completer for the current buffer's filetype. When vim first start
+  " this mean that we have to wait for the server to be up and running which
+  " would block vim's GUI. To avoid this we defer setting the omnifunc the
+  " first time to when we enter Insert mode and then update it on every
+  " BufferVisit as normal.
+  if s:defer_omnifunc
+    augroup ycm_defer_omnifunc
+      autocmd!
+      autocmd InsertEnter * call s:SetOmnicompleteFunc()
+                        \ | let s:defer_omnifunc = 0
+                        \ | autocmd! ycm_defer_omnifunc
+    augroup END
+  endif
+
   " Calling these once solves the problem of BufReadPre/BufRead/BufEnter not
   " triggering for the first loaded file. This should be the last commands
   " executed in this function!
@@ -110,6 +127,16 @@ function! youcompleteme#DisableCursorMovedAutocommands()
 endfunction
 
 
+function! youcompleteme#GetErrorCount()
+  return pyeval( 'ycm_state.GetErrorCount()' )
+endfunction
+
+
+function! youcompleteme#GetWarningCount()
+  return pyeval( 'ycm_state.GetWarningCount()' )
+endfunction
+
+
 function! s:SetUpPython() abort
 python << EOF
 import sys
@@ -130,20 +157,19 @@ from ycm import base
 base.LoadJsonDefaultsIntoVim()
 from ycmd import user_options_store
 user_options_store.SetAll( base.BuildServerConf() )
-from ycm import vimsupport
+from ycm import paths, vimsupport
 
-popen_args = [ utils.PathToPythonInterpreter(),
-               os.path.join( script_folder,
-                             '../third_party/ycmd/check_core_version.py') ]
+popen_args = [ paths.PathToPythonInterpreter(),
+               paths.PathToCheckCoreVersion() ]
 
 if utils.SafePopen( popen_args ).wait() == 2:
   vimsupport.PostVimMessage(
     'YouCompleteMe unavailable: YCM support libs too old, PLEASE RECOMPILE' )
-  vim.command( 'return 0')
+  vim.command( 'return 0' )
 
 from ycm.youcompleteme import YouCompleteMe
 ycm_state = YouCompleteMe( user_options_store.GetAll() )
-vim.command( 'return 1')
+vim.command( 'return 1' )
 EOF
 endfunction
 
@@ -306,6 +332,19 @@ function! s:AllowedToCompleteInCurrentFile()
 endfunction
 
 
+function! s:SetUpCommands()
+  command! YcmRestartServer call s:RestartServer()
+  command! YcmShowDetailedDiagnostic call s:ShowDetailedDiagnostic()
+  command! YcmDebugInfo call s:DebugInfo()
+  command! -nargs=? -complete=custom,youcompleteme#LogsComplete
+    \ YcmToggleLogs call s:ToggleLogs(<f-args>)
+  command! -nargs=* -complete=custom,youcompleteme#SubCommandsComplete
+    \ YcmCompleter call s:CompleterCommand(<f-args>)
+  command! YcmForceCompileAndDiagnostics call s:ForceCompileAndDiagnostics()
+  command! YcmDiags call s:ShowDiagnostics()
+endfunction
+
+
 function! s:SetUpCpoptions()
   " Without this flag in cpoptions, critical YCM mappings do not work. There's
   " no way to not have this and have YCM working, so force the flag.
@@ -389,6 +428,11 @@ function! s:OnBufferVisit()
 
   call s:SetUpCompleteopt()
   call s:SetCompleteFunc()
+
+  if !s:defer_omnifunc
+    call s:SetOmnicompleteFunc()
+  endif
+
   py ycm_state.OnBufferVisit()
   call s:OnFileReadyToParse()
 endfunction
@@ -521,11 +565,6 @@ function! s:OnInsertEnter()
     return
   endif
 
-  if !get( b:, 'ycm_omnicomplete', 0 )
-    let b:ycm_omnicomplete = 1
-    call s:SetOmnicompleteFunc()
-  endif
-
   let s:old_cursor_position = []
 endfunction
 
@@ -578,6 +617,7 @@ function! s:UpdateDiagnosticNotifications()
         \ s:DiagnosticUiSupportedForCurrentFiletype()
 
   if !should_display_diagnostics
+    py ycm_state.ValidateParseRequest()
     return
   endif
 
@@ -737,14 +777,10 @@ function! s:RestartServer()
   py ycm_state.RestartServer()
 endfunction
 
-command! YcmRestartServer call s:RestartServer()
-
 
 function! s:ShowDetailedDiagnostic()
   py ycm_state.ShowDetailedDiagnostic()
 endfunction
-
-command! YcmShowDetailedDiagnostic call s:ShowDetailedDiagnostic()
 
 
 function! s:DebugInfo()
@@ -755,7 +791,13 @@ function! s:DebugInfo()
   endfor
 endfunction
 
-command! YcmDebugInfo call s:DebugInfo()
+
+function! s:ToggleLogs(...)
+  let stderr = a:0 == 0 || a:1 !=? 'stdout'
+  let stdout = a:0 == 0 || a:1 !=? 'stderr'
+  py ycm_state.ToggleLogs( stdout = vimsupport.GetBoolValue( 'l:stdout' ),
+                         \ stderr = vimsupport.GetBoolValue( 'l:stderr' ) )
+endfunction
 
 
 function! s:CompleterCommand(...)
@@ -791,8 +833,10 @@ function! youcompleteme#OpenGoToList()
 endfunction
 
 
-command! -nargs=* -complete=custom,youcompleteme#SubCommandsComplete
-  \ YcmCompleter call s:CompleterCommand(<f-args>)
+function! youcompleteme#LogsComplete( arglead, cmdline, cursorpos )
+  return "stdout\nstderr"
+endfunction
+
 
 function! youcompleteme#SubCommandsComplete( arglead, cmdline, cursorpos )
   return join( pyeval( 'ycm_state.GetDefinedSubcommands()' ),
@@ -832,8 +876,6 @@ function! s:ForceCompileAndDiagnostics()
   echom "Diagnostics refreshed."
 endfunction
 
-command! YcmForceCompileAndDiagnostics call s:ForceCompileAndDiagnostics()
-
 
 function! s:ShowDiagnostics()
   let compilation_succeeded = s:ForceCompile()
@@ -853,8 +895,6 @@ function! s:ShowDiagnostics()
     echom "No warnings or errors detected"
   endif
 endfunction
-
-command! YcmDiags call s:ShowDiagnostics()
 
 
 " This is basic vim plugin boilerplate

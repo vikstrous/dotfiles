@@ -60,15 +60,26 @@ class CommandRequest( BaseRequest ):
 
 
   def RunPostCommandActionsIfNeeded( self ):
-    if not self.Done() or not self._response:
+    if not self.Done() or self._response is None:
       return
 
     if self._is_goto_command:
-      self._HandleGotoResponse()
-    elif self._is_fixit_command:
-      self._HandleFixitResponse()
-    elif 'message' in self._response:
-      self._HandleMessageResponse()
+      return self._HandleGotoResponse()
+
+    if self._is_fixit_command:
+      return self._HandleFixitResponse()
+
+    # If not a dictionary or a list, the response is necessarily a
+    # scalar: boolean, number, string, etc. In this case, we print
+    # it to the user.
+    if not isinstance( self._response, ( dict, list ) ):
+      return self._HandleBasicResponse()
+
+    if 'message' in self._response:
+      return self._HandleMessageResponse()
+
+    if 'detailed_info' in self._response:
+      return self._HandleDetailedInfoResponse()
 
 
   def _HandleGotoResponse( self ):
@@ -95,8 +106,16 @@ class CommandRequest( BaseRequest ):
                                    + " changes" )
 
 
+  def _HandleBasicResponse( self ):
+    vimsupport.EchoText( self._response )
+
+
   def _HandleMessageResponse( self ):
     vimsupport.EchoText( self._response[ 'message' ] )
+
+
+  def _HandleDetailedInfoResponse( self ):
+    vimsupport.WriteToPreviewWindow( self._response[ 'detailed_info' ] )
 
 
 def SendCommandRequest( arguments, completer ):
@@ -116,5 +135,13 @@ def _BuildQfListItem( goto_data_item ):
   if 'line_num' in goto_data_item:
     qf_item[ 'lnum' ] = goto_data_item[ 'line_num' ]
   if 'column_num' in goto_data_item:
-    qf_item[ 'col' ] = goto_data_item[ 'column_num' ] - 1
+    # ycmd returns columns 1-based, and QuickFix lists require "byte offsets".
+    # See :help getqflist and equivalent comment in
+    # vimsupport.ConvertDiagnosticsToQfList.
+    #
+    # When the Vim help says "byte index", it really means "1-based column
+    # number" (which is somewhat confusing). :help getqflist states "first
+    # column is 1".
+    qf_item[ 'col' ] = goto_data_item[ 'column_num' ]
+
   return qf_item

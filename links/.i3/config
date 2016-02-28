@@ -18,6 +18,10 @@ bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle && killal
 bindsym XF86AudioMicMute exec --no-startup-id amixer -q set Capture toggle && killall -USR1 i3status
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight + 5
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight - 5
+bindsym XF86Launch1 restart
+bindsym $mod+Home exec zengge-lightcontrol local --host home.viktorstanchev.com:5577 set-power on
+bindsym $mod+End exec zengge-lightcontrol local --host home.viktorstanchev.com:5577 set-power off
+
 #bindsym XF86AudioNext exec xdotool key --window `xdotool search --name "Grooveshark"` Ctrl+Right
 #bindsym XF86AudioPrev exec xdotool key --window `xdotool search --name "Grooveshark"` Ctrl+Left
 #bindsym XF86AudioPlay exec xdotool type --window `xdotool search --name "Grooveshark"` ' '
@@ -39,7 +43,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id xrdb ~/.Xdefaults
 exec --no-startup-id qtox
 
-exec --no-startup-id xautolock -time 5 -locker 'export SOUND=$(amixer sget Master | grep "\[on\]"); amixer -q set Master mute; i3lock -n -c 000000 && if [ -n "$SOUND" ]; then amixer -q set Master unmute; fi ' -notify 10 -notifier 'notify-send locking...'
+exec --no-startup-id xautolock -time 5 -locker 'export SOUND=$(amixer sget Master | grep "\[on\]"); amixer -q set Master mute; i3lock -n -c 000000 && xset -dpms && if [ -n "$SOUND" ]; then amixer -q set Master unmute; fi; xset +dpms ' -notify 10 -notifier 'notify-send locking...'
 
 # turn off autolock temporarily
 mode "nosleep" {
