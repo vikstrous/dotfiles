@@ -137,3 +137,6 @@ let g:go_fmt_command = "goimports"
 
 "This is garbage. I don't know what netrw does.
 :let g:netrw_dirhistmax = 0
+
+" kernel style
+let g:linuxsty_patterns = [ "linux" ]
