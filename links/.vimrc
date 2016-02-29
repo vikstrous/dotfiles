@@ -3,8 +3,9 @@ execute pathogen#infect()
 set nocompatible
 syntax on
 set background=dark
-let base16colorspace=256
-colorscheme base16-default
+"let base16colorspace=256
+"colorscheme base16-default
+colorscheme molokai
 set tabstop=4
 set shiftwidth=4
 set expandtab
