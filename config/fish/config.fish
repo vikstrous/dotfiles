@@ -70,7 +70,11 @@ set -x PATH $PATH /usr/bin/core_perl/
 
 set -x MOZ_USE_OMTC 1
 
-alias chromium 'chromium --force-device-scale-factor=1'
+alias chromium 'chromium --force-device-scale-factor=2'
+
+set -x GDK_SCALE 2
+set -x GDK_DPI_SCALE 0.5
+setfont sun12x22
 
 
 set -x XKB_DEFAULT_LAYOUT us

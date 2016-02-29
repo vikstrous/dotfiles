@@ -12,9 +12,9 @@
 set $mod Mod4
 
 bindsym XF86ScreenSaver exec --no-startup-id xautolock -locknow
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 2dB+ unmute && killall -USR1 i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 2dB- unmute && killall -USR1 i3status
-bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle && killall -USR1 i3status
+#bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 2dB+ unmute && killall -USR1 i3status
+#bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 2dB- unmute && killall -USR1 i3status
+#bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle && killall -USR1 i3status
 bindsym XF86AudioMicMute exec --no-startup-id amixer -q set Capture toggle && killall -USR1 i3status
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight + 5
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight - 5
@@ -22,13 +22,40 @@ bindsym XF86Launch1 restart
 bindsym $mod+Home exec zengge-lightcontrol local --host home.viktorstanchev.com:5577 set-power on
 bindsym $mod+End exec zengge-lightcontrol local --host home.viktorstanchev.com:5577 set-power off
 
+# 1
+bindsym $mod+Ctrl+F1 exec --no-startup-id xautolock -locknow
+bindsym XF86Launch5 exec --no-startup-id xautolock -locknow
+# 2
+bindsym $mod+Ctrl+F2 exec --no-startup-id /home/v/dotfiles/configs/screenlayout/external-normal.sh && xinput --map-to-output 14 eDP1
+bindsym XF86Launch6 exec --no-startup-id /home/v/dotfiles/configs/screenlayout/external-normal.sh && xinput --map-to-output 14 eDP1
+# 3
+bindsym $mod+Ctrl+F3 exec --no-startup-id /home/v/dotfiles/configs/screenlayout/nomonitor.sh
+bindsym XF86Launch7 exec --no-startup-id /home/v/dotfiles/configs/screenlayout/nomonitor.sh
+# 4
+bindsym $mod+Ctrl+F4 exec --no-startup-id /home/v/dotfiles/configs/screenlayout/hires.sh
+bindsym XF86Launch8 exec --no-startup-id /home/v/dotfiles/configs/screenlayout/hires.sh
+# 5
+bindsym $mod+Ctrl+F5 exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+bindsym XF86Launch9 exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+
+# 6
+bindsym $mod+Ctrl+F6 exec --no-startup-id xfce4-screenshooter -i -r
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id sh -c "pactl set-sink-mute 1 false && pactl set-sink-volume 1 +5%" && killall -USR1 i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id sh -c "pactl set-sink-mute 1 false && pactl -- set-sink-volume 1 -5%" && killall -USR1 i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle && killall -USR1 i3status
+
 #bindsym XF86AudioNext exec xdotool key --window `xdotool search --name "Grooveshark"` Ctrl+Right
 #bindsym XF86AudioPrev exec xdotool key --window `xdotool search --name "Grooveshark"` Ctrl+Left
 #bindsym XF86AudioPlay exec xdotool type --window `xdotool search --name "Grooveshark"` ' '
+bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 
 new_window 1pixel
 hide_edge_borders both
+exec --no-startup-id pulseaudio --start
 exec --no-startup-id xset r rate 200 30
+exec --no-startup-id xset -dpms
+exec --no-startup-id xset s off
 exec --no-startup-id xmodmap -e "keycode 108 = Alt_R"
 exec --no-startup-id xsetroot -cursor_name left_ptr
 exec --no-startup-id sh ~/.fehbg
@@ -41,7 +68,7 @@ exec --no-startup-id redshift
 exec --no-startup-id keychain --eval id_rsa
 exec --no-startup-id nm-applet
 exec --no-startup-id xrdb ~/.Xdefaults
-exec --no-startup-id qtox
+#exec --no-startup-id qtox
 
 exec --no-startup-id xautolock -time 5 -locker 'export SOUND=$(amixer sget Master | grep "\[on\]"); amixer -q set Master mute; i3lock -n -c 000000 && xset -dpms && if [ -n "$SOUND" ]; then amixer -q set Master unmute; fi; xset +dpms ' -notify 10 -notifier 'notify-send locking...'
 
@@ -357,7 +384,7 @@ bar {
         urgent_workspace   #111111 #111111 #BA5353
     }
 #    position bottom
-    tray_output LVDS-0
+#    tray_output eDP1
 #    binding_mode_indicator no
 #    workspace_buttons no
      status_command i3status -c ~/dotfiles/configs/i3status.conf #| ~/dotfiles/configs/i3status_wrapper.py

@@ -80,7 +80,7 @@ URxvt.allow_bold:           true
 ! URxvt*font: xft:Anonymous Pro:pixelsize=14:antialiasing=true:hinting=true
 !URxvt*font:       xft:Anonymous Pro:pixelsize=14:antialiasing=true
 !URxvt*font:       xft:DejaVu Sans Mono:pixelsize=14:antialiasing=true
-URxvt*font: xft:Input Mono:style=Regular:pixelsize=16,xft
+URxvt*font: xft:Input Mono:style=Regular:pixelsize=24,xft
 !URxvt*font: xft:Anonymous:style=Regular:pixelsize=18:antialiasing=true
 !,xft:Inconsolata\ for\ Powerline:pixelsize=12
 !URxvt*font: xft:Anonymous Pro:pixelsize=18:antialiasing=true:hinting=true
@@ -99,7 +99,7 @@ rofi.color-active: #000000,  #426793,  #000000,  #111111,  #439543
 rofi.color-window: #000000,#000000
 
 rofi.bw:0
-rofi.font:Input mono 12
+rofi.font:Input mono 24
 rofi.opacity:85
 rofi.lines:20
 rofi.width:40
@@ -113,3 +113,12 @@ rofi.levenshtein-sort:false
 !rofi -show run -terminal urxvt -hlfg "#439543" -hlbg "#111111" -bg "#000000" -fg "#CCCCCC" -hlbg-active "#111111" -hlfg-active "#439543" -fg-active "#426793" -fg-urgent "#BA5353" -bc '#000000' -bw 0 -font "Input mono 12" -opacity 85 -lines 20 -width 40 -padding 5 -columns 2 -autoselect
 
 ! xrdb ~/.Xdefaults to reload
+!
+Xft.dpi: 192
+!Xft.dpi: 180
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
