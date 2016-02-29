@@ -189,7 +189,7 @@ yaourt dmenu-xft
 #pacman -S acpi lm_sensors sysstat
 
 ### user stuff
-pacman -S openssh firefox chromium xautolock dunst redshift flashplugin git fakeroot xdiskusage xorg-xev ripperx python xorg-xrandr numlockx transmission-cli unzip ack pidgin mlocate gnome-themes-standard nautilus privoxy xorg-xbacklight keychain
+pacman -S openssh firefox chromium xautolock dunst redshift flashplugin git fakeroot xdiskusage xorg-xev ripperx python xorg-xrandr numlockx transmission-cli unzip ack pidgin mlocate gnome-themes-standard nautilus privoxy xorg-xbacklight keychain ttf-liberation
 
 # copy scripts/suspend@.service to /etc/systemd/system/suspend@.service
 sudo systemctl enable suspend@v
