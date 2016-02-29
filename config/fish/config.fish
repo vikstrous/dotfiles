@@ -18,6 +18,7 @@ set PATH (cope_path) /home/v/work/moz-git-tools /opt/android-sdk/platform-tools 
 set PATH $PATH (ruby -rubygems -e "puts Gem.user_dir")/bin
 
 set PATH $PATH ~/go/bin
+set PATH $PATH ~/bin
 set PATH $PATH ~/.cabal/bin/
 set PATH $PATH /usr/bin/vendor_perl/
 
