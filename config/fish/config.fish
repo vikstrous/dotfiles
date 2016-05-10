@@ -85,3 +85,9 @@ set -x WLC_REPEAT_RATE 40
 #end
 
 alias compose docker-compose
+
+eval sh ~/dotfiles/base16-shell/base16-default.dark.sh
+# set background color to transparent again
+printf "\033]11;rgba:1110/1110/1110/dddd\007"
+
+#set -x CSCOPE_DB ~/dev/linux/cscope.out
