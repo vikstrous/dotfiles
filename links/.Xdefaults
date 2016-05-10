@@ -2,7 +2,8 @@ URxvt*foreground: white
 !urxvt*background: black
 !URxvt*.transparent: true
 URxvt*.shading: 20
-URxvt.scrollstyle: plain
+URxvt.scrollBar: false
+!URxvt.scrollstyle: plain
 !URxvt.perl-ext-common: font-size
 !URxvt.perl-ext-common: clipboard,font-size
 URxvt.perl-ext-common: default,clipboard,font-size,url-select,keyboard-select,matcher
