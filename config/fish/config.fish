@@ -127,3 +127,91 @@ alias tf 'docker run -u (id -u):(id -g) --rm -it -v /home/v/.ssh/id_rsa:/id_rsa 
 alias tf-graph 'tf graph | dot -Tpng | feh -'
 
 alias pack 'docker run -u (id -u):(id -g) --rm -it -v (pwd):/config -w /config hashicorp/packer'
+
+set -x UCP_PASSWORD (cat ~/secrets/ucp_password.txt)
+
+function etcdctl
+  docker run --rm -v dtr-ca-$argv[1]:/ca --net dtr-br -it --entrypoint /etcdctl docker/dtr-etcd:v2.2.4 --endpoint https://dtr-etcd-$argv[1].dtr-br:2379 --ca-file /ca/etcd/cert.pem --key-file /ca/etcd-client/key.pem --cert-file /ca/etcd-client/cert.pem $argv[2..-1]
+end
+
+alias dtr 'docker run -it --rm dtr-internal.caas.docker.io/caas/dtr'
+alias dtr-nontty 'docker run -i --rm dtr-internal.caas.docker.io/caas/dtr'
+alias dtr-install 'dtr install --ucp-url 172.17.0.1:444 --ucp-username admin --ucp-password $UCP_PASSWORD --ucp-insecure-tls --dtr-external-url 172.17.0.1'
+alias dtr-backup 'dtr-nontty backup --ucp-url 172.17.0.1:444 --ucp-username admin --ucp-password $UCP_PASSWORD --ucp-insecure-tls'
+alias dtr-restore 'dtr-nontty restore --ucp-url 172.17.0.1:444 --ucp-username admin --ucp-password $UCP_PASSWORD --ucp-insecure-tls --dtr-external-url 172.17.0.1'
+alias dtr-reconfigure 'dtr reconfigure --ucp-url 172.17.0.1:444 --ucp-username admin --ucp-password $UCP_PASSWORD --ucp-insecure-tls'
+alias dtr-join 'dtr join --ucp-username admin --ucp-password $UCP_PASSWORD --ucp-url http://172.17.0.1:444 --ucp-insecure-tls'
+alias dtr-remove 'dtr remove --ucp-username admin --ucp-password $UCP_PASSWORD --ucp-url http://172.17.0.1:444 --ucp-insecure-tls'
+
+alias dtr-clean "docker service ls | grep dtr- | awk '{print \$2}' | xargs docker service rm; docker ps -a | grep dtr | grep -v enzi | awk '{print \$1}' | xargs docker rm -f; docker volume ls | grep dtr | awk '{print \$2}' | xargs docker volume rm; docker network rm dtr-ol dtr-br"
+
+alias dtr3 'docker run --rm -it dtr-internal.caas.docker.io/caas/dtr-swarmifier:latest'
+alias dtr3-install 'dtr3 --debug install --ucp-url 172.17.0.1:444 --ucp-username admin --ucp-password $UCP_PASSWORD --ucp-insecure-tls --dtr-external-url 172.17.0.1'
+
+function dtr-db-proxy
+    docker create -it \
+        --net dtr-br \
+        --name dtr-db-proxy \
+        -v dtr-ca-$argv:/ca \
+        -p 8080:8080 \
+        jlhawn/rethinkdb-tls \
+            proxy \
+            --bind all \
+            --driver-tls \
+            --driver-tls-key /ca/rethink/key.pem \
+            --driver-tls-cert /ca/rethink/cert.pem \
+            --driver-tls-ca /ca/rethink/cert.pem \
+            --cluster-tls \
+            --cluster-tls-key /ca/rethink/key.pem \
+            --cluster-tls-cert /ca/rethink/cert.pem \
+            --cluster-tls-ca /ca/rethink/cert.pem \
+            --join dtr-rethinkdb-$argv.dtr-ol
+    docker network connect dtr-ol dtr-db-proxy
+    docker start dtr-db-proxy
+    docker attach dtr-db-proxy
+end
+
+alias machine 'docker-machine'
+alias jenkup 'machine create -d amazonec2 --amazonec2-ami ami-7f675e4f --amazonec2-instance-type m3.medium --amazonec2-region us-west-2 --amazonec2-root-size 30 --engine-storage-driver aufs'
+
+alias dicker 'grc docker'
+
+alias ucp1 'docker run --rm -it --name ucp -v /var/run/docker.sock:/var/run/docker.sock docker/ucp:1.1.3'
+alias ucp1-install 'ucp1 install --admin-password $UCP_PASSWORD --host-address 172.17.0.1 --controller-port 444 --fresh-install'
+
+alias ucp2 'docker run --rm -it --name ucp -v /var/run/docker.sock:/var/run/docker.sock dockerorcadev/ucp:2.0.0-latest'
+alias ucp2-install 'ucp2 install --admin-password $UCP_PASSWORD --host-address 172.17.0.1 --controller-port 444 --san 172.17.0.1 --image-version dev:'
+
+function ucp-pull-dev
+    for i in (docker run --rm $argv images --list --image-version dev: ); docker pull $i; end
+end
+
+alias trust-notary-local 'trust_notary 172.17.0.1'
+
+function trust-notary
+    mkdir -p ~/.docker/tls/$argv; openssl s_client -showcerts -connect $argv:443 2>/dev/null < /dev/null | openssl x509 -outform PEM 2>/dev/null > ~/.docker/tls/$argv/ca.crt
+end
+
+function ucp-post
+    curl 'https://'$argv[0]'/'$argv[1] -H 'authorization: Bearer '(curl 'https://'$argv[0]'/auth/login' -H 'content-type: application/json;charset=UTF-8' -H 'accept: application/json, text/plain, */*' --data-binary "{\"username\":\"admin\",\"password\":\"$UCP_PASSWORD\"}" --insecure  | jq -r '.auth_token')  -H 'content-type: application/json;charset=UTF-8' -H 'accept: application/json, text/plain, */*' -d $argv[2] --insecure
+end
+
+alias bundle-local 'bundle 172.17.0.1:444'
+
+function bundle
+    mkdir bundle-$argv
+    curl 'https://'$argv'/api/clientbundle' -H 'authorization: Bearer '(curl 'https://'$argv'/auth/login' -H 'content-type: application/json;charset=UTF-8' -H 'accept: application/json, text/plain, */*' --data-binary "{\"username\":\"admin\",\"password\":\"$UCP_PASSWORD\"}" --insecure  | jq -r '.auth_token') -H 'accept: application/json, text/plain, */*' --insecure > bundle-$argv/bundle.zip
+    cd bundle-$argv
+    unzip -o bundle.zip
+    bash --rcfile env.sh
+end
+
+function logs
+    docker logs $argv 2>&1 | grep '^{' | jq .
+end
+
+function errlogs
+    docker logs $argv 2>&1 | grep error | grep '^{' | jq .
+end
+
+alias nuke 'docker swarm leave --force; docker ps -aq | xargs docker rm -f; docker volume ls -q | xargs docker volume rm'
