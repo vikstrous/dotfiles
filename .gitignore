@@ -1,7 +1,7 @@
 .config/fish/functions/rvm.fish
 *.swp
-links/.vim/plugged/
-links/.vim/view
-links/.vim/.init.vim-rplugin~
-links/.vim/spell/
-links/.vim/ftplugin
+config/nvim/plugged/
+config/nvim/view
+config/nvim/.init.vim-rplugin~
+config/nvim/spell/
+config/nvim/ftplugin

@@ -1,4 +1,5 @@
 " Plugins
+let g:plug_timeout=200
 call plug#begin()
 Plug 'tpope/vim-sensible'
 Plug 'chriskempson/base16-vim'

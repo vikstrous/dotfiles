@@ -52,7 +52,7 @@ bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2
 
 new_window 1pixel
 hide_edge_borders both
-exec --no-startup-id pulseaudio --start
+#exec --no-startup-id pulseaudio --start
 exec --no-startup-id xset r rate 200 30
 exec --no-startup-id xset -dpms
 exec --no-startup-id xset s off

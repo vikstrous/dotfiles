@@ -119,7 +119,8 @@ rofi.levenshtein-sort:false
 
 ! xrdb ~/.Xdefaults to reload
 !
-Xft.dpi: 192
+!Xft.dpi: 192
+Xft.dpi: 288
 !Xft.dpi: 180
 Xft.autohint: 0
 Xft.lcdfilter:  lcddefault
@@ -131,3 +132,5 @@ Xft.rgba: rgb
 URxvt*scrollTtyOutput:      false
 URxvt*scrollWithBuffer:     true
 URxvt*scrollTtyKeypress:    true
+
+Xcursor*size: 48

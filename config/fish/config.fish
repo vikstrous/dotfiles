@@ -39,9 +39,9 @@ set -x LC_ALL 'en_US.UTF-8'
 set -x LANG 'en_US.UTF-8'
 
 # dirty hack because if these variables are not set before we source the keychain config, it fails
-#set -x SSH_AUTH_SOCK ''
-#set -x SSH_AGENT_PID ''
-#keychain --eval -Q --quiet | source
+set -x SSH_AUTH_SOCK ''
+set -x SSH_AGENT_PID ''
+keychain --eval -Q --quiet | source
 
 
 
@@ -97,7 +97,9 @@ eval sh ~/dotfiles/base16-shell/base16-tomorrow.dark.sh
 #echo -n -e '\033]4;16;red\007'
 
 # set background color to transparent again
-printf "\033]11;rgba:1110/1110/1110/dddd\007"
+if status --is-interactive
+    printf "\033]11;rgba:1110/1110/1110/dddd\007"
+end
 
 
 
