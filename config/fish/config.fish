@@ -27,8 +27,9 @@ set PATH /usr/lib/jvm/default/bin $PATH ~/go/bin
 
 #source /home/v/.rvm/scripts/rvm
 
-set -x GOPATH ~/go
-set -x GOBIN ~/go/bin
+set -x GOPATH ~/dev/dtr/go
+set -x GOBIN ~/dev/dtr/go/bin
+set -x PATH $PATH ~/dev/dtr/go/bin
 
 alias less 'less -R'
 #alias chromium 'chromium --proxy-server=localhost:8118'
@@ -49,9 +50,9 @@ set -x EMSCRIPTEN_FASTCOMP "/usr/lib/emscripten-fastcomp"
 # add to path
 set -x PATH $PATH $EMSCRIPTEN
 
-function fuck
-    eval (thefuck $history[1])
-end
+#function fuck
+#    eval (thefuck $history[1])
+#end
 
 alias ... 'cd ../..'
 alias .... 'cd ../../..'
@@ -74,7 +75,7 @@ alias chromium 'chromium --force-device-scale-factor=2'
 
 set -x GDK_SCALE 2
 set -x GDK_DPI_SCALE 0.5
-setfont sun12x22
+setfont sun12x22 2>/dev/null
 
 
 set -x XKB_DEFAULT_LAYOUT us
@@ -92,7 +93,37 @@ set -x WLC_REPEAT_RATE 40
 alias compose docker-compose
 
 eval sh ~/dotfiles/base16-shell/base16-tomorrow.dark.sh
+#echo -n -e '\033]4;16;red\007'
+
 # set background color to transparent again
 printf "\033]11;rgba:1110/1110/1110/dddd\007"
 
+
+
 #set -x CSCOPE_DB ~/dev/linux/cscope.out
+set -x GO15VENDOREXPERIMENT 1
+
+alias vim nvim
+
+# from https://github.com/iamruinous/plugin-powerline with some fixes
+function init -a path --on-event init_powerline
+  if type -q powerline-daemon
+    powerline-daemon -q
+  end
+
+  set -q POWERLINE_PACKAGE_DIR; or set -gx POWERLINE_PACKAGE_DIR (pip show powerline-status 2>/dev/null | grep Location | awk '{ print $2 }')
+  set fish_function_path $fish_function_path "$POWERLINE_PACKAGE_DIR/powerline/bindings/fish"
+
+  if type -q powerline-setup
+    powerline-setup
+  else
+    echo "Please install powerline"
+  end
+end
+# customize in /home/v/.config/powerline/themes/shell/custom.json
+#init
+
+alias tf 'docker run -u (id -u):(id -g) --rm -it -v /home/v/.ssh/id_rsa:/id_rsa -v (pwd):/config -w /config hashicorp/terraform'
+alias tf-graph 'tf graph | dot -Tpng | feh -'
+
+alias pack 'docker run -u (id -u):(id -g) --rm -it -v (pwd):/config -w /config hashicorp/packer'

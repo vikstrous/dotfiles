@@ -42,7 +42,7 @@ end
 
 setUpLinks $dotfiles/links ~ (ls links -A)
 
-setUpLinks $dotfiles/config ~/.config 'fish/functions' 'fish/config.fish' 'dunst' 'gtk-3.0' 'fontconfig' 'base16-shell'
+setUpLinks $dotfiles/config ~/.config 'fish/functions' 'fish/config.fish' 'dunst' 'gtk-3.0' 'fontconfig' 'base16-shell' 'powerline'
 
 ln -s /home/v/dotfiles/links/.vim/init.vim /home/v/.vimrc; true
 
