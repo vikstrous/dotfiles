@@ -1,0 +1,69 @@
+{
+    "segments": {
+        "above": [
+            {
+                "left": [
+                    {
+                        "function": "powerline.segments.common.time.date",
+                        "name": "time",
+                        "priority": 50,
+                        "args": {
+                            "format": "%H:%M:%S",
+                            "istime": true
+                        }
+                    },
+                    {
+                        "function": "powerline.segments.common.net.hostname",
+                        "priority": 10
+                    },
+                    {
+                        "function": "powerline.segments.common.env.user",
+                        "priority": 30
+                    },
+                    {
+                        "function": "powerline.segments.common.env.virtualenv",
+                        "priority": 50
+                    },
+                    {
+                        "function": "powerline.segments.shell.cwd",
+                        "priority": 10,
+                        "args": {
+                            "use_path_separator": true
+                        }
+                    },
+                    {
+                        "function": "powerline.segments.shell.jobnum",
+                        "priority": 20
+                    },
+                    {
+                        "function": "powerline.segments.shell.last_pipe_status",
+                        "priority": 100
+                    },
+                    {
+                        "function": "powerline.segments.common.vcs.branch",
+                        "priority": 90,
+                        "args": {
+                            "status_colors": true,
+                            "ignore_statuses": ["U"]
+                        }
+                    }
+                ]
+            }
+        ],
+        "left": [
+            {
+                "function": "powerline.segments.common.shell.mode",
+                "priority": 10
+            },
+            {
+                "function": "powerline.segments.common.time.date",
+                "priority": 20,
+                "args": {
+                    "format": "$"
+                }
+            }
+        ],
+        "right": [
+        ]
+    }
+}

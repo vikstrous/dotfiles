@@ -72,6 +72,8 @@ exec --no-startup-id xrdb ~/.Xdefaults
 
 exec --no-startup-id xautolock -time 5 -locker 'export SOUND=$(amixer sget Master | grep "\[on\]"); amixer -q set Master mute; i3lock -n -c 000000 && xset -dpms && if [ -n "$SOUND" ]; then amixer -q set Master unmute; fi; xset +dpms ' -notify 10 -notifier 'notify-send locking...'
 
+gaps inner 20
+
 # turn off autolock temporarily
 mode "nosleep" {
         # back to normal: Enter or Escape
@@ -384,7 +386,7 @@ bar {
         urgent_workspace   #111111 #111111 #BA5353
     }
 #    position bottom
-#    tray_output eDP1
+    tray_output eDP1
 #    binding_mode_indicator no
 #    workspace_buttons no
      status_command i3status -c ~/dotfiles/configs/i3status.conf #| ~/dotfiles/configs/i3status_wrapper.py

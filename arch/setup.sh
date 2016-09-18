@@ -132,7 +132,7 @@ gpasswd -a v video
 
 
 ### nice to have
-pacman -S htop iftop alsa-utils gvim ntfs-3g bc ntp
+pacman -S htop iftop alsa-utils python-neovim ntfs-3g bc ntp
 systemctl enable ntpd
 systemctl start ntpd
 
@@ -145,7 +145,7 @@ pacman -S xf86-input-synaptics
 pacman -S xf86-video-vesa # compatible open source video driver as fallback
 pacman -S nvidia # for proprietary graphics
 pacman -S ttf-dejavu ttf-freefont terminus-font # fonts
-pacman -S xorg-server i3 dmenu rxvt-unicode xsel urxvt-perls xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh xcompmgr xorg-xinit
+pacman -S xorg-server i3 rofi rxvt-unicode xsel urxvt-perls xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh xcompmgr xorg-xinit
 
 # in case of colemak only
 
@@ -182,7 +182,7 @@ yaourt urxvt-font-size-git
 yaourt ttf-input
 yaourt ttf-font-awesome
 yaourt cope-git
-yaourt dmenu-xft
+yaourt noto-fonts-emoji
 
 # i3 window manager pimping
 #yaourt i3blocks
@@ -216,6 +216,7 @@ chmod -w /home/v/.config/chromium/Default/History
 #bluetoothctl
 #gpasswd -a v lp #for tethering
 
+# chinese and japanese fonts
 pacman -S wqy-microhei wqy-zenhei
 cd /etc/fonts/conf.d
 rm 65-wqy-zenhei.conf
@@ -262,3 +263,6 @@ pacman -S pulseaudio pulpulseaudio-alsa
 # use nouveau???
 yaourt -S sway-git
 pacman -S xwayland
+
+##########
+git clone https://github.com/garabik/grc.git ~/.grc

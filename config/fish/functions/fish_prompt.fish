@@ -10,3 +10,4 @@ function fish_prompt
     echo
     echo -n (set_color white)"╰─"(set_color green)'<")>< '(set_color normal)
 end
+fzf_key_bindings

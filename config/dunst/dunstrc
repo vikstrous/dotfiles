@@ -189,6 +189,10 @@
     foreground = "#ffffff"
     timeout = 0
 
+[tests]
+    appname = Ginkgo
+    urgency = critical
+
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.

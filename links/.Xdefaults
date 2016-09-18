@@ -30,7 +30,7 @@ URxvt.saveLines: 20000
 
 !URxvt.keysym.M-s: searchable-scrollback:start
 
-! remove the stupid ctrl+shift behaviour
+! remove the stupid ctrl+shift behaviour where it inserts pictures
 URxvt.iso14755: False
 
 URxvt.clipboard.copycmd:  xsel -ib
@@ -81,7 +81,11 @@ URxvt.allow_bold:           true
 ! URxvt*font: xft:Anonymous Pro:pixelsize=14:antialiasing=true:hinting=true
 !URxvt*font:       xft:Anonymous Pro:pixelsize=14:antialiasing=true
 !URxvt*font:       xft:DejaVu Sans Mono:pixelsize=14:antialiasing=true
-URxvt*font: xft:Input Mono:style=Regular:pixelsize=24,xft
+!URxvt*font: xft:Inconsolata\ for\ Powerline:pixelsize=24
+URxvt*font: xft:Input Mono:style=Regular:pixelsize=24,xft:Noto Emoji:style=Regular:pixelsize=16
+!URxvt*letterSpace: 5
+!URxvt*font: xft:Noto Emoji:pixelsize=24
+!,xft:FontAwesome Regular:pixelsize=24
 !URxvt*font: xft:Anonymous:style=Regular:pixelsize=18:antialiasing=true
 !,xft:Inconsolata\ for\ Powerline:pixelsize=12
 !URxvt*font: xft:Anonymous Pro:pixelsize=18:antialiasing=true:hinting=true
@@ -123,3 +127,7 @@ Xft.hintstyle:  hintfull
 Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
+
+URxvt*scrollTtyOutput:      false
+URxvt*scrollWithBuffer:     true
+URxvt*scrollTtyKeypress:    true
