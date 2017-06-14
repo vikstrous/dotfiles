@@ -6,10 +6,10 @@ loadkeys /usr/share/kbd//keymaps/i386/colemak/colemak.map.gz
 ### partition stuff
 
 gdisk /dev/sda # or nvme0n1
-# sda1 = 2M, EF02 - GRUB GPT hack
+# sda1 = 2M, EF02 - GRUB GPT hack (only if not using UEFI or if using legacy boot mode)
 # sda2 = 512M, 8300 - /boot
 # sda3 = remaining space, 8E00 - LVM or 8300 if no LVM
-cryptsetup luksFormat /dev/sda3
+cryptsetup luksFormat /dev/sda3 # or nvme0n1p2 # REMEMBER UPPERCASE YES
 
 # hard mode
 cryptsetup luksOpen /dev/sda3 lvm
