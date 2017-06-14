@@ -7,35 +7,18 @@ loadkeys /usr/share/kbd//keymaps/i386/colemak/colemak.map.gz
 
 gdisk /dev/sda # or nvme0n1
 # sda1 = 2M, EF02 - GRUB GPT hack (only if not using UEFI or if using legacy boot mode)
-# sda2 = 512M, 8300 - /boot
+# sda2 = 512M, 8300 - /boot (if using UEFI make this EF00)
 # sda3 = remaining space, 8E00 - LVM or 8300 if no LVM
 cryptsetup luksFormat /dev/sda3 # or nvme0n1p2 # REMEMBER UPPERCASE YES
-
-# hard mode
-cryptsetup luksOpen /dev/sda3 lvm
-pvcreate /dev/mapper/lvm
-vgcreate HiNSA /dev/mapper/lvm
-lvcreate -L 15G HiNSA -n rootvol 119-15 = 104
-lvcreate -L 35G HiNSA -n homevol
-lvcreate -L 200G HiNSA -n mediavol
-lvcreate -C y -L 6G HiNSA -n swapvol
-mkfs.ext4 /dev/mapper/HiNSA-rootvol
-mkfs.ext4 /dev/mapper/HiNSA-homevol
-mkfs.ext4 /dev/mapper/HiNSA-mediavol
-mkfs.ext4 /dev/sda2
-mkswap /dev/mapper/HiNSA-swapvol
-
-# easy mode
-#TODO: try open instead of luksOpen
-cryptsetup luksOpen /dev/sda3 HiNSA
+cryptsetup open /dev/sda3 HiNSA # HiNSA is what will show up when you are asked to decrypt the drive
 mkfs.ext4 /dev/mapper/HiNSA
-mkfs.ext4 /dev/sda2
 
-# efi easy mode (don't make a hack partition and make the first partition EF00)
-#TODO: try open instead of luksOpen
-cryptsetup luksOpen /dev/sda3 HiNSA
-mkfs.ext4 /dev/mapper/HiNSA
+# {
+# IF BIOS
+mkfs.ext4 /dev/sda2 # or whatever the boot volume is
+# IF UEFI
 mkfs.fat -F32 /dev/sda1
+# }
 
 ### prepare to go in
 
