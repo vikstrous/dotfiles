@@ -61,7 +61,7 @@ modprobe dm-mod
 # TLDR: add `keymap encrypt` before `filesystems`
 mkinitcpio -p linux
 
-#### the grub way
+#### the grub way (not fun; use the systemd way instead)
 
 pacman -S grub
 # edit /etc/default/grub GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda3:HiNSA"  AND if on XPS before linux 4.2, add i915.enable_ips=0
@@ -116,7 +116,8 @@ pacman -S xf86-input-synaptics
 
 ### graphical, desktop
 pacman -S xf86-video-vesa # compatible open source video driver as fallback
-pacman -S nvidia # for proprietary graphics
+pacman -S nvidia # for proprietary graphics; with libglvnd
+pacman -S xf86-video-nouveau # alternative to nvidia
 pacman -S ttf-dejavu ttf-freefont terminus-font # fonts
 pacman -S xorg-server i3 dmenu rxvt-unicode xsel urxvt-perls xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh xcompmgr xorg-xinit
 
