@@ -22,16 +22,6 @@ mkfs.fat -F32 /dev/sda1
 
 ### prepare to go in
 
-# hard mode
-mount /dev/HiNSA/rootvol /mnt
-mkdir /mnt/home
-mount /dev/HiNSA/homevol /mnt/home
-mkdir /mnt/boot
-mount /dev/sda2 /mnt/boot
-swapon /dev/mapper/HiNSA-swapvol
-# optionally, mount the media folder
-
-# easy mode
 mount /dev/mapper/HiNSA /mnt
 mkdir /mnt/boot
 mount /dev/sda2 /mnt/boot
