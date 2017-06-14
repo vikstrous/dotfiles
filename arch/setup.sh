@@ -137,18 +137,14 @@ pacman -S xorg-server i3 dmenu rxvt-unicode xsel urxvt-perls xorg-xinput xorg-xm
 
 ### AUR
 pacman -S base-devel
-curl https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz > package-query.tar.gz
-tar xvzf package-query.tar.gz
-cd package-query
-makepkg
-sudo pacman -U package-query-1.2-2-x86_64.pkg.tar.xz
-cd ..
 
-curl https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz > yaourt.tar.gz
-tar xvzf yaourt.tar.gz
+git clone https://aur.archlinux.org/package-query.git
+cd package-query
+makepkg -si
+cd ..
+git clone https://aur.archlinux.org/yaourt.git
 cd yaourt
-makepkg
-sudo pacman -U yaourt-1.3-1-any.pkg.tar.xz
+makepkg -si
 cd ..
 
 # urxvt terminal pimping
