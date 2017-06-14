@@ -5,7 +5,7 @@ loadkeys /usr/share/kbd//keymaps/i386/colemak/colemak.map.gz
 
 ### partition stuff
 
-gdisk /dev/sda
+gdisk /dev/sda # or nvme0n1
 # sda1 = 2M, EF02 - GRUB GPT hack
 # sda2 = 512M, 8300 - /boot
 # sda3 = remaining space, 8E00 - LVM or 8300 if no LVM
