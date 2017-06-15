@@ -1,28 +1,27 @@
 " Plugins
-let g:plug_timeout=200
-call plug#begin()
-Plug 'tpope/vim-sensible'
-Plug 'chriskempson/base16-vim'
-Plug 'majutsushi/tagbar'
-Plug 'airblade/vim-gitgutter'
-Plug 'airblade/vim-rooter'
-Plug 'vim-airline/vim-airline'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'derekwyatt/vim-scala'
-Plug 'vivien/vim-linux-coding-style'
-Plug 'ConradIrwin/vim-bracketed-paste'
-Plug 'dag/vim-fish'
-Plug 'hashivim/vim-terraform'
-Plug 'easymotion/vim-easymotion'
-Plug 'scrooloose/syntastic'
-Plug 'scrooloose/nerdcommenter'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-call plug#end()
+"let g:plug_timeout=200
+"call plug#begin()
+"Plug 'tpope/vim-sensible'
+"Plug 'chriskempson/base16-vim'
+"Plug 'majutsushi/tagbar'
+"Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-rooter'
+"Plug 'vim-airline/vim-airline'
+"Plug 'SirVer/ultisnips'
+"Plug 'honza/vim-snippets'
+"Plug 'vim-airline/vim-airline-themes'
+"Plug 'vivien/vim-linux-coding-style'
+"Plug 'ConradIrwin/vim-bracketed-paste'
+"Plug 'dag/vim-fish'
+"Plug 'hashivim/vim-terraform'
+"Plug 'easymotion/vim-easymotion'
+"Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/nerdcommenter'
+"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+"Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+"call plug#end()
 
 " basics ----------------------------------------------
 
@@ -46,7 +45,11 @@ set spell
 " make indentation reasonable most of the time
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
 set expandtab
+
+" for opening files with gf search these directories too
+" let &path.="src/include,/usr/include/AL,"
 
 " show tab and eol as vertial line, trailing spaces as dots, etc.
 set list
@@ -142,7 +145,7 @@ let g:ycm_cache_omnifunc = 1
 
 " syntastic -------------------------------------------
 let g:syntastic_go_checkers = ['gofmt', 'govet']
-" other useful checkrs: 'go', 'gofmt', 'gometalinter', 'golint', 'govet', 'gotype'
+" other useful checkers: 'go', 'gofmt', 'gometalinter', 'golint', 'govet', 'gotype'
 " configs recommended by syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -151,6 +154,8 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 let g:syntastic_mode_map = {
         \ "mode": "active" }
+" use python 3
+let g:syntastic_python_python_exec = 'python3'
 
 " nerdtree ------------------------------------------
 let NERDTreeIgnore = ['\.pyc$', '\.lo$', '\.o$', '\.la$']
@@ -256,18 +261,19 @@ nmap <F8> :TagbarToggle<CR>
 " nerdtree hotkeys
 map <F2> :NERDTreeToggle<CR>
 
+" will run esformatter after pressing <leader> followed by the 'e' and 's' keys
+nnoremap <silent> <leader>es :Esformatter<CR>
+vnoremap <silent> <leader>es :EsformatterVisual<CR>
+
 " go hotkeys
 "au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
 
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
 au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 
 au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
 
@@ -277,4 +283,16 @@ au FileType go nmap <Leader>i <Plug>(go-info)
 
 au FileType go nmap <Leader>e <Plug>(go-rename)
 
+" javascript style
+au FileType javascript set tabstop=2
+au FileType javascript set shiftwidth=2
+let g:syntastic_javascript_checkers = ['eslint']
+" this helps webpack detect changes properly
+set backupcopy=yes
 
+" filetype overrides
+au BufNewFile,BufRead Jenkinsfile set filetype=groovy
+
+" TODO: figure out how to get this executed for DTR stuff
+" :GoGuruScope github.com/docker/dhe-deploy/src/dtr/cmd/...
+" au FileType go silent exe "GoGuruScope " . go#package#ImportPath(expand('%:p:h')) . "..."

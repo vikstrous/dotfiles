@@ -6,9 +6,9 @@
 [pull]
     ff = only
 [core]
-	editor = vim
+	editor = nvim
 	autocrlf = input
-	excludesfile = /home/v/dotfiles/configs/gitignore_global
+    excludesfile = /home/v/dotfiles/configs/gitignore_global
 [color]
     ui = true
 [alias]
@@ -21,3 +21,9 @@
     dump = cat-file -p
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[http "https://gopkg.in"]
+	followRedirects = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
