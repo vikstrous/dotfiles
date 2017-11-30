@@ -22,8 +22,8 @@
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 [http "https://gopkg.in"]
-	followRedirects = true
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	required = true
+    followRedirects = true
+[diff]
+    renameLimit = 653
+[lfs]
+    allowincompletepush = true

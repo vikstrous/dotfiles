@@ -22,14 +22,15 @@ set fish_greeting (set_color brown)-- (whoami)@(hostname) --(set_color normal)
 #set PATH $PATH (ruby -rubygems -e "puts Gem.user_dir")/bin
 
 #set PATH $PATH ~/go/bin
-#set PATH $PATH ~/bin
+set PATH $PATH ~/bin
 #set PATH $PATH ~/.cabal/bin/
 #set PATH $PATH /usr/bin/vendor_perl/
+set PATH (cope_path) $PATH
 
 # fix IDEA
 #set PATH /usr/lib/jvm/default/bin $PATH ~/go/bin
 
-set PATH $PATH /home/v/dev/colors/node_modules/.bin/
+#set PATH $PATH /home/v/dev/colors/node_modules/.bin/
 
 #source /home/v/.rvm/scripts/rvm
 
@@ -46,7 +47,7 @@ set -x LANG 'en_US.UTF-8'
 # dirty hack because if these variables are not set before we source the keychain config, it fails
 set -x SSH_AUTH_SOCK ''
 set -x SSH_AGENT_PID ''
-set -x SHELL /run/current-system/sw/bin/fish
+set -x SHELL /usr/bin/fish
 keychain --eval -Q --quiet | source
 
 
@@ -77,12 +78,12 @@ alias .............. 'cd ../../../../../../../../../../../../..'
 #set -x PATH $PATH /usr/bin/core_perl/
 
 # docker stuff
-set PATH /home/v/docker /home/v/docker-machine $PATH
+set PATH /home/v/docker $PATH
 
 
 set -x MOZ_USE_OMTC 1
 
-#alias chromium 'chromium --force-device-scale-factor=2'
+alias chromium 'chromium --force-device-scale-factor=1'
 
 setfont sun12x22 2>/dev/null
 
@@ -209,6 +210,8 @@ alias ucp1-install 'ucp1 install --admin-password $UCP_PASSWORD --host-address 1
 
 set -x REGISTRY_USERNAME viktorstanchev
 set -x REGISTRY_PASSWORD (cat ~/secrets/registry_password.txt)
+set -x DOGFOOD_USERNAME admin
+set -x DOGFOOD_PASSWORD (cat ~/secrets/dogfood_password.txt)
 
 begin
     set -l IFS
@@ -451,9 +454,9 @@ function ucp-post
     curl 'https://'$argv[0]'/'$argv[1] -H 'authorization: Bearer '(curl 'https://'$argv[0]'/auth/login' -H 'content-type: application/json;charset=UTF-8' -H 'accept: application/json, text/plain, */*' --data-binary "{\"username\":\"admin\",\"password\":\"$UCP_PASSWORD\"}" --insecure  | jq -r '.auth_token')  -H 'content-type: application/json;charset=UTF-8' -H 'accept: application/json, text/plain, */*' -d $argv[2] --insecure
 end
 
-alias bundle-local 'bundle 172.17.0.1:444'
+alias bundle-local 'ucp-bundle 172.17.0.1:444'
 
-function bundle
+function ucp-bundle
     mkdir bundle-$argv
     curl 'https://'$argv'/api/clientbundle' -H 'authorization: Bearer '(curl 'https://'$argv'/auth/login' -H 'content-type: application/json;charset=UTF-8' -H 'accept: application/json, text/plain, */*' --data-binary "{\"username\":\"admin\",\"password\":\"$UCP_PASSWORD\"}" --insecure  | jq -r '.auth_token') -H 'accept: application/json, text/plain, */*' --insecure > bundle-$argv/bundle.zip
     cd bundle-$argv
@@ -485,3 +488,35 @@ set -x DTR_HOST 172.17.0.1
 source ~/caas-dotfiles/dtr/aliases.fish
 
 set -x LIBVIRT_DEFAULT_URI qemu:///system
+
+set -x XKB_DEFAULT_LAYOUT us,us
+set -x XKB_DEFAULT_VARIANT colemak,intl
+set -x XKB_DEFAULT_OPTIONS grp:alt_shift_toggle
+
+#alt-intl
+#altgr-intl
+#chr
+#colemak
+#dvorak
+#dvorak-alt-intl
+#dvorak-classic
+#dvorak-intl
+#dvorak-l
+#dvorak-r
+#dvp
+#euro
+#hbs
+#intl
+#mac
+#olpc2
+#rus
+#workman
+#workman-intl
+
+set -x WLC_REPEAT_DELAY 200
+set -x WLC_REPEAT_RATE 30
+
+set -x TESTKIT_AWS_SECURITY_GROUP everything-open
+set -x TESTKIT_ENGINE ee-test-17.06
+
+source ~/docker/docker-17.03.1-ce/completion/fish/docker.fish

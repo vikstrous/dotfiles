@@ -1,27 +1,28 @@
 " Plugins
-"let g:plug_timeout=200
-"call plug#begin()
-"Plug 'tpope/vim-sensible'
-"Plug 'chriskempson/base16-vim'
-"Plug 'majutsushi/tagbar'
-"Plug 'airblade/vim-gitgutter'
-"Plug 'airblade/vim-rooter'
-"Plug 'vim-airline/vim-airline'
-"Plug 'SirVer/ultisnips'
-"Plug 'honza/vim-snippets'
-"Plug 'vim-airline/vim-airline-themes'
-"Plug 'vivien/vim-linux-coding-style'
-"Plug 'ConradIrwin/vim-bracketed-paste'
-"Plug 'dag/vim-fish'
-"Plug 'hashivim/vim-terraform'
-"Plug 'easymotion/vim-easymotion'
-"Plug 'scrooloose/syntastic'
-"Plug 'scrooloose/nerdcommenter'
-"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-"Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-"Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-"call plug#end()
+let g:plug_timeout=200
+call plug#begin()
+Plug 'tpope/vim-sensible'
+Plug 'chriskempson/base16-vim'
+Plug 'majutsushi/tagbar'
+Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-rooter'
+Plug 'vim-airline/vim-airline'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vivien/vim-linux-coding-style'
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'dag/vim-fish'
+Plug 'hashivim/vim-terraform'
+Plug 'easymotion/vim-easymotion'
+Plug 'scrooloose/syntastic'
+Plug 'scrooloose/nerdcommenter'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+call plug#end()
 
 " basics ----------------------------------------------
 
@@ -38,6 +39,8 @@ syntax on
 set background=dark
 let base16colorspace=256
 colorscheme base16-default-dark
+" transparent background ftw!!!
+hi Normal guibg=NONE ctermbg=NONE
 
 " spell check always on
 set spell

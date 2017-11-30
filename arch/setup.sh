@@ -224,6 +224,9 @@ ln -s ../conf.avail/43-wqy-zenhei-sharp.conf .
 
 # for virtualbox put vboxdrv, vboxnetadp, vboxnetflt, and vboxpci in /etc/modules-load.d/virtualbox.conf
 
+# backlight control that works on wayland
+yaourt -S light
+
 
 ########## xps13
 

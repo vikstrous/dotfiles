@@ -14,10 +14,10 @@ set $mod Mod4
 bindsym XF86ScreenSaver exec --no-startup-id xautolock -locknow
 #bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 2dB+ unmute && killall -USR1 i3status
 #bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 2dB- unmute && killall -USR1 i3status
-#bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle && killall -USR1 i3status
+bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle && killall -USR1 i3status
 bindsym XF86AudioMicMute exec --no-startup-id amixer -q set Capture toggle && killall -USR1 i3status
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight + 10
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight - 10
+bindsym XF86MonBrightnessUp exec --no-startup-id light -A 10
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 10
 bindsym XF86Launch1 restart
 bindsym $mod+Home exec /home/v/dev/dtr/go/bin/zengge-lightcontrol local --host home.viktorstanchev.com:5577 set-power on
 bindsym $mod+End exec /home/v/dev/dtr/go/bin/zengge-lightcontrol local --host home.viktorstanchev.com:5577 set-power off
@@ -40,11 +40,11 @@ bindsym XF86Launch9 exec --no-startup-id dbus-send --print-reply --dest=org.mpri
 
 # 6
 #bindsym $mod+Ctrl+F6 exec --no-startup-id xfce4-screenshooter -i -r
-bindsym $mod+Ctrl+F6 exec --no-startup-id sleep 1 && scrot -s /home/v/Downloads/screenshot.png
+#bindsym $mod+Ctrl+F6 exec --no-startup-id sleep 1 && swaygrab -f ~/Downloads/screenshot.png
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id sh -c "pactl set-sink-mute 0 false && pactl set-sink-volume 0 +5%" && killall -USR1 i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id sh -c "pactl set-sink-mute 0 false && pactl -- set-sink-volume 0 -5%" && killall -USR1 i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle && killall -USR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id sh -c "pactl set-sink-mute 2 false && pactl set-sink-volume 2 +5%" && killall -USR1 i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id sh -c "pactl set-sink-mute 2 false && pactl -- set-sink-volume 2 -5%" && killall -USR1 i3status
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle && killall -USR1 i3status
 
 #bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute && killall -USR1 i3status
 #bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute && killall -USR1 i3status
@@ -55,7 +55,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle && killa
 #bindsym XF86AudioPlay exec xdotool type --window `xdotool search --name "Grooveshark"` ' '
 bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 
-new_window 1pixel
+new_window pixel 1
 hide_edge_borders both
 exec --no-startup-id pulseaudio --start
 exec --no-startup-id xset r rate 200 30
@@ -65,9 +65,10 @@ exec --no-startup-id ssh-add
 exec --no-startup-id xmodmap -e "keycode 108 = Alt_R"
 exec --no-startup-id xsetroot -cursor_name left_ptr
 exec --no-startup-id sh ~/.fehbg
-exec --no-startup-id numlockx on
+#exec --no-startup-id numlockx on
 exec --no-startup-id dunst
-exec --no-startup-id xcompmgr
+#exec --no-startup-id xcompmgr
+exec --no-startup-id xmodmap -e 'keycode 108 = Alt_R'
 #exec --no-startup-id conky
 exec --no-startup-id redshift
 #exec --no-startup-id xscreensaver -no-splash
@@ -126,7 +127,7 @@ bindsym $mod+Shift+Print move scratchpad
 bindsym $mod+Print scratchpad show
 
 # screenshot
-#bindsym Print exec import -window root ~/screenshot.png
+bindsym Print exec import -window root ~/screenshot.png
 
 # change keyboard layout (`)
 bindsym $mod+0x60 exec setxkbmap -variant ""
@@ -394,7 +395,7 @@ bar {
         urgent_workspace   #111111 #111111 #BA5353
     }
 #    position bottom
-    tray_output eDP1
+#    tray_output eDP-1
 #    binding_mode_indicator no
 #    workspace_buttons no
      status_command i3status -c ~/dotfiles/configs/i3status.conf #| ~/dotfiles/configs/i3status_wrapper.py
@@ -402,3 +403,21 @@ bar {
      #status_command i3blocks -c ~/dotfiles/configs/i3blocks.conf
 }
 
+#output eDP-1 bg ~/wallpaper.jpg stretch
+#output HDMI-A-1 bg ~/wallpaper2.jpg fill
+#
+#output eDP-1 pos 0,0 res 1920x1080
+#output HDMI-A-1 pos 1920,-200 res 2560x1440
+#output HDMI-A-1 pos 1920,-200 res 1920x1080
+# swaymsg -t get_outputs
+
+# mouse at work - make it move normally and not with weird acceleration
+#input "1133:49256:Logitec" {
+#    accel_profile flat
+#}
+#
+## touchpad: enable tap to click
+#input "1739:31251:DLL07BF:01_06CB:7A13_To" {
+#    tap enabled
+#    dwt disabled
+#}
