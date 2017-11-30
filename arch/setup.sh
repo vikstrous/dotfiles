@@ -143,7 +143,7 @@ pacman -S xf86-input-synaptics
 
 ### graphical, desktop
 pacman -S xf86-video-vesa # compatible open source video driver as fallback
-pacman -S nvidia # for proprietary graphics
+pacman -S nvidia-dkms # for proprietary graphics
 pacman -S ttf-dejavu ttf-freefont terminus-font # fonts
 pacman -S xorg-server i3 rofi rxvt-unicode xsel urxvt-perls xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh xcompmgr xorg-xinit
 
@@ -190,6 +190,9 @@ yaourt noto-fonts-emoji
 
 ### user stuff
 pacman -S openssh firefox chromium xautolock dunst redshift flashplugin git fakeroot xdiskusage xorg-xev ripperx python xorg-xrandr numlockx transmission-cli unzip ack pidgin mlocate gnome-themes-standard nautilus privoxy xorg-xbacklight keychain ttf-liberation
+
+# gtk theme picker; todo: consider gtk-theme-switch gtk-chtheme
+pacman -S lxappearance
 
 # copy scripts/suspend@.service to /etc/systemd/system/suspend@.service
 sudo systemctl enable suspend@v
@@ -269,3 +272,6 @@ pacman -S xwayland
 
 ##########
 git clone https://github.com/garabik/grc.git ~/.grc
+
+# TODO: try termite, kitty and alacritty
+# also try things from here https://www.reddit.com/r/unixporn/comments/44k8q6/i3gaps_a_few_variations_of_my_new_i3lemonbar_setup/

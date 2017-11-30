@@ -385,14 +385,14 @@ bar {
     strip_workspace_numbers yes
     separator_symbol "|"
     colors {
-        background #111111
-        statusline #AAAAAA
-        separator #555555
+        background #1d1f21
+        statusline #c5c8c6
+        separator #969896
 
-        focused_workspace  #111111 #111111 #33726E
-        active_workspace   #111111 #111111 #AAAAAA
-        inactive_workspace #111111 #111111 #AAAAAA
-        urgent_workspace   #111111 #111111 #BA5353
+        focused_workspace  #1d1f21 #1d1f21 #b5bd68
+        active_workspace   #1d1f21 #1d1f21 #c5c8c6
+        inactive_workspace #1d1f21 #1d1f21 #c5c8c6
+        urgent_workspace   #1d1f21 #1d1f21 #cc6666
     }
 #    position bottom
 #    tray_output eDP-1
