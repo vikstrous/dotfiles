@@ -46,7 +46,7 @@ set -x MOZ_USE_OMTC 1
 
 alias chromium 'chromium --force-device-scale-factor=1'
 
-setfont sun12x22 2>/dev/null
+#setfont sun12x22 2>/dev/null
 
 set -x XKB_DEFAULT_LAYOUT us
 set -x XKB_DEFAULT_VARIANT colemak

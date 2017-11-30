@@ -82,7 +82,7 @@ URxvt.allow_bold:           true
 !URxvt*font:       xft:Anonymous Pro:pixelsize=14:antialiasing=true
 !URxvt*font:       xft:DejaVu Sans Mono:pixelsize=14:antialiasing=true
 !URxvt*font: xft:Inconsolata\ for\ Powerline:pixelsize=24
-URxvt*font: xft:Input Mono:style=Regular:pixelsize=12,xft:Noto Emoji:style=Regular:pixelsize=12
+URxvt*font: xft:Input Mono:style=Regular:pixelsize=14,xft:Noto Emoji:style=Regular:pixelsize=14
 !URxvt*letterSpace: 5
 !URxvt*font: xft:Noto Emoji:pixelsize=24
 !,xft:FontAwesome Regular:pixelsize=24

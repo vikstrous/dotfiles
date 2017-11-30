@@ -150,13 +150,12 @@ bindsym $mod+Shift+0x7e exec setxkbmap -variant colemak && xmodmap -e "keycode 1
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose a FreeType font, such as:
 # font pango:DejaVu Sans Mono 10
-font pango:FontAwesome 9, Input Mono
+font pango:FontAwesome 9, Input Mono 9
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-#bindsym $mod+Return exec google-chrome-stable
 #bindsym $mod+z exec urxvt -e fish
 bindsym $mod+Return exec i3-sensible-terminal -e fish
 
@@ -380,7 +379,7 @@ bindsym $mod+p mode "science"
 #    position top
 #}
 bar {
-    font pango:FontAwesome, Input Mono
+    font pango:FontAwesome 9, Input Mono 9
     position top
     strip_workspace_numbers yes
     separator_symbol "|"
