@@ -156,14 +156,14 @@ font pango:FontAwesome 9, Input Mono 9
 floating_modifier $mod
 
 # start a terminal
-#bindsym $mod+z exec urxvt -e fish
-bindsym $mod+Return exec i3-sensible-terminal -e fish
+#bindsym $mod+z exec urxvt -e zsh
+bindsym $mod+Return exec i3-sensible-terminal -e zsh
 
 # kill focused window
 bindsym $mod+c kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id rofi -show run -run-command "fish -c '{cmd}'"
+bindsym $mod+d exec --no-startup-id rofi -show run -run-command "zsh -c '{cmd}'"
 bindsym $mod+backslash exec --no-startup-id rofi -show window
 bindsym $mod+slash exec --no-startup-id rofi -show ssh
 #dmenu_run -sf "#439543" -sb "#333333" -nb "#000000" -nf "#CCCCCC" -l 30 > /dev/null
