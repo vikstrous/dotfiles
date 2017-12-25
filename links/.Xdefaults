@@ -1,6 +1,6 @@
 URxvt*foreground: white
 !urxvt*background: black
-URxvt*.transparent: true
+!URxvt*.transparent: true
 URxvt*.shading: 20
 URxvt.scrollBar: false
 !URxvt.scrollstyle: plain

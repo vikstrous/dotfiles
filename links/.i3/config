@@ -67,7 +67,7 @@ exec --no-startup-id xsetroot -cursor_name left_ptr
 exec --no-startup-id sh ~/.fehbg
 #exec --no-startup-id numlockx on
 exec --no-startup-id dunst
-#exec --no-startup-id xcompmgr
+exec --no-startup-id xcompmgr
 exec --no-startup-id xmodmap -e 'keycode 108 = Alt_R'
 #exec --no-startup-id conky
 exec --no-startup-id redshift
