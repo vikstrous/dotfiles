@@ -97,15 +97,15 @@ systemctl enable dhcpcd
 # laptop only
 systemctl enable NetworkManager
 systemctl enable ifplugd@enp0s25
-pacman -S sudo fish
-useradd -m -s /usr/bin/fish v
+pacman -S sudo zsh
+useradd -m -s /usr/bin/zsh v
 passwd v
 gpasswd -a v video
 # edit /etc/sudoers file and add v
 
 
 ### nice to have
-pacman -S htop iftop alsa-utils gvim ntfs-3g bc ntp
+pacman -S htop iftop alsa-utils python-neovim ntfs-3g bc ntp
 systemctl enable ntpd
 systemctl start ntpd
 
@@ -116,10 +116,10 @@ pacman -S xf86-input-synaptics
 
 ### graphical, desktop
 pacman -S xf86-video-vesa # compatible open source video driver as fallback
-pacman -S nvidia # for proprietary graphics; with libglvnd
+pacman -S nvidia-dkms # for proprietary graphics; with libglvnd
 pacman -S xf86-video-nouveau # alternative to nvidia
 pacman -S ttf-dejavu ttf-freefont terminus-font # fonts
-pacman -S xorg-server i3 dmenu rxvt-unicode xsel urxvt-perls xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh xcompmgr xorg-xinit
+pacman -S xorg-server i3 rofi rxvt-unicode xsel urxvt-perls xorg-xinput xorg-xmodmap xorg-xset xorg-xsetroot feh xcompmgr xorg-xinit
 
 # in case of colemak only
 
@@ -152,14 +152,17 @@ yaourt urxvt-font-size-git
 yaourt ttf-input
 yaourt ttf-font-awesome
 yaourt cope-git
-yaourt dmenu-xft
+yaourt noto-fonts-emoji
 
 # i3 window manager pimping
 #yaourt i3blocks
 #pacman -S acpi lm_sensors sysstat
 
 ### user stuff
-pacman -S openssh firefox chromium xautolock dunst redshift flashplugin git fakeroot xdiskusage xorg-xev ripperx python xorg-xrandr numlockx transmission-cli unzip ack pidgin mlocate gnome-themes-standard nautilus privoxy xorg-xbacklight keychain
+pacman -S openssh firefox chromium xautolock dunst redshift flashplugin git fakeroot xdiskusage xorg-xev ripperx python xorg-xrandr numlockx transmission-cli unzip ack pidgin mlocate gnome-themes-standard nautilus privoxy xorg-xbacklight keychain ttf-liberation
+
+# gtk theme picker; todo: consider gtk-theme-switch gtk-chtheme
+pacman -S lxappearance
 
 # copy scripts/suspend@.service to /etc/systemd/system/suspend@.service
 sudo systemctl enable suspend@v
@@ -186,12 +189,16 @@ chmod -w /home/v/.config/chromium/Default/History
 #bluetoothctl
 #gpasswd -a v lp #for tethering
 
+# chinese and japanese fonts
 pacman -S wqy-microhei wqy-zenhei
 cd /etc/fonts/conf.d
 rm 65-wqy-zenhei.conf
 ln -s ../conf.avail/43-wqy-zenhei-sharp.conf .
 
 # for virtualbox put vboxdrv, vboxnetadp, vboxnetflt, and vboxpci in /etc/modules-load.d/virtualbox.conf
+
+# backlight control that works on wayland
+yaourt -S light
 
 
 ########## xps13
@@ -232,3 +239,9 @@ pacman -S pulseaudio pulpulseaudio-alsa
 # use nouveau???
 yaourt -S sway-git
 pacman -S xwayland
+
+##########
+git clone https://github.com/garabik/grc.git ~/.grc
+
+# TODO: try termite, kitty and alacritty
+# also try things from here https://www.reddit.com/r/unixporn/comments/44k8q6/i3gaps_a_few_variations_of_my_new_i3lemonbar_setup/

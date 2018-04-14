@@ -12,38 +12,74 @@
 set $mod Mod4
 
 bindsym XF86ScreenSaver exec --no-startup-id xautolock -locknow
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 2dB+ unmute && killall -USR1 i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 2dB- unmute && killall -USR1 i3status
-bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle && killall -USR1 i3status
-bindsym XF86AudioMicMute exec --no-startup-id amixer -q set Capture toggle && killall -USR1 i3status
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight + 5
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight - 5
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 2dB+ unmute && pkill --signal USR1 i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 2dB- unmute && pkill --signal USR1 i3status
+bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle && pkill --signal USR1 i3status
+bindsym XF86AudioMicMute exec --no-startup-id amixer -q set Capture toggle && pkill --signal USR1 i3status
+bindsym XF86MonBrightnessUp exec --no-startup-id light -A 10
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 10
 bindsym XF86Launch1 restart
-bindsym $mod+Home exec zengge-lightcontrol local --host home.viktorstanchev.com:5577 set-power on
-bindsym $mod+End exec zengge-lightcontrol local --host home.viktorstanchev.com:5577 set-power off
+bindsym $mod+Home exec /home/v/dev/dtr/go/bin/zengge-lightcontrol local --host home.viktorstanchev.com:5577 set-power on
+bindsym $mod+End exec /home/v/dev/dtr/go/bin/zengge-lightcontrol local --host home.viktorstanchev.com:5577 set-power off
+
+# 1
+bindsym $mod+Ctrl+F1 exec --no-startup-id xautolock -locknow
+bindsym XF86Launch5 exec --no-startup-id xautolock -locknow
+# 2
+bindsym $mod+Ctrl+F2 exec --no-startup-id /home/v/dotfiles/configs/screenlayout/external.sh && xinput --map-to-output 14 eDP1
+bindsym XF86Launch6 exec --no-startup-id /home/v/dotfiles/configs/screenlayout/external.sh && xinput --map-to-output 14 eDP1
+# 3
+bindsym $mod+Ctrl+F3 exec --no-startup-id /home/v/dotfiles/configs/screenlayout/nomonitor.sh
+bindsym XF86Launch7 exec --no-startup-id /home/v/dotfiles/configs/screenlayout/nomonitor.sh
+# 4
+#bindsym $mod+Ctrl+F4 exec --no-startup-id /home/v/dotfiles/configs/screenlayout/hires.sh
+#bindsym XF86Launch8 exec --no-startup-id /home/v/dotfiles/configs/screenlayout/hires.sh
+# 5
+bindsym $mod+Ctrl+F5 exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+bindsym XF86Launch9 exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+
+# 6
+#bindsym $mod+Ctrl+F6 exec --no-startup-id xfce4-screenshooter -i -r
+#bindsym $mod+Ctrl+F6 exec --no-startup-id sleep 1 && swaygrab -f ~/Downloads/screenshot.png
+
+#bindsym XF86AudioRaiseVolume exec --no-startup-id sh -c "pactl set-sink-mute 2 false && pactl set-sink-volume 2 +5%" && killall -USR1 i3status
+#bindsym XF86AudioLowerVolume exec --no-startup-id sh -c "pactl set-sink-mute 2 false && pactl -- set-sink-volume 2 -5%" && killall -USR1 i3status
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle && killall -USR1 i3status
+
+#bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute && killall -USR1 i3status
+#bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute && killall -USR1 i3status
+#bindsym XF86AudioMute exec amixer -q set Master toggle && killall -USR1 i3status
 
 #bindsym XF86AudioNext exec xdotool key --window `xdotool search --name "Grooveshark"` Ctrl+Right
 #bindsym XF86AudioPrev exec xdotool key --window `xdotool search --name "Grooveshark"` Ctrl+Left
 #bindsym XF86AudioPlay exec xdotool type --window `xdotool search --name "Grooveshark"` ' '
+bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 
-new_window 1pixel
+new_window pixel 1
 hide_edge_borders both
+exec --no-startup-id pulseaudio --start
 exec --no-startup-id xset r rate 200 30
+exec --no-startup-id xset -dpms
+exec --no-startup-id xset s off
+exec --no-startup-id ssh-add
 exec --no-startup-id xmodmap -e "keycode 108 = Alt_R"
 exec --no-startup-id xsetroot -cursor_name left_ptr
 exec --no-startup-id sh ~/.fehbg
-exec --no-startup-id numlockx on
+#exec --no-startup-id numlockx on
 exec --no-startup-id dunst
 exec --no-startup-id xcompmgr
+exec --no-startup-id xmodmap -e 'keycode 108 = Alt_R'
 #exec --no-startup-id conky
 exec --no-startup-id redshift
 #exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id keychain --eval id_rsa
 exec --no-startup-id nm-applet
-exec --no-startup-id xrdb ~/.Xdefaults
-exec --no-startup-id qtox
+#exec --no-startup-id xrdb ~/.Xdefaults
+#exec --no-startup-id qtox
 
 exec --no-startup-id xautolock -time 5 -locker 'export SOUND=$(amixer sget Master | grep "\[on\]"); amixer -q set Master mute; i3lock -n -c 000000 && xset -dpms && if [ -n "$SOUND" ]; then amixer -q set Master unmute; fi; xset +dpms ' -notify 10 -notifier 'notify-send locking...'
+
+#gaps inner 20
 
 # turn off autolock temporarily
 mode "nosleep" {
@@ -114,19 +150,20 @@ bindsym $mod+Shift+0x7e exec setxkbmap -variant colemak && xmodmap -e "keycode 1
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose a FreeType font, such as:
 # font pango:DejaVu Sans Mono 10
-font pango:FontAwesome 9, Input Mono
+font pango:FontAwesome 9, Input Mono 9
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+z exec urxvt -e zsh
+bindsym $mod+Return exec i3-sensible-terminal -e zsh
 
 # kill focused window
 bindsym $mod+c kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id rofi -show run -run-command "fish -c '{cmd}'"
+bindsym $mod+d exec --no-startup-id rofi -show run -run-command "zsh -c '{cmd}'"
 bindsym $mod+backslash exec --no-startup-id rofi -show window
 bindsym $mod+slash exec --no-startup-id rofi -show ssh
 #dmenu_run -sf "#439543" -sb "#333333" -nb "#000000" -nf "#CCCCCC" -l 30 > /dev/null
@@ -342,22 +379,22 @@ bindsym $mod+p mode "science"
 #    position top
 #}
 bar {
-    font pango:FontAwesome, Input Mono
+    font pango:FontAwesome 9, Input Mono 9
     position top
     strip_workspace_numbers yes
     separator_symbol "|"
     colors {
-        background #111111
-        statusline #AAAAAA
-        separator #555555
+        background #1d1f21
+        statusline #c5c8c6
+        separator #969896
 
-        focused_workspace  #111111 #111111 #33726E
-        active_workspace   #111111 #111111 #AAAAAA
-        inactive_workspace #111111 #111111 #AAAAAA
-        urgent_workspace   #111111 #111111 #BA5353
+        focused_workspace  #1d1f21 #1d1f21 #b5bd68
+        active_workspace   #1d1f21 #1d1f21 #c5c8c6
+        inactive_workspace #1d1f21 #1d1f21 #c5c8c6
+        urgent_workspace   #1d1f21 #1d1f21 #cc6666
     }
 #    position bottom
-    tray_output LVDS-0
+#    tray_output eDP-1
 #    binding_mode_indicator no
 #    workspace_buttons no
      status_command i3status -c ~/dotfiles/configs/i3status.conf #| ~/dotfiles/configs/i3status_wrapper.py
@@ -365,3 +402,21 @@ bar {
      #status_command i3blocks -c ~/dotfiles/configs/i3blocks.conf
 }
 
+#output eDP-1 bg ~/wallpaper.jpg stretch
+#output HDMI-A-1 bg ~/wallpaper2.jpg fill
+#
+#output eDP-1 pos 0,0 res 1920x1080
+#output HDMI-A-1 pos 1920,-200 res 2560x1440
+#output HDMI-A-1 pos 1920,-200 res 1920x1080
+# swaymsg -t get_outputs
+
+# mouse at work - make it move normally and not with weird acceleration
+#input "1133:49256:Logitec" {
+#    accel_profile flat
+#}
+#
+## touchpad: enable tap to click
+#input "1739:31251:DLL07BF:01_06CB:7A13_To" {
+#    tap enabled
+#    dwt disabled
+#}

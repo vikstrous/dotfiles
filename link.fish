@@ -1,4 +1,4 @@
-#!/usr/bin/fish
+#!/usr/bin/env fish
 set dotfiles ~/dotfiles
 
 function setUpLinks
@@ -42,7 +42,9 @@ end
 
 setUpLinks $dotfiles/links ~ (ls links -A)
 
-setUpLinks $dotfiles/config ~/.config 'fish/functions' 'fish/config.fish' 'dunst' 'gtk-3.0'
+setUpLinks $dotfiles/config ~/.config 'fish/functions' 'fish/config.fish' 'dunst' 'gtk-3.0' 'fontconfig' 'base16-shell' 'powerline' 'nvim'
+
+ln -s /home/v/dotfiles/links/.vim/init.vim /home/v/.vimrc; true
 
 #sudo rm /etc/slim.conf
 #sudo ln -s $dotfiles/configs/slim.conf /etc/slim.conf
