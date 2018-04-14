@@ -64,6 +64,7 @@ plugins=(
   zsh-history-substring-search
   zsh-syntax-highlighting
   zsh-autosuggestions
+  fzf-zsh
 )
 
 source $ZSH/oh-my-zsh.sh

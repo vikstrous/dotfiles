@@ -124,8 +124,8 @@ systemctl enable dhcpcd
 # laptop only
 systemctl enable NetworkManager
 systemctl enable ifplugd@enp0s25
-pacman -S sudo fish
-useradd -m -s /usr/bin/fish v
+pacman -S sudo zsh
+useradd -m -s /usr/bin/zsh v
 passwd v
 gpasswd -a v video
 # edit /etc/sudoers file and add v
