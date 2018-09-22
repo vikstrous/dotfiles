@@ -117,3 +117,5 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 base16_tomorrow-night
 # set background color to transparent again
 printf "\033]11;rgba:1110/1110/1110/dddd\007"
+
+export PATH="~/dev/go/bin:$PATH"

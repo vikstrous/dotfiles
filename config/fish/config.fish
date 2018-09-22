@@ -17,6 +17,8 @@ alias weather "curl 'wttr.in?m'"
 
 set PATH (cope_path) $PATH
 
+set PATH ~/dev/go/bin $PATH
+
 alias less 'less -R'
 #alias chromium 'chromium --proxy-server=localhost:8118'
 

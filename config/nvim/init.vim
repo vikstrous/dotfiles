@@ -167,6 +167,9 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 " ultisnips -----------------------
 
+" workaround for tab conflict; see also
+" https://stackoverflow.com/questions/14896327/ultisnips-and-youcompleteme#22253548
+" for other ideas
 let g:UltiSnipsExpandTrigger="<m-tab>"
 let g:UltiSnipsJumpForwardTrigger="<down>"
 let g:UltiSnipsJumpBackwardTrigger="<up>"
